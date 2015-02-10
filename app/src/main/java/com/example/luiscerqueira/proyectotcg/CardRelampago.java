@@ -24,7 +24,5 @@ public class CardRelampago extends Carta{
 		super.movedFromHandToTable();
 		this.playCard();
 	}
-
-	
 	
 }

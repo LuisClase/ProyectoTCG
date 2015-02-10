@@ -39,9 +39,13 @@ public class JuegoActivity extends Activity {
         Carta cartaPrueba=new Carta(0,jugador1,jugador2,cartaFront,cartaBack);
         Carta cartaPrueba2=new Carta(1,jugador1,jugador2,cartaFront2,cartaBack);
         CardRelampago cardRelampago=new CardRelampago(this, 2, jugador1, jugador2);
+        CardHeal cardHeal=new CardHeal(this,3,jugador1,jugador2);
+        CardRitual cardRitual=new CardRitual(this,4,jugador1,jugador2);
         jugador1.getDeck().add(cartaPrueba);
         jugador1.getDeck().add(cartaPrueba2);
         jugador1.getDeck().add(cardRelampago);
+        jugador1.getDeck().add(cardHeal);
+        jugador1.getDeck().add(cardRitual);
         pantallaJuego.invalidate();
     }
 

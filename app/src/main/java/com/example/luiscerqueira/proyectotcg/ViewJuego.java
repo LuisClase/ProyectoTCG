@@ -28,6 +28,8 @@ public class ViewJuego extends View {
     private Bitmap fondo;
     private Bitmap cartaBack;
     private Bitmap avatar;
+    private Bitmap temp;
+    private Bitmap infoCard;
     private int anchoPantalla;
     private int altoPantalla;
     int anchoCarta;
@@ -120,9 +122,11 @@ public class ViewJuego extends View {
 
         //Zona-Informacion
         p=new Paint();
-        Bitmap temp=BitmapFactory.decodeResource(getContext().getResources(),R.drawable.cardbackprueba);
-        temp = Bitmap.createScaledBitmap(temp, (int)(1.5*anchoCarta), (int)(altoCarta*1.5), true);
-        canvas.drawBitmap(temp, 0, (int)((altoPantalla/2)-(altoCarta*0.75)), null);
+        if(infoCard==null) {
+            infoCard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
+        }
+        infoCard = Bitmap.createScaledBitmap(infoCard, (int)(1.5*anchoCarta), (int)(altoCarta*1.5), true);
+        canvas.drawBitmap(infoCard, 0, (int)((altoPantalla/2)-(altoCarta*0.75)), null);
         if(idTemp!=-1){
 
         }
@@ -335,6 +339,8 @@ public class ViewJuego extends View {
                                         && event.getY() >= jugador1.getMano().get(i).getyInicio()
                                         && event.getY() <= jugador1.getMano().get(i).getyFin()) {
                                     jugador1.setTocandoMano(true);
+                                    infoCard=jugador1.getMano().get(i).getImagen();
+                                    idTemp=jugador1.getMano().get(i).getId();
                                     ImageView imagenView=new ImageView(getContext());
                                     imagenView.setImageBitmap(jugador1.getMano().get(i).getImagen());
                                     imagenView.setX(jugador1.getMano().get(i).getxInicio());
@@ -360,6 +366,8 @@ public class ViewJuego extends View {
                                         && event.getY() >= jugador1.getMesa().get(i).getyInicio()
                                         && event.getY() <= jugador1.getMesa().get(i).getyFin()) {
                                     jugador1.setTocandoMesa(true);
+                                    infoCard=jugador1.getMesa().get(i).getImagen();
+                                    idTemp=jugador1.getMesa().get(i).getId();
                                     Log.i("MULTITOUCH-MESA", "TOCANDO-TRUE");
                                 }
                             }
@@ -393,6 +401,7 @@ public class ViewJuego extends View {
                         Log.i("MULTITOUCH-BTN PLAY", "PULSADO");
                         this.invalidate();
                     }
+                    this.invalidate();
                 }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
@@ -517,6 +526,23 @@ public class ViewJuego extends View {
                         this.invalidate();
                     }else if(event.getX() >= 0 && event.getX() < anchoCarta*1.5
                             && event.getY() >= (altoPantalla/2)-(altoCarta*1.2) && event.getY() < (altoPantalla/2)-(altoCarta*0.75)){
+                        for(int i=0;i<jugador1.getMesa().size();i++){
+                            if(idTemp==jugador1.getMesa().get(i).getId()){
+                                jugador1.moveCardFromTableToDiscard(jugador1.getMesa().get(i).getId());
+                                this.invalidate();
+                            }
+                        }
+                        for(int i=0;i<jugador1.getMano().size();i++){
+                            if(idTemp==jugador1.getMano().get(i).getId()){
+                                if (jugador1.getRecursos() >= jugador1.getMano().get(i).getCoste()) {
+                                    jugador1.setRecursos(jugador1.getRecursos() - jugador1.getMano().get(i).getCoste());
+                                    jugador1.moveCardFromHandToTable(jugador1.getMano().get(i).getId());
+                                } else {
+                                    Log.i("JUGAR", "NOT ENOUGHT RESOURCES");
+                                }
+                                this.invalidate();
+                            }
+                        }
                         pulsandoPlay=false;
                         Log.i("MULTITOUCH-BTN PLAY", "FIN");
                     }
