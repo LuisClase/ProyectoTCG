@@ -15,7 +15,8 @@ public class CardRelampago extends Carta{
 	@Override
 	public void playCard() {		
 		super.playCard();
-		getOwner().setVidas(getOwner().getVidas()-2);
+        Log.i("CARTA JUGADA", "VIDAS ENEMIGO"+getEnemigo().getVidas());
+		getEnemigo().setVidas(getEnemigo().getVidas()-2);
 		Log.i("CARTA JUGADA", "CARTA JUGADA -2 VIDAS");
 	}
 

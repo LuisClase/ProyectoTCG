@@ -17,7 +17,7 @@ public class CardRitual extends Carta {
     @Override
     public void playCard() {
         super.playCard();
-        getOwner().setVidas(getOwner().getVidas()-1);
+        getEnemigo().setVidas(getEnemigo().getVidas()-1);
         getOwner().moveFromDeckToHand(1);
         Log.i("CARTA JUGADA", "CARTA JUGADA -1 VIDAS +1CARTA");
     }
