@@ -49,6 +49,7 @@ public class JuegoActivity extends Activity {
         jugador1.getDeck().add(cardRelampago);
         jugador1.getDeck().add(cardHeal);
         jugador1.getDeck().add(cardRitual);
+        jugador1.setActivo(true);
         //Jugador2
         cartaBack= BitmapFactory.decodeResource(getResources(), R.drawable.cardbackprueba);
         cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
@@ -63,6 +64,7 @@ public class JuegoActivity extends Activity {
         jugador2.getDeck().add(cardRelampago);
         jugador2.getDeck().add(cardHeal);
         jugador2.getDeck().add(cardRitual);
+        jugador2.setActivo(false);
         Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
         pantallaJuego.invalidate();
     }
