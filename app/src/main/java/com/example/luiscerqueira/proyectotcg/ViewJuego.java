@@ -8,20 +8,11 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.widget.ImageView;
-
-import java.util.Timer;
 
 /**
  * Created by Luis Cerqueira on 22/01/2015.
@@ -50,6 +41,7 @@ public class ViewJuego extends View {
     private int idTemp=-1;
     private int idAnimacion=-1;
     private int grados=0;
+    private Matrix matrix;
 
     int terminar=0;
 
@@ -530,33 +522,25 @@ public class ViewJuego extends View {
         Log.i("ONDRAW3", "ANIMACION");
         if(animacionJ2) {
             Log.i("ONDRAW3", "ANIMACIONJ2");
-            Thread hilo=new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    terminar=1;
-                    animacionJ2=false;
-                    grados=0;
-                }
-            });
-            hilo.start();
-            if(terminar==1){
-                hilo.interrupt();
-            }
-            Bitmap animacion=BitmapFactory.decodeResource(getResources(),R.drawable.circle4a);
-            animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+            Bitmap animacion;
             Log.i("ONDRAW3", "ANTES IF");
-            if(terminar==0){
-                Log.i("ONDRAW3", "DENTRO IF"+grados);
-                grados+=15;
-                Point punto=encontrarCartaMesa(idAnimacion);
-                animacion=girarBitmap(animacion,grados);
-                canvas.drawBitmap(animacion,punto.x,punto.y,null);
-                this.invalidate();
+            for(int i=0;i<jugador2.getMesa().size();i++){
+                Log.i("ONDRAW3", "ANTES IF2:"+jugador2.getMesa().get(i).isAnimar());
+                if(jugador2.getMesa().get(i).isAnimar()){
+                    Log.i("ONDRAW3", "DENTRO IF"+jugador2.getMesa().get(i).getGrados());
+                    jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados()+15);
+                    Point punto=encontrarCartaMesa(idAnimacion);
+                    animacion=jugador2.getMesa().get(i).getImagenAnimacion();
+                    animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+                    animacion=girarCirculo(animacion,jugador2.getMesa().get(i).getGrados());
+                   // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
+                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
+                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
+                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
+                    canvas.drawBitmap(animacion,punto.x,punto.y,null);
+                    this.invalidate();
+                }
             }
         }
     }
@@ -902,6 +886,7 @@ public class ViewJuego extends View {
                                     Log.i("MULTITOUCH-MESA2", "ANIMACION");
                                     animacionJ2=true;
                                     idAnimacion=jugador2.getMesa().get(i).getId();
+                                    jugador2.getMesa().get(i).setAnimar(true);
                                     Log.i("MULTITOUCH-MESA2", "ANTES INVALIDATE");
                                     this.invalidate();
                                 }
@@ -975,11 +960,100 @@ public class ViewJuego extends View {
         return true;
     }
 
-    public static Bitmap girarBitmap(Bitmap bitmap,float angulo){
-        Matrix matrix = new Matrix();
+    public Bitmap girarBitmap(Bitmap bitmap,float angulo){
+//        Matrix matrix = new Matrix();
+//        matrix.postRotate(angulo);
+        matrix= new Matrix();
+        float width=0;
+        float height=0;
+//        angulo += 10;
+        for(int i=0;i<jugador2.getMesa().size();i++){
+            if(jugador2.getMesa().get(i).getId()==idAnimacion){
+                Log.i("ROTACION","DENTRO IF");
+                width=jugador2.getMesa().get(i).getImagen().getWidth();
+                height=jugador2.getMesa().get(i).getImagen().getHeight();
+            }
+        }
+        float px = width/2;
+        float py = height/2;
+        matrix.postTranslate(-bitmap.getWidth()/2, -bitmap.getHeight()/2);
         matrix.postRotate(angulo);
+//        matrix.postTranslate(px, py);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
+
+    public Bitmap girarCirculo(Bitmap bitmap,float angulo){
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angulo,90,90);
+
+        float[] valores= new float[9];
+        matrix.getValues(valores);
+        double[][] matrizValores= new double[3][3];
+        int k=0;
+        for (int i=0;i<3;i++)
+            for (int j=0;j<3;j++){
+                matrizValores[i][j]=valores[k];
+                k++;
+            }
+        double determinante= getDecDet(matrizValores);
+
+        Log.i("GIRACIRCULO",matrix.toString()+" "+determinante);
+
+        matrix.setScale((float)(1/determinante),(float)(1/determinante));
+//        matrix= new Matrix();
+//        float width=bitmap.getWidth();
+//        float height=bitmap.getHeight();
+////        angulo += 10;
+//        for(int i=0;i<jugador2.getMesa().size();i++){
+//            if(jugador2.getMesa().get(i).getId()==idAnimacion){
+//                Log.i("ROTACION","DENTRO IF");
+//                width=jugador2.getMesa().get(i).getImagen().getWidth();
+//                height=jugador2.getMesa().get(i).getImagen().getHeight();
+//            }
+//        }
+//        float px = width/2;
+//        float py = height/2;
+//        matrix.postTranslate(-bitmap.getWidth()/2, -bitmap.getHeight()/2);
+//        matrix.postRotate(angulo);
+//        matrix.postTranslate(px, py);
+        return Bitmap.createBitmap(bitmap, 0, 0, 180,180, matrix, true);
+    }
+
+    double getDecDet (double [][] a) {
+        int n = a.length - 1;
+        if (n < 0) return 0;
+        double M [][][] = new double [n+1][][];
+
+        M[n] = a;  // init first, largest, M to a
+
+        // create working arrays
+        for (int i = 0; i < n; i++)
+            M[i] = new double [i+1][i+1];
+
+        return getDecDet (M, n);
+    } // end method getDecDet double [][] parameter
+
+    double getDecDet (double [][][] M, int m) {
+        if (m == 0) return M[0][0][0];
+        int e = 1;
+
+        // init subarray to upper left mxm submatrix
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < m; j++)
+                M[m-1][i][j] = M[m][i][j];
+        double sum = M[m][m][m] * getDecDet (M, m-1);
+
+        // walk through rest of rows of M
+        for (int i = m-1; i >= 0; i--) {
+            for (int j = 0; j < m; j++)
+                M[m-1][i][j] = M[m][i+1][j];
+            e = -e;
+            sum += e * M[m][i][m] * getDecDet (M, m-1);
+        } // end for each row of matrix
+
+        return sum;
+    } // end getDecDet double [][][], int
+
 
     public Point encontrarCartaMesa(int id){
         Point p=new Point();

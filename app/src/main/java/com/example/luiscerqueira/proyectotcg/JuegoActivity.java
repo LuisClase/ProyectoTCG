@@ -39,8 +39,8 @@ public class JuegoActivity extends Activity {
         Bitmap cartaBack= BitmapFactory.decodeResource(getResources(), R.drawable.cardbackprueba);
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
         Bitmap cartaFront2= BitmapFactory.decodeResource(getResources(), R.drawable.saberchibi);
-        Carta cartaPrueba=new Carta(0,jugador1,jugador2,cartaFront,cartaBack);
-        Carta cartaPrueba2=new Carta(1,jugador1,jugador2,cartaFront2,cartaBack);
+        Carta cartaPrueba=new Carta(this, 0, jugador1, jugador2);
+        Carta cartaPrueba2=new Carta(1,jugador1,jugador2,cartaFront2,cartaBack,BitmapFactory.decodeResource(getResources(), R.drawable.circle4a));
         CardRelampago cardRelampago=new CardRelampago(this, 2, jugador1, jugador2);
         CardHeal cardHeal=new CardHeal(this,3,jugador1,jugador2);
         CardRitual cardRitual=new CardRitual(this,4,jugador1,jugador2);
@@ -54,8 +54,8 @@ public class JuegoActivity extends Activity {
         cartaBack= BitmapFactory.decodeResource(getResources(), R.drawable.cardbackprueba);
         cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
         cartaFront2= BitmapFactory.decodeResource(getResources(), R.drawable.saberchibi);
-        cartaPrueba=new Carta(5,jugador2,jugador1,cartaFront,cartaBack);
-        cartaPrueba2=new Carta(6,jugador2,jugador1,cartaFront2,cartaBack);
+        cartaPrueba=new Carta(this, 5,jugador2, jugador1);
+        cartaPrueba2=new Carta(6,jugador2, jugador1,cartaFront2,cartaBack,BitmapFactory.decodeResource(getResources(), R.drawable.circle4a));
         cardRelampago=new CardRelampago(this, 7, jugador2, jugador1);
         cardHeal=new CardHeal(this,8,jugador2,jugador1);
         cardRitual=new CardRitual(this,9,jugador2,jugador1);

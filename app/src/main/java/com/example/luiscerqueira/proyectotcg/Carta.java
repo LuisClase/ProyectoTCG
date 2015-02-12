@@ -20,8 +20,11 @@ public class Carta {
     private int yInicio;
     private int xFin;
     private int yFin;
+    private int grados;
+    private boolean animar;
+    private Bitmap imagenAnimacion;
 
-    public Carta(int id,Jugador owner,Jugador enemigo,Bitmap imagen,Bitmap imagenBack){
+    public Carta(int id,Jugador owner,Jugador enemigo,Bitmap imagen,Bitmap imagenBack,Bitmap imagenAnimacion){
         this.nombre="Prueba";
         this.id=id;
         this.coste=0;
@@ -29,10 +32,13 @@ public class Carta {
         this.yInicio=0;
         this.xFin=0;
         this.yFin=0;
+        this.grados=0;
+        this.animar=false;
         this.owner=owner;
         this.enemigo=enemigo;
         this.imagen=imagen;
         this.imagenBack=imagenBack;
+        this.imagenAnimacion=imagenAnimacion;
     }
 
     public Carta(Context context,int id,Jugador owner,Jugador enemigo){
@@ -43,6 +49,8 @@ public class Carta {
         this.yInicio=0;
         this.xFin=0;
         this.yFin=0;
+        this.grados=0;
+        this.animar=false;
         this.owner=owner;
         Log.i("OWNER","VIDAS:"+getOwner().getVidas());
         this.enemigo=enemigo;
@@ -50,6 +58,29 @@ public class Carta {
         this.imagen=temp;
         temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.cardbackprueba);
         this.imagenBack=temp;
+        temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.circle4a);
+        this.imagenAnimacion=temp;
+
+    }
+
+    public void animacion(){
+        Thread hilo=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.i("HILO","SLEEP");
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                animar =false;
+                Log.i("HILO","GRADOS 0");
+                grados=0;
+                setGrados(0);
+            }
+        });
+        Log.i("HILO","ANTES START");
+        hilo.start();
     }
 
     public void playCard(){
@@ -184,4 +215,32 @@ public class Carta {
     public void setxFin(int xFin) {
         this.xFin = xFin;
     }
+
+    public boolean isAnimar() {
+        return animar;
+    }
+
+    public void setAnimar(boolean animar) {
+        if(animar){
+            animacion();
+        }
+        this.animar = animar;
+    }
+
+    public Bitmap getImagenAnimacion() {
+        return imagenAnimacion;
+    }
+
+    public void setImagenAnimacion(Bitmap imagenAnimacion) {
+        this.imagenAnimacion = imagenAnimacion;
+    }
+
+    public int getGrados() {
+        return grados;
+    }
+
+    public void setGrados(int grados) {
+        this.grados = grados;
+    }
+
 }
