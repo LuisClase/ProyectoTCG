@@ -20,11 +20,12 @@ public class CardHeal extends Carta {
         super.playCard();
         getOwner().setVidas(getOwner().getVidas()+4);
         Log.i("CARTA JUGADA", "CARTA JUGADA +4 VIDAS");
+        getOwner().moveCardFromTableToDiscard(getId());
     }
 
     @Override
     public void movedFromHandToTable() {
         super.movedFromHandToTable();
-        this.playCard();
+        setAnimar(true);
     }
 }

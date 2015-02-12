@@ -20,11 +20,12 @@ public class CardRitual extends Carta {
         getEnemigo().setVidas(getEnemigo().getVidas()-1);
         getOwner().moveFromDeckToHand(1);
         Log.i("CARTA JUGADA", "CARTA JUGADA -1 VIDAS +1CARTA");
+        getOwner().moveCardFromTableToDiscard(getId());
     }
 
     @Override
     public void movedFromHandToTable() {
         super.movedFromHandToTable();
-        this.playCard();
+        setAnimar(true);
     }
 }

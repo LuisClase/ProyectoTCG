@@ -18,12 +18,15 @@ public class CardRelampago extends Carta{
         Log.i("CARTA JUGADA", "VIDAS ENEMIGO"+getEnemigo().getVidas());
 		getEnemigo().setVidas(getEnemigo().getVidas()-2);
 		Log.i("CARTA JUGADA", "CARTA JUGADA -2 VIDAS");
+        Log.i("CARTA JUGADA", "DESPUES ANIMARSE");
+        getOwner().moveCardFromTableToDiscard(getId());
+        Log.i("CARTA MOVIDA", "MOVIDA");
 	}
 
-	@Override
+    @Override
 	public void movedFromHandToTable() {
 		super.movedFromHandToTable();
-		this.playCard();
+        setAnimar(true);
 	}
 	
 }

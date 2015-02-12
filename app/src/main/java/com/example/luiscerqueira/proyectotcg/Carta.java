@@ -63,20 +63,20 @@ public class Carta {
 
     }
 
-    public void animacion(){
+    public void animacion() {
         Thread hilo=new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Log.i("HILO","SLEEP");
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                animar =false;
+                setAnimar(false);
                 Log.i("HILO","GRADOS 0");
-                grados=0;
                 setGrados(0);
+                playCard();
             }
         });
         Log.i("HILO","ANTES START");
