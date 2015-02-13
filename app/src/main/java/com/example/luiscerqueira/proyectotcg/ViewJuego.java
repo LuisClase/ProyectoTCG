@@ -867,7 +867,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                                 && jugador1.isTocandoDeck()) {
 //                            Log.i("MULTITOUCH", "draw card 1");
                             jugador1.setTocandoDeck(false);
-                            jugador1.moveFromDeckToHand(1);
+//                            jugador1.moveFromDeckToHand(1);
                         } else {
                             jugador1.setTocandoDeck(false);
                         }
@@ -944,6 +944,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                        Log.i("MULTITOUCH-FIN TURNO", "PRINCIPIO TURNO");
                         if(!jugador2.isActivo()) {
                             jugador2.setActivo(true);
+                        Log.i("MULTITOUCH-FIN TURNO", "PRINCIPIO TURNO");
                             jugador2.startOfTurn();
                         }
                     }else if(event.getX() >= 0 && event.getX() < anchoCarta*1.5
@@ -982,7 +983,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                                 && jugador2.isTocandoDeck()) {
 //                            Log.i("MULTITOUCH2", "draw card 1");
                             jugador2.setTocandoDeck(false);
-                            jugador2.moveFromDeckToHand(1);
+//                            jugador2.moveFromDeckToHand(1);
                         } else {
                             jugador2.setTocandoDeck(false);
                         }
