@@ -5,21 +5,20 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
- * Created by Luis Cerqueira on 10/02/2015.
+ * Created by Luis Cerqueira on 13/02/2015.
  */
-public class CardHeal extends Carta {
-
-    public CardHeal(Context context,Jugador owner, Jugador enemigo) {
-        super(context,owner, enemigo);
+public class CardNaturalResources extends Carta {
+    public CardNaturalResources(Context context, Jugador owner, Jugador enemigo) {
+        super(context, owner, enemigo);
         this.setCoste(2);
-        this.setImagen(R.drawable.cardheal);
+        this.setImagen(R.drawable.cardnaturalresources);
     }
 
     @Override
     public void playCard() {
         super.playCard();
-        getOwner().setVidas(getOwner().getVidas()+4);
-        Log.i("CARTA JUGADA", "CARTA JUGADA +4 VIDAS");
+        getOwner().setRecursos(getOwner().getRecursos()+5);
+        Log.i("CARTA JUGADA", "CARTA JUGADA +5 RECURSOS");
         getOwner().moveCardFromTableToDiscard(getId());
     }
 

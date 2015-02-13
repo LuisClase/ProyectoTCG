@@ -47,6 +47,7 @@ public class Jugador {
 
     public void startOfTurn(){
         this.setRecursos(getRecursos()+1);
+        moveCardFromDeckToHand(1);
         for(int i=0;i<getDeck().size();i++){
             getDeck().get(i).startOfTurnDeck();
         }
@@ -59,7 +60,6 @@ public class Jugador {
         for(int i=0;i<getDescarte().size();i++){
             getDescarte().get(i).startOfTurnDiscard();
         }
-        moveCardFromDeckToHand(1);
     }
     public void endOfTurn(){
         for(int i=0;i<getDeck().size();i++){

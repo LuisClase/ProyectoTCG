@@ -12,7 +12,7 @@ public class CardNightmare extends Carta {
     public CardNightmare(Context context,Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(5);
-        this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardnightmare));
+        this.setImagen(R.drawable.cardnightmare);
     }
 
     @Override
@@ -24,7 +24,6 @@ public class CardNightmare extends Carta {
         Log.i("CARTA JUGADA", "DESPUES ANIMARSE");
         getOwner().moveCardFromTableToDiscard(getId());
         Log.i("CARTA MOVIDA", "MOVIDA");
-        ((JuegoActivity)getContexto()).mandarInvalidar();
     }
 
     @Override

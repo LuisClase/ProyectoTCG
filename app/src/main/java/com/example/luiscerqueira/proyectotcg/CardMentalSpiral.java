@@ -13,19 +13,20 @@ public class CardMentalSpiral extends Carta {
     public CardMentalSpiral(Context context, Jugador owner, Jugador enemigo) {
         super(context,owner, enemigo);
         this.setCoste(2);
-        this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardmentalspiral2));
+        this.setImagen(R.drawable.cardmentalspiral2);
     }
 
     @Override
     public void playCard() {
         super.playCard();
         Random random=new Random();
-        int idtemp=getEnemigo().getMano().get(random.nextInt(getEnemigo().getMano().size())).getId();
-        getEnemigo().moveCardFromHandToDiscard(idtemp);
+        if(getEnemigo().getMano().size()>=1) {
+            int idtemp= getEnemigo().getMano().get(random.nextInt(getEnemigo().getMano().size())).getId();
+            getEnemigo().moveCardFromHandToDiscard(idtemp);
+        }
         getOwner().moveFromDeckToHand(1);
         Log.i("CARTA JUGADA", "CARTA JUGADA -1 VIDAS +1CARTA");
         getOwner().moveCardFromTableToDiscard(getId());
-        ((JuegoActivity)getContexto()).mandarInvalidar();
     }
 
     @Override

@@ -16,18 +16,18 @@ public class Carta {
     private int coste;
     private Jugador owner;
     private Jugador enemigo;
-    private Bitmap imagen;
-    private Bitmap imagenBack;
+    private int imagen;
+    private int imagenBack;
     private int xInicio;
     private int yInicio;
     private int xFin;
     private int yFin;
     private int grados;
     private boolean animar;
-    private Bitmap imagenAnimacion;
+    private int imagenAnimacion;
     private Context contexto;
 
-    public Carta(Context context,Jugador owner,Jugador enemigo,Bitmap imagen,Bitmap imagenBack,Bitmap imagenAnimacion){
+    public Carta(Context context,Jugador owner,Jugador enemigo,int imagen,int imagenBack,int imagenAnimacion){
         this.nombre="Prueba";
         this.id=id;
         this.coste=0;
@@ -59,12 +59,9 @@ public class Carta {
         this.contexto=context;
         Log.i("OWNER","VIDAS:"+getOwner().getVidas());
         this.enemigo=enemigo;
-        Bitmap temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.frontcard);
-        this.imagen=temp;
-        temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.cardbackprueba);
-        this.imagenBack=temp;
-        temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.circle4a);
-        this.imagenAnimacion=temp;
+        this.imagen=R.drawable.frontcard;
+        this.imagenBack=R.drawable.cardbackprueba;
+        this.imagenAnimacion= R.drawable.circle4a;
 
     }
 
@@ -81,7 +78,9 @@ public class Carta {
                 setAnimar(false);
                 Log.i("HILO","GRADOS 0");
                 setGrados(0);
-                playCard();
+                synchronized (((JuegoActivity)getContexto()).pantallaJuego.getSurfaceHolder()) {
+                    playCard();
+                }
             }
         });
         Log.i("HILO","ANTES START");
@@ -173,19 +172,19 @@ public class Carta {
         this.enemigo = enemigo;
     }
 
-    public Bitmap getImagen() {
+    public int getImagen() {
         return imagen;
     }
 
-    public void setImagen(Bitmap imagen) {
+    public void setImagen(int imagen) {
         this.imagen = imagen;
     }
 
-    public Bitmap getImagenBack() {
+    public int getImagenBack() {
         return imagenBack;
     }
 
-    public void setImagenBack(Bitmap imagenBack) {
+    public void setImagenBack(int imagenBack) {
         this.imagenBack = imagenBack;
     }
 
@@ -232,11 +231,11 @@ public class Carta {
         this.animar = animar;
     }
 
-    public Bitmap getImagenAnimacion() {
+    public int getImagenAnimacion() {
         return imagenAnimacion;
     }
 
-    public void setImagenAnimacion(Bitmap imagenAnimacion) {
+    public void setImagenAnimacion(int imagenAnimacion) {
         this.imagenAnimacion = imagenAnimacion;
     }
 

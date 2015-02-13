@@ -33,14 +33,12 @@ public class JuegoActivity extends Activity {
         setContentView(pantallaJuego);
 
         //Pruebas
-        jugador1=new Jugador(20,0);
+        jugador1=new Jugador(20,1);
         jugador2=new Jugador(20,0);
         //Jugador1
-        Bitmap cartaBack= BitmapFactory.decodeResource(getResources(), R.drawable.cardbackprueba);
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
-        Bitmap cartaFront2= BitmapFactory.decodeResource(getResources(), R.drawable.saberchibi);
         Carta cartaPrueba=new Carta(this, jugador1, jugador2);
-        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,cartaFront2,cartaBack,BitmapFactory.decodeResource(getResources(), R.drawable.circle4a));
+        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circle4a);
         CardRelampago cardRelampago=new CardRelampago(this, jugador1, jugador2);
         CardHeal cardHeal=new CardHeal(this,jugador1,jugador2);
         CardRitual cardRitual=new CardRitual(this,jugador1,jugador2);
@@ -49,6 +47,11 @@ public class JuegoActivity extends Activity {
         CardIgniteMemories cardIgniteMemories=new CardIgniteMemories(this,jugador1,jugador2);
         CardNightmare cardNightmare=new CardNightmare(this,jugador1,jugador2);
         CardTransfusion cardTransfusion=new CardTransfusion(this,jugador1,jugador2);
+        CardHealingSign cardHealingSign=new CardHealingSign(this,jugador1,jugador2);
+        CardMysticalSign cardMysticalSign=new CardMysticalSign(this,jugador1,jugador2);
+        CardNaturalHelp cardNaturalHelp=new CardNaturalHelp(this,jugador1,jugador2);
+        CardNaturalResources cardNaturalResources=new CardNaturalResources(this,jugador1,jugador2);
+        CardNaturalSign cardNaturalSign=new CardNaturalSign(this,jugador1,jugador2);
         jugador1.getDeck().add(cartaPrueba2);
         jugador1.getDeck().add(cardRelampago);
         jugador1.getDeck().add(cardHeal);
@@ -59,27 +62,46 @@ public class JuegoActivity extends Activity {
         jugador1.getDeck().add(cardMentalSpiral);
         jugador1.getDeck().add(cardNightmare);
         jugador1.getDeck().add(cardTransfusion);
+        jugador1.getDeck().add(cardHealingSign);
+        jugador1.getDeck().add(cardMysticalSign);
+        jugador1.getDeck().add(cardNaturalSign);
+        jugador1.getDeck().add(cardNaturalHelp);
+        jugador1.getDeck().add(cardNaturalResources);
         jugador1.setActivo(true);
         //Jugador2
-        cartaBack= BitmapFactory.decodeResource(getResources(), R.drawable.cardbackprueba);
-        cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
-        cartaFront2= BitmapFactory.decodeResource(getResources(), R.drawable.saberchibi);
         cartaPrueba=new Carta(this, jugador2, jugador1);
-        cartaPrueba2=new Carta(this,jugador2, jugador1,cartaFront2,cartaBack,BitmapFactory.decodeResource(getResources(), R.drawable.circle4a));
+        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circle4a);
         cardRelampago=new CardRelampago(this, jugador2, jugador1);
         cardHeal=new CardHeal(this,jugador2,jugador1);
         cardRitual=new CardRitual(this,jugador2,jugador1);
+        cardMentalSpiral=new CardMentalSpiral(this,jugador2,jugador1);
+        cardBurningSign=new CardBurningSign(this,jugador2,jugador1);
+        cardIgniteMemories=new CardIgniteMemories(this,jugador2,jugador1);
+        cardNightmare=new CardNightmare(this,jugador2,jugador1);
+        cardTransfusion=new CardTransfusion(this,jugador2,jugador1);
+        cardHealingSign=new CardHealingSign(this,jugador2,jugador1);
+        cardMysticalSign=new CardMysticalSign(this,jugador2,jugador1);
+        cardNaturalHelp=new CardNaturalHelp(this,jugador2,jugador1);
+        cardNaturalResources=new CardNaturalResources(this,jugador2,jugador1);
+        cardNaturalSign=new CardNaturalSign(this,jugador2,jugador1);
         jugador2.getDeck().add(cartaPrueba);
         jugador2.getDeck().add(cartaPrueba2);
         jugador2.getDeck().add(cardRelampago);
         jugador2.getDeck().add(cardHeal);
         jugador2.getDeck().add(cardRitual);
+        jugador2.getDeck().add(cardMentalSpiral);
+        jugador2.getDeck().add(cardBurningSign);
+        jugador2.getDeck().add(cardIgniteMemories);
+        jugador2.getDeck().add(cardMentalSpiral);
+        jugador2.getDeck().add(cardNightmare);
+        jugador2.getDeck().add(cardTransfusion);
+        jugador2.getDeck().add(cardHealingSign);
+        jugador2.getDeck().add(cardMysticalSign);
+        jugador2.getDeck().add(cardNaturalSign);
+        jugador2.getDeck().add(cardNaturalHelp);
+        jugador2.getDeck().add(cardNaturalResources);
         jugador2.setActivo(false);
-        Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
-        pantallaJuego.invalidate();
-    }
-    public void mandarInvalidar(){
-        pantallaJuego.invalidate();
+//        Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

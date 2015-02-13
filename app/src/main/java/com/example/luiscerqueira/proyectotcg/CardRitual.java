@@ -11,7 +11,7 @@ public class CardRitual extends Carta {
     public CardRitual(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
-        this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardritual));
+        this.setImagen(R.drawable.cardritual);
     }
 
     @Override
@@ -21,7 +21,6 @@ public class CardRitual extends Carta {
         getOwner().moveFromDeckToHand(1);
         Log.i("CARTA JUGADA", "CARTA JUGADA -1 VIDAS +1CARTA");
         getOwner().moveCardFromTableToDiscard(getId());
-        ((JuegoActivity)getContexto()).mandarInvalidar();
     }
 
     @Override

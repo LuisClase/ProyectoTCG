@@ -12,7 +12,7 @@ public class CardTransfusion extends Carta {
     public CardTransfusion(Context context,Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
-        this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardlightning));
+        this.setImagen(R.drawable.cardvitaltransfusion);
     }
 
     @Override
@@ -26,7 +26,6 @@ public class CardTransfusion extends Carta {
         Log.i("CARTA JUGADA", "DESPUES ANIMARSE");
         getOwner().moveCardFromTableToDiscard(getId());
         Log.i("CARTA MOVIDA", "MOVIDA");
-        ((JuegoActivity)getContexto()).mandarInvalidar();
     }
 
     @Override

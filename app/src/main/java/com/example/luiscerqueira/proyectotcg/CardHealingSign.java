@@ -5,14 +5,13 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
- * Created by Luis Cerqueira on 12/02/2015.
+ * Created by Luis Cerqueira on 13/02/2015.
  */
-public class CardBurningSign extends Carta {
-
-    public CardBurningSign(Context context,Jugador owner, Jugador enemigo) {
+public class CardHealingSign extends Carta {
+    public CardHealingSign(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
-        this.setImagen(R.drawable.cardburningsign);
+        this.setImagen(R.drawable.cardnaturalsign);
     }
 
     @Override
@@ -24,9 +23,8 @@ public class CardBurningSign extends Carta {
     @Override
     public void playCard() {
         super.playCard();
-        Log.i("CARTA JUGADA", "VIDAS ENEMIGO" + getEnemigo().getVidas());
-        getEnemigo().setVidas(getEnemigo().getVidas() - 2);
-        Log.i("CARTA JUGADA", "CARTA JUGADA -2 VIDAS");
+        getOwner().setVidas(getOwner().getVidas() + 2);
+        Log.i("CARTA JUGADA", "CARTA JUGADA +2 VIDAS");
         Log.i("CARTA JUGADA", "DESPUES ANIMARSE");
     }
 }
