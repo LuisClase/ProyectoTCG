@@ -28,7 +28,7 @@ public class Carta {
     private Context contexto;
 
     public Carta(Context context,Jugador owner,Jugador enemigo,int imagen,int imagenBack,int imagenAnimacion){
-        this.nombre="Prueba";
+        this.nombre="Saber";
         this.id=id;
         this.coste=0;
         this.xInicio=0;
@@ -45,7 +45,7 @@ public class Carta {
     }
 
     public Carta(Context context,Jugador owner,Jugador enemigo){
-        this.nombre="Prueba";
+        this.nombre="Saber";
         this.id= UUID.randomUUID().hashCode();
         Log.i("UUID","HASCODE:"+this.getId());
         this.coste=0;
@@ -61,7 +61,7 @@ public class Carta {
         this.enemigo=enemigo;
         this.imagen=R.drawable.frontcard;
         this.imagenBack=R.drawable.cardbackprueba;
-        this.imagenAnimacion= R.drawable.circle4a;
+        this.imagenAnimacion= R.drawable.circulo;
 
     }
 

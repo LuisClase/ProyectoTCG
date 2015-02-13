@@ -12,6 +12,7 @@ public class CardNightmare extends Carta {
     public CardNightmare(Context context,Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(5);
+        this.setNombre("Nightmare");
         this.setImagen(R.drawable.cardnightmare);
     }
 

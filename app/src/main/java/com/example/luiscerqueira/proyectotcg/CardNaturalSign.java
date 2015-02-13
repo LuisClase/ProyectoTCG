@@ -11,6 +11,7 @@ public class CardNaturalSign extends Carta {
     public CardNaturalSign(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
+        this.setNombre("NaturalSign");
         this.setImagen(R.drawable.cardnaturalsign);
     }
 

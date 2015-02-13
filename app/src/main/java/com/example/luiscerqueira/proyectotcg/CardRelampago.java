@@ -9,6 +9,7 @@ public class CardRelampago extends Carta{
 	public CardRelampago(Context context,Jugador owner, Jugador enemigo) {
 		super(context, owner, enemigo);
 		this.setCoste(1);
+        this.setNombre("Lightning");
 		this.setImagen(R.drawable.cardlightning);
 	}
 

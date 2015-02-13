@@ -16,6 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /**
  * Created by Luis Cerqueira on 22/01/2015.
@@ -57,6 +58,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     private final int TPS= 1000000000;
     private int FRAGMENTO_TEMPORAL = TPS / FPS;
     private long tiempoReferencia=System.nanoTime();
+    Bitmap animacion;
 
     int terminar=0;
 
@@ -83,7 +85,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         avatar=BitmapFactory.decodeResource(getResources(),R.drawable.saber);
         avatar=Bitmap.createScaledBitmap(avatar,anchoPantalla/8,altoPantalla/8,true);
         //bitmaps animaciones
-        animacion1=BitmapFactory.decodeResource(getResources(),R.drawable.circle4a);
+        animacion1=BitmapFactory.decodeResource(getResources(), R.drawable.circulo);
 
         //Jugadores
         jugador1=((JuegoActivity)context).jugador1;
@@ -604,18 +606,17 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
 //                Log.i("ONDRAW3", "ANIMACION");
 //                Log.i("ONDRAW3", "ANIMACIONJ2");
-                Bitmap animacion;
+                animacion = BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo);
+                animacion = Bitmap.createScaledBitmap(animacion, anchoCarta, anchoCarta, true);
 //                Log.i("ONDRAW3", "ANTES IF");
                 for (int i = 0; i < jugador2.getMesa().size(); i++) {
 //                   Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
                     if (jugador2.getMesa().get(i).isAnimar()) {
 //                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
-                        jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 15);
+                        jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 10);
 
-//                        Log.i("ONDRAW3", "ANIMACION ID:"+jugador2.getMesa().get(i).getId());
+                        Log.i("ONDRAW3", "ANIMACION ID:"+jugador2.getMesa().get(i).getNombre());
                         Point punto = encontrarCarta(jugador2.getMesa().get(i).getId());
-                        animacion = BitmapFactory.decodeResource(context.getResources(), jugador2.getMesa().get(i).getImagenAnimacion());
-                        animacion = Bitmap.createScaledBitmap(animacion, anchoCarta, anchoCarta, true);
                         try {
                             animacion = girarCirculo(animacion, jugador2.getMesa().get(i).getGrados());
                         } catch (IndexOutOfBoundsException e) {
@@ -640,13 +641,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                Log.i("ONDRAW4", "ANTES IF");
                 for (int i = 0; i < jugador1.getMesa().size(); i++) {
 //                    Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
-                    Carta c=jugador1.getMesa().get(i);
                     if (jugador1.getMesa().get(i).isAnimar()) {
 //                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
                         jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados() + 15);
                         Point punto = encontrarCarta(jugador1.getMesa().get(i).getId());
-                        animacion = BitmapFactory.decodeResource(context.getResources(), jugador1.getMesa().get(i).getImagenAnimacion());
-                        animacion = Bitmap.createScaledBitmap(animacion, anchoCarta, anchoCarta, true);
+                        Log.i("ONDRAW3", "ANIMACION ID:"+jugador1.getMesa().get(i).getNombre());
                         try {
                             animacion = girarCirculo(animacion, jugador1.getMesa().get(i).getGrados());
                         } catch (IndexOutOfBoundsException e) {
@@ -957,9 +956,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         for(int i=0;i<jugador1.getMano().size();i++){
                             if(idTemp==jugador1.getMano().get(i).getId()){
                                 if (jugador1.getRecursos() >= jugador1.getMano().get(i).getCoste()) {
-                                    jugador1.setRecursos(jugador1.getRecursos() - jugador1.getMano().get(i).getCoste());
-                                    jugador1.moveCardFromHandToTable(jugador1.getMano().get(i).getId());
+                                    synchronized (this.getSurfaceHolder()) {
+                                        jugador1.setRecursos(jugador1.getRecursos() - jugador1.getMano().get(i).getCoste());
+                                        jugador1.moveCardFromHandToTable(jugador1.getMano().get(i).getId());
+                                    }
                                 } else {
+                                    Toast.makeText(this.getContext(),"No hay recursos suficientes",Toast.LENGTH_SHORT);
 //                                    Log.i("JUGAR", "NOT ENOUGHT RESOURCES");
                                 }
                             }
@@ -1069,9 +1071,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         for(int i=0;i<jugador2.getMano().size();i++){
                             if(idTemp==jugador2.getMano().get(i).getId()){
                                 if (jugador2.getRecursos() >= jugador2.getMano().get(i).getCoste()) {
-                                    jugador2.setRecursos(jugador2.getRecursos() - jugador2.getMano().get(i).getCoste());
-                                    jugador2.moveCardFromHandToTable(jugador2.getMano().get(i).getId());
+                                    synchronized (this.getSurfaceHolder()) {
+                                        jugador2.setRecursos(jugador2.getRecursos() - jugador2.getMano().get(i).getCoste());
+                                        jugador2.moveCardFromHandToTable(jugador2.getMano().get(i).getId());
+                                    }
                                 } else {
+                                    Toast.makeText(this.getContext(),"No hay recursos suficientes",Toast.LENGTH_SHORT);
 //                                    Log.i("JUGAR2", "NOT ENOUGHT RESOURCES");
                                 }
                             }

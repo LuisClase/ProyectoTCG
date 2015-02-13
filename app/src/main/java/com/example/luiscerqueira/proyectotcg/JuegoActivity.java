@@ -38,7 +38,7 @@ public class JuegoActivity extends Activity {
         //Jugador1
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
         Carta cartaPrueba=new Carta(this, jugador1, jugador2);
-        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circle4a);
+        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circulo);
         CardRelampago cardRelampago=new CardRelampago(this, jugador1, jugador2);
         CardHeal cardHeal=new CardHeal(this,jugador1,jugador2);
         CardRitual cardRitual=new CardRitual(this,jugador1,jugador2);
@@ -70,7 +70,7 @@ public class JuegoActivity extends Activity {
         jugador1.setActivo(true);
         //Jugador2
         cartaPrueba=new Carta(this, jugador2, jugador1);
-        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circle4a);
+        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
         cardRelampago=new CardRelampago(this, jugador2, jugador1);
         cardHeal=new CardHeal(this,jugador2,jugador1);
         cardRitual=new CardRitual(this,jugador2,jugador1);

@@ -11,6 +11,7 @@ public class CardRitual extends Carta {
     public CardRitual(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
+        this.setNombre("Ritual");
         this.setImagen(R.drawable.cardritual);
     }
 

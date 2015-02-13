@@ -12,6 +12,7 @@ public class CardHeal extends Carta {
     public CardHeal(Context context,Jugador owner, Jugador enemigo) {
         super(context,owner, enemigo);
         this.setCoste(2);
+        this.setNombre("Heal");
         this.setImagen(R.drawable.cardheal);
     }
 

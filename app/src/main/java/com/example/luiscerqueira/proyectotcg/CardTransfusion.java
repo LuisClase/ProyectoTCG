@@ -12,6 +12,7 @@ public class CardTransfusion extends Carta {
     public CardTransfusion(Context context,Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
+        this.setNombre("Transfusion");
         this.setImagen(R.drawable.cardvitaltransfusion);
     }
 
