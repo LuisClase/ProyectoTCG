@@ -9,8 +9,8 @@ import android.util.Log;
  */
 public class CardHeal extends Carta {
 
-    public CardHeal(Context context, int id, Jugador owner, Jugador enemigo) {
-        super(context, id, owner, enemigo);
+    public CardHeal(Context context,Jugador owner, Jugador enemigo) {
+        super(context,owner, enemigo);
         this.setCoste(2);
         this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardheal));
     }
@@ -21,6 +21,7 @@ public class CardHeal extends Carta {
         getOwner().setVidas(getOwner().getVidas()+4);
         Log.i("CARTA JUGADA", "CARTA JUGADA +4 VIDAS");
         getOwner().moveCardFromTableToDiscard(getId());
+        ((JuegoActivity)getContexto()).mandarInvalidar();
     }
 
     @Override

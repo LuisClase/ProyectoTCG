@@ -6,8 +6,8 @@ import android.util.Log;
 
 public class CardRelampago extends Carta{
 
-	public CardRelampago(Context context, int id, Jugador owner, Jugador enemigo) {
-		super(context, id, owner, enemigo);
+	public CardRelampago(Context context,Jugador owner, Jugador enemigo) {
+		super(context, owner, enemigo);
 		this.setCoste(1);
 		this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardlightning));
 	}
@@ -21,6 +21,7 @@ public class CardRelampago extends Carta{
         Log.i("CARTA JUGADA", "DESPUES ANIMARSE");
         getOwner().moveCardFromTableToDiscard(getId());
         Log.i("CARTA MOVIDA", "MOVIDA");
+        ((JuegoActivity)getContexto()).mandarInvalidar();
 	}
 
     @Override

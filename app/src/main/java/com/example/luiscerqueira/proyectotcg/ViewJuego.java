@@ -1,5 +1,6 @@
 package com.example.luiscerqueira.proyectotcg;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -88,6 +89,7 @@ public class ViewJuego extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         //Jugadores
         jugador1=((JuegoActivity)this.getContext()).jugador1;
         jugador2=((JuegoActivity)this.getContext()).jugador2;
@@ -136,443 +138,467 @@ public class ViewJuego extends View {
         canvas.drawBitmap(fondo,0,0,null);
         canvas.drawBitmap(avatar,0,altoPantalla-(altoPantalla/5),null);
         Paint p=new Paint();
-        p.setColor(Color.RED);
-        p.setTextSize(30);
-        Log.i("VIDAS", "VIDAS" + jugador1.getVidas());
-        //jugador1
-        canvas.drawText("Activo:"+(jugador1.isActivo()?"Si":"No") , jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.7 * altoCarta), p);
-        canvas.drawText("Vidas:" + jugador1.getVidas(), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.5 * altoCarta), p);
-        canvas.drawText("Recursos:"+jugador1.getRecursos(), jugador1.getDeckX(), jugador1.getDeckY()-(int)(0.2*altoCarta), p);
-        //jugador2
-        p.setColor(Color.BLUE);
-        canvas.drawText("Activo:"+(jugador2.isActivo()?"Si":"No") , jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.7 * altoCarta), p);
-        canvas.drawText("Vidas:" + jugador2.getVidas(), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.5 * altoCarta), p);
-        canvas.drawText("Recursos:"+jugador2.getRecursos(), jugador2.getDeckX(), jugador2.getDeckYfin()+(int)(0.2*altoCarta), p);
-
-        //Zona-Informacion
-        p=new Paint();
-        if(infoCard==null) {
-            infoCard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
+        if(jugador1.getVidas()<=0){
+            Log.i("ONDRAW5", "JUGADOR1 VIDAS0-PIERDE");
+            p.setColor(Color.RED);
+            p.setTextSize(60);
+            canvas.drawText("JUGADOR 1 PIERDE" ,anchoPantalla/4,altoPantalla/2, p);
         }
-        infoCard = Bitmap.createScaledBitmap(infoCard, (int)(1.5*anchoCarta), (int)(altoCarta*1.5), true);
-        if(jugador2.isActivo() && !animacionJ2){
-            infoCard=girarBitmap(infoCard,180);
-        }
-        canvas.drawBitmap(infoCard, 0, (int)((altoPantalla/2)-(altoCarta*0.75)), null);
-        p.setColor(Color.RED);
-        p.setStyle(Paint.Style.STROKE);
-        canvas.drawRect(0
-                ,(int)((altoPantalla/2)-(altoCarta*0.75))
-                ,(int)(anchoCarta*1.5)
-                ,(int)((altoPantalla/2)+(altoCarta*0.75))
-                ,p);
-        Log.i("ONDRAW", "dibujando DESCARTE");
-
-        //Boton Jugar
-        p=new Paint();
-        p.setColor(Color.RED);
-        p.setStyle(Paint.Style.STROKE);
-        canvas.drawRect(0
-                ,(int)((altoPantalla/2)-(altoCarta*1.2))
-                ,(int)(anchoCarta*1.5)
-                ,(int)((altoPantalla/2)-(altoCarta*0.75))
-                ,p);
-        Log.i("ONDRAW", "dibujando DESCARTE");
-        temp=BitmapFactory.decodeResource(getContext().getResources(),R.drawable.botonplay);
-        if(pulsandoPlay){
-            temp=BitmapFactory.decodeResource(getContext().getResources(),R.drawable.botonplaypulsado);
-        }
-        temp = Bitmap.createScaledBitmap(temp, (int)(1.5*anchoCarta), (int)(altoCarta*0.4), true);
-        if(jugador2.isActivo()){
-            temp=girarBitmap(temp,180);
-        }
-        canvas.drawBitmap(temp, 0, (int)((altoPantalla/2)-(altoCarta*1.2)), null);
-        //Boton fin turno
-        p=new Paint();
-        p.setColor(Color.RED);
-        p.setStyle(Paint.Style.STROKE);
-        canvas.drawRect((anchoPantalla/2)-(anchoCarta)
-                ,(altoPantalla/2)-(altoCarta/4)
-                ,(anchoPantalla/2)+(anchoCarta)
-                ,(altoPantalla/2)+(altoCarta/4),p);
-
-        temp=BitmapFactory.decodeResource(getContext().getResources(),R.drawable.botonnoactivo);
-        if(jugador1.isTocandoFinTurno()){
-            temp=BitmapFactory.decodeResource(getContext().getResources(),R.drawable.botonpresionado);
-        }else if(jugador1.isActivo()){
-            temp=BitmapFactory.decodeResource(getContext().getResources(),R.drawable.botonnoactivo);
-        }
-        temp = Bitmap.createScaledBitmap(temp, 2*anchoCarta, altoCarta/2, true);
-        if(jugador2.isActivo()){
-            temp=girarBitmap(temp,180);
-        }
-        canvas.drawBitmap(temp, (anchoPantalla/2)-(anchoCarta), (altoPantalla/2)-(altoCarta/4), null);
-        //Jugador2
-        if(jugador2!=null){
-            Log.i("ONDRAW","Antes deck");
-            //Zona-Mano
-            p=new Paint();
+        else if(jugador2.getVidas()<=0){
+            Log.i("ONDRAW5", "JUGADOR2 VIDAS0-PIERDE");
+            p.setColor(Color.RED);
+            p.setTextSize(60);
+            canvas.drawText("JUGADOR 2 PIERDE" ,anchoPantalla/4,altoPantalla/2, p);
+        }else {
+            p.setColor(Color.RED);
+            p.setTextSize(30);
+            Log.i("VIDAS", "VIDAS" + jugador1.getVidas());
+            //jugador1
+            canvas.drawText("Activo:" + (jugador1.isActivo() ? "Si" : "No"), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.7 * altoCarta), p);
+            canvas.drawText("Vidas:" + jugador1.getVidas(), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.5 * altoCarta), p);
+            canvas.drawText("Recursos:" + jugador1.getRecursos(), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.2 * altoCarta), p);
+            //jugador2
             p.setColor(Color.BLUE);
-            p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador2.getManoX()
-                    ,jugador2.getManoY()
-                    ,jugador2.getManoXfin()
-                    ,jugador2.getManoYfin(),p);
-            Log.i("ONDRAW2", "dibujando MANOx:"+jugador2.getManoX());
-            Log.i("ONDRAW2", "dibujando MANOx2:"+jugador2.getManoY());
-            Log.i("ONDRAW2", "dibujando MANOy:"+jugador2.getManoXfin());
-            Log.i("ONDRAW2", "dibujando MANOy2:"+jugador2.getManoYfin());
-            Log.i("ONDRAW2", "dibujando MANO");
+            canvas.drawText("Activo:" + (jugador2.isActivo() ? "Si" : "No"), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.7 * altoCarta), p);
+            canvas.drawText("Vidas:" + jugador2.getVidas(), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.5 * altoCarta), p);
+            canvas.drawText("Recursos:" + jugador2.getRecursos(), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.2 * altoCarta), p);
 
-            //Zona-Mesa
-            p=new Paint();
-            p.setColor(Color.BLUE);
-            p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador2.getMesaX()
-                    ,jugador2.getMesaY()
-                    ,jugador2.getMesaXfin()
-                    ,jugador2.getMesaYfin()
-                    ,p);
-            Log.i("ONDRAW2", "dibujando MESAx:"+jugador2.getMesaX());
-            Log.i("ONDRAW2", "dibujando MESAx2:"+jugador2.getMesaY());
-            Log.i("ONDRAW2", "dibujando MESAy:"+jugador2.getMesaXfin());
-            Log.i("ONDRAW2", "dibujando MESAy2:"+jugador2.getMesaYfin());
-            Log.i("ONDRAW2", "dibujando MESA");
-
-            //Zona-Descarte
-            p=new Paint();
-            p.setColor(Color.BLUE);
-            p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador2.getDescarteX()
-                    ,jugador2.getDescarteY()
-                    ,jugador2.getDescarteXfin()
-                    ,jugador2.getDescarteYfin()
-                    ,p);
-            Log.i("ONDRAW2", "dibujando DESCARTEx:"+jugador2.getDescarteX());
-            Log.i("ONDRAW2", "dibujando DESCARTEx2:"+jugador2.getDescarteY());
-            Log.i("ONDRAW2", "dibujando DESCARTEy:"+jugador2.getDescarteXfin());
-            Log.i("ONDRAW2", "dibujando DESCARTEy2:"+jugador2.getDescarteYfin());
-            Log.i("ONDRAW2", "dibujando DESCARTE");
-
-            //Zona-DECK
-            if(jugador2.getDeck().size()>0){
-
-                Log.i("ONDRAW2", "dibujando DECK:"+jugador2.getDeck().get(0).getId());
-                temp = Bitmap.createScaledBitmap(jugador2.getDeck().get(0).getImagenBack(), anchoCarta, altoCarta, true);
-                canvas.drawBitmap(temp, jugador2.getDeckX(), jugador2.getDeckY(), null);
-                for(int i=0;i<jugador2.getDeck().size();i++) {
-                    jugador2.getDeck().get(i).setxInicio(xDeck);
-                    jugador2.getDeck().get(i).setxFin(xDeck + anchoCarta);
-                    jugador2.getDeck().get(i).setyInicio(yDeck);
-                    jugador2.getDeck().get(i).setyFin(yDeck + altoCarta);
-                    p=new Paint();
-                    p.setColor(Color.BLUE);
-                    p.setStyle(Paint.Style.STROKE);
-                }
-            }else{
-                Log.i("ONDRAW2", "DECK VACIO");
+            //Zona-Informacion
+            p = new Paint();
+            if (infoCard == null) {
+                infoCard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
             }
-            canvas.drawRect(jugador2.getDeckX()
-                    ,jugador2.getDeckY()
-                    ,jugador2.getDeckXfin()
-                    ,jugador2.getDeckYfin(),p);
-            Log.i("ONDRAW2", "dibujando DECK");
-            Log.i("ONDRAW2","Antes bucle");
-
-            //MANO
-            for (int i = 0; i < jugador2.getMano().size(); i++) {
-                Log.i("ONDRAW2", "Bucle " + i);
-                if(jugador2.isActivo()) {
-                    temp = Bitmap.createScaledBitmap(jugador2.getMano().get(i).getImagen(), anchoCarta, altoCarta, true);
-                }else{
-                    temp=Bitmap.createScaledBitmap(jugador2.getMano().get(i).getImagenBack(), anchoCarta, altoCarta, true);
-                }
-                Log.i("ONDRAW2", "Antes draw " + i);
-                jugador2.getMano().get(i).setxInicio(jugador2.getManoX()+(int)(0.5*anchoCarta)*i);
-                jugador2.getMano().get(i).setyInicio(jugador2.getManoY());
-                jugador2.getMano().get(i).setyFin(jugador2.getManoYfin());
-                if(i<jugador2.getMano().size()-1) {
-                    jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio()+(anchoCarta/2));
-                }else{
-                    jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio() + anchoCarta);
-                }
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
-                }
-                canvas.drawBitmap(temp, jugador2.getMano().get(i).getxInicio(), jugador2.getMano().get(i).getyInicio(), null);
-                p=new Paint();
-                p.setColor(Color.GREEN);
-                p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(jugador2.getMano().get(i).getxInicio()
-                        ,jugador2.getMano().get(i).getyInicio()
-                        ,jugador2.getMano().get(i).getxFin()
-                        ,jugador2.getMano().get(i).getyFin(),p);
+            infoCard = Bitmap.createScaledBitmap(infoCard, (int) (1.5 * anchoCarta), (int) (altoCarta * 1.5), true);
+            if (jugador2.isActivo() && !animacionJ2) {
+                infoCard = girarBitmap(infoCard, 180);
             }
-
-            //DESCARTE
-            for(int i=0;i<jugador2.getDescarte().size();i++){
-                temp=Bitmap.createScaledBitmap(jugador2.getDescarte().get(0).getImagen(),anchoCarta,altoCarta,true);
-                jugador2.getDescarte().get(i).setxInicio(jugador2.getDescarteX());
-                jugador2.getDescarte().get(i).setxFin(jugador2.getDescarteXfin());
-                jugador2.getDescarte().get(i).setyInicio(jugador2.getDescarteY());
-                jugador2.getDescarte().get(i).setyFin(jugador2.getDescarteYfin());
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
-                }
-                canvas.drawBitmap(temp,jugador2.getDescarteX(),jugador2.getDescarteY(),null);
-                p=new Paint();
-                p.setColor(Color.GREEN);
-                p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(jugador2.getDescarte().get(0).getxInicio()
-                        ,jugador2.getDescarte().get(0).getyInicio()
-                        ,jugador2.getDescarte().get(0).getxFin()
-                        ,jugador2.getDescarte().get(0).getyFin(),p);
-            }
-
-            //MESA
-            int xTemp=jugador2.getMesaX();
-            int yTemp=jugador2.getMesaYfin();
-            for (int i = 0; i < jugador2.getMesa().size(); i++) {
-                Log.i("ONDRAW2", "Bucle " + i);
-                temp = Bitmap.createScaledBitmap(jugador2.getMesa().get(i).getImagen(), anchoCarta, altoCarta, true);
-                Log.i("ONDRAW2", "Antes draw " + i);
-                jugador2.getMesa().get(i).setxInicio(xTemp+(int)(0.5*anchoCarta)*i);
-                jugador2.getMesa().get(i).setyInicio(jugador2.getMesaY());
-                jugador2.getMesa().get(i).setyFin(jugador2.getMesaYfin());
-                if(i<jugador2.getMesa().size()-1) {
-                    Log.i("ONDRAW2", "IF"+i+"size"+(jugador2.getMesa().size()-1));
-                    jugador2.getMesa().get(i).setxFin(jugador2.getMesa().get(i).getxInicio() + (anchoCarta / 2));
-                }else{
-                    Log.i("ONDRAW2", "ELSE"+anchoCarta);
-                    jugador2.getMesa().get(i).setxFin(jugador2.getMesa().get(i).getxInicio() + anchoCarta);
-                    Log.i("ONDRAW2", "Antes draw x2:" + jugador2.getMesa().get(i).getxFin());
-                }
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
-                }
-                canvas.drawBitmap(temp, jugador2.getMesa().get(i).getxInicio(), jugador2.getMesa().get(i).getyInicio(), null);
-                p=new Paint();
-                p.setColor(Color.GREEN);
-                p.setStyle(Paint.Style.STROKE);
-                Log.i("ONDRAW2", "Antes draw x:" + jugador2.getMesa().get(i).getxInicio());
-                Log.i("ONDRAW2", "Antes draw x2:" + jugador2.getMesa().get(i).getxFin());
-                Log.i("ONDRAW2", "Antes draw y:" + jugador2.getMesa().get(i).getyInicio());
-                Log.i("ONDRAW2", "Antes draw y2:" + jugador2.getMesa().get(i).getyFin());
-                canvas.drawRect(jugador2.getMesa().get(i).getxInicio()
-                        ,jugador2.getMesa().get(i).getyInicio()
-                        ,jugador2.getMesa().get(i).getxFin()
-                        ,jugador2.getMesa().get(i).getyFin(),p);
-            }
-
-        }else{
-            Log.i("ONDRAW2","Jugador null");
-        }
-        //Jugador1
-        if(jugador1!=null) {
-            Log.i("ONDRAW","Antes deck");
-            //Zona-Mano
-            p=new Paint();
+            canvas.drawBitmap(infoCard, 0, (int) ((altoPantalla / 2) - (altoCarta * 0.75)), null);
             p.setColor(Color.RED);
             p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador1.getManoX()
-                    ,jugador1.getManoY()
-                    ,jugador1.getManoXfin()
-                    ,jugador1.getManoYfin(),p);
-            Log.i("ONDRAW", "dibujando MANOx:"+jugador1.getManoX());
-            Log.i("ONDRAW", "dibujando MANOx2:"+jugador1.getManoY());
-            Log.i("ONDRAW", "dibujando MANOy:"+jugador1.getManoXfin());
-            Log.i("ONDRAW", "dibujando MANOy2:"+jugador1.getManoYfin());
-            Log.i("ONDRAW", "dibujando MANO");
-
-            //Zona-Mesa
-            p=new Paint();
-            p.setColor(Color.RED);
-            p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador1.getMesaX()
-                    ,jugador1.getMesaY()
-                    ,jugador1.getMesaXfin()
-                    ,jugador1.getMesaYfin()
-                    ,p);
-            Log.i("ONDRAW", "dibujando MESA");
-
-            //Zona-Descarte
-            p=new Paint();
-            p.setColor(Color.RED);
-            p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador1.getDescarteX()
-                    ,jugador1.getDescarteY()
-                    ,jugador1.getDescarteXfin()
-                    ,jugador1.getDescarteYfin()
-                    ,p);
+            canvas.drawRect(0
+                    , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
+                    , (int) (anchoCarta * 1.5)
+                    , (int) ((altoPantalla / 2) + (altoCarta * 0.75))
+                    , p);
             Log.i("ONDRAW", "dibujando DESCARTE");
 
-            //Zona-DECK
-            if(jugador1.getDeck().size()>0){
-
-                Log.i("ONDRAW", "dibujando DECK:"+jugador1.getDeck().get(0).getId());
-                temp = Bitmap.createScaledBitmap(jugador1.getDeck().get(0).getImagenBack(), anchoCarta, altoCarta, true);
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
-                }
-                canvas.drawBitmap(temp, xDeck, yDeck, null);
-                for(int i=0;i<jugador1.getDeck().size();i++) {
-                    jugador1.getDeck().get(i).setxInicio(xDeck);
-                    jugador1.getDeck().get(i).setxFin(xDeck + anchoCarta);
-                    jugador1.getDeck().get(i).setyInicio(yDeck);
-                    jugador1.getDeck().get(i).setyFin(yDeck + altoCarta);
-                }
-                x+=anchoCarta*1.2;
-            }else{
-                x+=anchoCarta*1.2;
-            }
-            p=new Paint();
+            //Boton Jugar
+            p = new Paint();
             p.setColor(Color.RED);
             p.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(jugador1.getDeckX()
-                    ,jugador1.getDeckY()
-                    ,jugador1.getDeckXfin()
-                    ,jugador1.getDeckYfin(),p);
-            Log.i("ONDRAW", "dibujando DECK");
-            Log.i("ONDRAW","Antes bucle");
+            canvas.drawRect(0
+                    , (int) ((altoPantalla / 2) - (altoCarta * 1.2))
+                    , (int) (anchoCarta * 1.5)
+                    , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
+                    , p);
+            Log.i("ONDRAW", "dibujando DESCARTE");
+            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplay);
+            if (pulsandoPlay) {
+                temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplaypulsado);
+            }
+            temp = Bitmap.createScaledBitmap(temp, (int) (1.5 * anchoCarta), (int) (altoCarta * 0.4), true);
+            if (jugador2.isActivo()) {
+                temp = girarBitmap(temp, 180);
+            }
+            canvas.drawBitmap(temp, 0, (int) ((altoPantalla / 2) - (altoCarta * 1.2)), null);
+            //Boton fin turno
+            p = new Paint();
+            p.setColor(Color.RED);
+            p.setStyle(Paint.Style.STROKE);
+            canvas.drawRect((anchoPantalla / 2) - (anchoCarta)
+                    , (altoPantalla / 2) - (altoCarta / 4)
+                    , (anchoPantalla / 2) + (anchoCarta)
+                    , (altoPantalla / 2) + (altoCarta / 4), p);
 
-            //MANO
-            for (int i = 0; i < jugador1.getMano().size(); i++) {
-                Log.i("ONDRAW", "Bucle " + i);
-                if(jugador1.isActivo()) {
-                    temp = Bitmap.createScaledBitmap(jugador1.getMano().get(i).getImagen(), anchoCarta, altoCarta, true);
-                }else{
-                    temp=Bitmap.createScaledBitmap(jugador1.getMano().get(i).getImagenBack(), anchoCarta, altoCarta, true);
+            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonnoactivo);
+            if (jugador1.isTocandoFinTurno()) {
+                temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonpresionado);
+            } else if (jugador1.isActivo()) {
+                temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonnoactivo);
+            }
+            temp = Bitmap.createScaledBitmap(temp, 2 * anchoCarta, altoCarta / 2, true);
+            if (jugador2.isActivo()) {
+                temp = girarBitmap(temp, 180);
+            }
+            canvas.drawBitmap(temp, (anchoPantalla / 2) - (anchoCarta), (altoPantalla / 2) - (altoCarta / 4), null);
+            //Jugador2
+            if (jugador2 != null) {
+                Log.i("ONDRAW", "Antes deck");
+                //Zona-Mano
+                p = new Paint();
+                p.setColor(Color.BLUE);
+                p.setStyle(Paint.Style.STROKE);
+                canvas.drawRect(jugador2.getManoX()
+                        , jugador2.getManoY()
+                        , jugador2.getManoXfin()
+                        , jugador2.getManoYfin(), p);
+                Log.i("ONDRAW2", "dibujando MANOx:" + jugador2.getManoX());
+                Log.i("ONDRAW2", "dibujando MANOx2:" + jugador2.getManoY());
+                Log.i("ONDRAW2", "dibujando MANOy:" + jugador2.getManoXfin());
+                Log.i("ONDRAW2", "dibujando MANOy2:" + jugador2.getManoYfin());
+                Log.i("ONDRAW2", "dibujando MANO");
+
+                //Zona-Mesa
+                p = new Paint();
+                p.setColor(Color.BLUE);
+                p.setStyle(Paint.Style.STROKE);
+                canvas.drawRect(jugador2.getMesaX()
+                        , jugador2.getMesaY()
+                        , jugador2.getMesaXfin()
+                        , jugador2.getMesaYfin()
+                        , p);
+                Log.i("ONDRAW2", "dibujando MESAx:" + jugador2.getMesaX());
+                Log.i("ONDRAW2", "dibujando MESAx2:" + jugador2.getMesaY());
+                Log.i("ONDRAW2", "dibujando MESAy:" + jugador2.getMesaXfin());
+                Log.i("ONDRAW2", "dibujando MESAy2:" + jugador2.getMesaYfin());
+                Log.i("ONDRAW2", "dibujando MESA");
+
+                //Zona-Descarte
+                p = new Paint();
+                p.setColor(Color.BLUE);
+                p.setStyle(Paint.Style.STROKE);
+                canvas.drawRect(jugador2.getDescarteX()
+                        , jugador2.getDescarteY()
+                        , jugador2.getDescarteXfin()
+                        , jugador2.getDescarteYfin()
+                        , p);
+                Log.i("ONDRAW2", "dibujando DESCARTEx:" + jugador2.getDescarteX());
+                Log.i("ONDRAW2", "dibujando DESCARTEx2:" + jugador2.getDescarteY());
+                Log.i("ONDRAW2", "dibujando DESCARTEy:" + jugador2.getDescarteXfin());
+                Log.i("ONDRAW2", "dibujando DESCARTEy2:" + jugador2.getDescarteYfin());
+                Log.i("ONDRAW2", "dibujando DESCARTE");
+
+                //Zona-DECK
+                if (jugador2.getDeck().size() > 0) {
+
+                    Log.i("ONDRAW2", "dibujando DECK:" + jugador2.getDeck().get(0).getId());
+                    temp = Bitmap.createScaledBitmap(jugador2.getDeck().get(0).getImagenBack(), anchoCarta, altoCarta, true);
+                    canvas.drawBitmap(temp, jugador2.getDeckX(), jugador2.getDeckY(), null);
+                    for (int i = 0; i < jugador2.getDeck().size(); i++) {
+                        jugador2.getDeck().get(i).setxInicio(xDeck);
+                        jugador2.getDeck().get(i).setxFin(xDeck + anchoCarta);
+                        jugador2.getDeck().get(i).setyInicio(yDeck);
+                        jugador2.getDeck().get(i).setyFin(yDeck + altoCarta);
+                        p = new Paint();
+                        p.setColor(Color.BLUE);
+                        p.setStyle(Paint.Style.STROKE);
+                    }
+                } else {
+                    Log.i("ONDRAW2", "DECK VACIO");
                 }
-                Log.i("ONDRAW", "Antes draw " + i);
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
+                canvas.drawRect(jugador2.getDeckX()
+                        , jugador2.getDeckY()
+                        , jugador2.getDeckXfin()
+                        , jugador2.getDeckYfin(), p);
+                Log.i("ONDRAW2", "dibujando DECK");
+                Log.i("ONDRAW2", "Antes bucle");
+
+                //MANO
+                for (int i = 0; i < jugador2.getMano().size(); i++) {
+                    Log.i("ONDRAW2", "Bucle " + i);
+                    if (jugador2.isActivo()) {
+                        temp = Bitmap.createScaledBitmap(jugador2.getMano().get(i).getImagen(), anchoCarta, altoCarta, true);
+                    } else {
+                        temp = Bitmap.createScaledBitmap(jugador2.getMano().get(i).getImagenBack(), anchoCarta, altoCarta, true);
+                    }
+                    Log.i("ONDRAW2", "Antes draw " + i);
+                    jugador2.getMano().get(i).setxInicio(jugador2.getManoX() + (int) (0.5 * anchoCarta) * i);
+                    jugador2.getMano().get(i).setyInicio(jugador2.getManoY());
+                    jugador2.getMano().get(i).setyFin(jugador2.getManoYfin());
+                    if (i < jugador2.getMano().size() - 1) {
+                        jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio() + (anchoCarta / 2));
+                    } else {
+                        jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio() + anchoCarta);
+                    }
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, jugador2.getMano().get(i).getxInicio(), jugador2.getMano().get(i).getyInicio(), null);
+                    p = new Paint();
+                    p.setColor(Color.GREEN);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(jugador2.getMano().get(i).getxInicio()
+                            , jugador2.getMano().get(i).getyInicio()
+                            , jugador2.getMano().get(i).getxFin()
+                            , jugador2.getMano().get(i).getyFin(), p);
                 }
-                canvas.drawBitmap(temp, jugador1.getManoX()+(int)(0.5*anchoCarta)*i, jugador1.getManoY(), null);
-                jugador1.getMano().get(i).setxInicio(jugador1.getManoX()+(int)(0.5*anchoCarta)*i);
-                jugador1.getMano().get(i).setyInicio(jugador1.getManoY());
-                jugador1.getMano().get(i).setyFin(jugador1.getManoYfin());
-                if(i<jugador1.getMano().size()-1) {
-                    jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio()+(anchoCarta/2));
-                }else{
-                    jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + anchoCarta);
+
+                //DESCARTE
+                for (int i = 0; i < jugador2.getDescarte().size(); i++) {
+                    temp = Bitmap.createScaledBitmap(jugador2.getDescarte().get(0).getImagen(), anchoCarta, altoCarta, true);
+                    jugador2.getDescarte().get(i).setxInicio(jugador2.getDescarteX());
+                    jugador2.getDescarte().get(i).setxFin(jugador2.getDescarteXfin());
+                    jugador2.getDescarte().get(i).setyInicio(jugador2.getDescarteY());
+                    jugador2.getDescarte().get(i).setyFin(jugador2.getDescarteYfin());
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, jugador2.getDescarteX(), jugador2.getDescarteY(), null);
+                    p = new Paint();
+                    p.setColor(Color.GREEN);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(jugador2.getDescarte().get(0).getxInicio()
+                            , jugador2.getDescarte().get(0).getyInicio()
+                            , jugador2.getDescarte().get(0).getxFin()
+                            , jugador2.getDescarte().get(0).getyFin(), p);
                 }
-                p=new Paint();
+
+                //MESA
+                int xTemp = jugador2.getMesaX();
+                int yTemp = jugador2.getMesaYfin();
+                for (int i = 0; i < jugador2.getMesa().size(); i++) {
+                    Log.i("ONDRAW2", "Bucle " + i);
+                    temp = Bitmap.createScaledBitmap(jugador2.getMesa().get(i).getImagen(), anchoCarta, altoCarta, true);
+                    Log.i("ONDRAW2", "Antes draw " + i);
+                    jugador2.getMesa().get(i).setxInicio(xTemp + (int) (0.5 * anchoCarta) * i);
+                    jugador2.getMesa().get(i).setyInicio(jugador2.getMesaY());
+                    jugador2.getMesa().get(i).setyFin(jugador2.getMesaYfin());
+                    if (i < jugador2.getMesa().size() - 1) {
+                        Log.i("ONDRAW2", "IF" + i + "size" + (jugador2.getMesa().size() - 1));
+                        jugador2.getMesa().get(i).setxFin(jugador2.getMesa().get(i).getxInicio() + (anchoCarta / 2));
+                    } else {
+                        Log.i("ONDRAW2", "ELSE" + anchoCarta);
+                        jugador2.getMesa().get(i).setxFin(jugador2.getMesa().get(i).getxInicio() + anchoCarta);
+                        Log.i("ONDRAW2", "Antes draw x2:" + jugador2.getMesa().get(i).getxFin());
+                    }
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, jugador2.getMesa().get(i).getxInicio(), jugador2.getMesa().get(i).getyInicio(), null);
+                    p = new Paint();
+                    p.setColor(Color.GREEN);
+                    p.setStyle(Paint.Style.STROKE);
+                    Log.i("ONDRAW2", "Antes draw x:" + jugador2.getMesa().get(i).getxInicio());
+                    Log.i("ONDRAW2", "Antes draw x2:" + jugador2.getMesa().get(i).getxFin());
+                    Log.i("ONDRAW2", "Antes draw y:" + jugador2.getMesa().get(i).getyInicio());
+                    Log.i("ONDRAW2", "Antes draw y2:" + jugador2.getMesa().get(i).getyFin());
+                    canvas.drawRect(jugador2.getMesa().get(i).getxInicio()
+                            , jugador2.getMesa().get(i).getyInicio()
+                            , jugador2.getMesa().get(i).getxFin()
+                            , jugador2.getMesa().get(i).getyFin(), p);
+                }
+
+            } else {
+                Log.i("ONDRAW2", "Jugador null");
+            }
+            //Jugador1
+            if (jugador1 != null) {
+                Log.i("ONDRAW", "Antes deck");
+                //Zona-Mano
+                p = new Paint();
                 p.setColor(Color.RED);
                 p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(jugador1.getMano().get(i).getxInicio()
-                        ,jugador1.getMano().get(i).getyInicio()
-                        ,jugador1.getMano().get(i).getxFin()
-                        ,jugador1.getMano().get(i).getyFin(),p);
-                x += anchoCarta / 2;
-            }
+                canvas.drawRect(jugador1.getManoX()
+                        , jugador1.getManoY()
+                        , jugador1.getManoXfin()
+                        , jugador1.getManoYfin(), p);
+                Log.i("ONDRAW", "dibujando MANOx:" + jugador1.getManoX());
+                Log.i("ONDRAW", "dibujando MANOx2:" + jugador1.getManoY());
+                Log.i("ONDRAW", "dibujando MANOy:" + jugador1.getManoXfin());
+                Log.i("ONDRAW", "dibujando MANOy2:" + jugador1.getManoYfin());
+                Log.i("ONDRAW", "dibujando MANO");
 
-            //DESCARTE
-            for(int i=0;i<jugador1.getDescarte().size();i++){
-                temp=Bitmap.createScaledBitmap(jugador1.getDescarte().get(0).getImagen(),anchoCarta,altoCarta,true);
-                jugador1.getDescarte().get(i).setxInicio(jugador1.getDescarteX());
-                jugador1.getDescarte().get(i).setxFin(jugador1.getDescarteXfin());
-                jugador1.getDescarte().get(i).setyInicio(jugador1.getDescarteY());
-                jugador1.getDescarte().get(i).setyFin(jugador1.getDescarteYfin());
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
-                }
-                canvas.drawBitmap(temp,jugador1.getDescarteX(),y,null);
-                p=new Paint();
+                //Zona-Mesa
+                p = new Paint();
                 p.setColor(Color.RED);
                 p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(jugador1.getDescarte().get(0).getxInicio()
-                        ,jugador1.getDescarte().get(0).getyInicio()
-                        ,jugador1.getDescarte().get(0).getxFin()
-                        ,jugador1.getDescarte().get(0).getyFin(),p);
+                canvas.drawRect(jugador1.getMesaX()
+                        , jugador1.getMesaY()
+                        , jugador1.getMesaXfin()
+                        , jugador1.getMesaYfin()
+                        , p);
+                Log.i("ONDRAW", "dibujando MESA");
+
+                //Zona-Descarte
+                p = new Paint();
+                p.setColor(Color.RED);
+                p.setStyle(Paint.Style.STROKE);
+                canvas.drawRect(jugador1.getDescarteX()
+                        , jugador1.getDescarteY()
+                        , jugador1.getDescarteXfin()
+                        , jugador1.getDescarteYfin()
+                        , p);
+                Log.i("ONDRAW", "dibujando DESCARTE");
+
+                //Zona-DECK
+                if (jugador1.getDeck().size() > 0) {
+
+                    Log.i("ONDRAW", "dibujando DECK:" + jugador1.getDeck().get(0).getId());
+                    temp = Bitmap.createScaledBitmap(jugador1.getDeck().get(0).getImagenBack(), anchoCarta, altoCarta, true);
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, xDeck, yDeck, null);
+                    for (int i = 0; i < jugador1.getDeck().size(); i++) {
+                        jugador1.getDeck().get(i).setxInicio(xDeck);
+                        jugador1.getDeck().get(i).setxFin(xDeck + anchoCarta);
+                        jugador1.getDeck().get(i).setyInicio(yDeck);
+                        jugador1.getDeck().get(i).setyFin(yDeck + altoCarta);
+                    }
+                    x += anchoCarta * 1.2;
+                } else {
+                    x += anchoCarta * 1.2;
+                }
+                p = new Paint();
+                p.setColor(Color.RED);
+                p.setStyle(Paint.Style.STROKE);
+                canvas.drawRect(jugador1.getDeckX()
+                        , jugador1.getDeckY()
+                        , jugador1.getDeckXfin()
+                        , jugador1.getDeckYfin(), p);
+                Log.i("ONDRAW", "dibujando DECK");
+                Log.i("ONDRAW", "Antes bucle");
+
+                //MANO
+                for (int i = 0; i < jugador1.getMano().size(); i++) {
+                    Log.i("ONDRAW", "Bucle " + i);
+                    if (jugador1.isActivo()) {
+                        temp = Bitmap.createScaledBitmap(jugador1.getMano().get(i).getImagen(), anchoCarta, altoCarta, true);
+                    } else {
+                        temp = Bitmap.createScaledBitmap(jugador1.getMano().get(i).getImagenBack(), anchoCarta, altoCarta, true);
+                    }
+                    Log.i("ONDRAW", "Antes draw " + i);
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, jugador1.getManoX() + (int) (0.5 * anchoCarta) * i, jugador1.getManoY(), null);
+                    jugador1.getMano().get(i).setxInicio(jugador1.getManoX() + (int) (0.5 * anchoCarta) * i);
+                    jugador1.getMano().get(i).setyInicio(jugador1.getManoY());
+                    jugador1.getMano().get(i).setyFin(jugador1.getManoYfin());
+                    if (i < jugador1.getMano().size() - 1) {
+                        jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + (anchoCarta / 2));
+                    } else {
+                        jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + anchoCarta);
+                    }
+                    p = new Paint();
+                    p.setColor(Color.RED);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(jugador1.getMano().get(i).getxInicio()
+                            , jugador1.getMano().get(i).getyInicio()
+                            , jugador1.getMano().get(i).getxFin()
+                            , jugador1.getMano().get(i).getyFin(), p);
+                    x += anchoCarta / 2;
+                }
+
+                //DESCARTE
+                for (int i = 0; i < jugador1.getDescarte().size(); i++) {
+                    temp = Bitmap.createScaledBitmap(jugador1.getDescarte().get(0).getImagen(), anchoCarta, altoCarta, true);
+                    jugador1.getDescarte().get(i).setxInicio(jugador1.getDescarteX());
+                    jugador1.getDescarte().get(i).setxFin(jugador1.getDescarteXfin());
+                    jugador1.getDescarte().get(i).setyInicio(jugador1.getDescarteY());
+                    jugador1.getDescarte().get(i).setyFin(jugador1.getDescarteYfin());
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, jugador1.getDescarteX(), y, null);
+                    p = new Paint();
+                    p.setColor(Color.RED);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(jugador1.getDescarte().get(0).getxInicio()
+                            , jugador1.getDescarte().get(0).getyInicio()
+                            , jugador1.getDescarte().get(0).getxFin()
+                            , jugador1.getDescarte().get(0).getyFin(), p);
+                }
+
+                //MESA
+                int xTemp = jugador1.getMesaX();
+                int yTemp = jugador1.getMesaYfin();
+                for (int i = 0; i < jugador1.getMesa().size(); i++) {
+                    Log.i("ONDRAW", "Bucle " + i);
+                    temp = Bitmap.createScaledBitmap(jugador1.getMesa().get(i).getImagen(), anchoCarta, altoCarta, true);
+                    Log.i("ONDRAW", "Antes draw " + i);
+                    jugador1.getMesa().get(i).setxInicio(xTemp);
+                    jugador1.getMesa().get(i).setyInicio(yTemp - altoCarta);
+                    jugador1.getMesa().get(i).setyFin(yTemp);
+                    if (i < jugador1.getMesa().size() - 1) {
+                        jugador1.getMesa().get(i).setxFin(xTemp + (anchoCarta / 2));
+                    } else {
+                        jugador1.getMesa().get(i).setxFin(xTemp + anchoCarta);
+                    }
+                    if (jugador2.isActivo()) {
+                        temp = girarBitmap(temp, 180);
+                    }
+                    canvas.drawBitmap(temp, jugador1.getMesa().get(i).getxInicio(), jugador1.getMesa().get(i).getyInicio(), null);
+                    p = new Paint();
+                    p.setColor(Color.RED);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(jugador1.getMesa().get(i).getxInicio()
+                            , jugador1.getMesa().get(i).getyInicio()
+                            , jugador1.getMesa().get(i).getxFin()
+                            , jugador1.getMesa().get(i).getyFin(), p);
+                    xTemp += anchoCarta / 2;
+                }
+            } else {
+                Log.i("ONDRAW", "Jugador null");
             }
 
-            //MESA
-            int xTemp=jugador1.getMesaX();
-            int yTemp=jugador1.getMesaYfin();
+            //ANIMACIONES
+
+            Log.i("ONDRAW3", "ANIMACION");
+            Log.i("ONDRAW3", "ANIMACIONJ2");
+            Bitmap animacion;
+            Log.i("ONDRAW3", "ANTES IF");
+            for (int i = 0; i < jugador2.getMesa().size(); i++) {
+                Log.i("ONDRAW3", "ANTES IF2:" + jugador2.getMesa().get(i).isAnimar());
+                if (jugador2.getMesa().get(i).isAnimar()) {
+                    Log.i("ONDRAW3", "DENTRO IF" + jugador2.getMesa().get(i).getGrados());
+                    jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 15);
+                    Point punto = encontrarCarta(idAnimacion);
+                    animacion = jugador2.getMesa().get(i).getImagenAnimacion();
+                    animacion = Bitmap.createScaledBitmap(animacion, anchoCarta, anchoCarta, true);
+                    animacion = girarCirculo(animacion, jugador2.getMesa().get(i).getGrados());
+                    // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+//                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
+//                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
+//                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
+//                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
+                    int desplazamiento = 0;
+                    if (animacion.getHeight() != anchoCarta) {
+                        desplazamiento = animacion.getHeight() - anchoCarta;
+                    }
+//                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
+//                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
+//                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
+                    canvas.drawBitmap(animacion, punto.x - (desplazamiento / 2), punto.y - (desplazamiento / 2), null);
+                    this.invalidate();
+                }
+            }
+            Log.i("ONDRAW4", "ANIMACIONJ1");
+            Log.i("ONDRAW4", "ANTES IF");
             for (int i = 0; i < jugador1.getMesa().size(); i++) {
-                Log.i("ONDRAW", "Bucle " + i);
-                temp = Bitmap.createScaledBitmap(jugador1.getMesa().get(i).getImagen(), anchoCarta, altoCarta, true);
-                Log.i("ONDRAW", "Antes draw " + i);
-                jugador1.getMesa().get(i).setxInicio(xTemp);
-                jugador1.getMesa().get(i).setyInicio(yTemp-altoCarta);
-                jugador1.getMesa().get(i).setyFin(yTemp);
-                if(i<jugador1.getMesa().size()-1) {
-                    jugador1.getMesa().get(i).setxFin(xTemp+(anchoCarta/2));
-                }else{
-                    jugador1.getMesa().get(i).setxFin(xTemp + anchoCarta);
-                }
-                if(jugador2.isActivo()){
-                    temp=girarBitmap(temp,180);
-                }
-                canvas.drawBitmap(temp, jugador1.getMesa().get(i).getxInicio(), jugador1.getMesa().get(i).getyInicio(), null);
-                p=new Paint();
-                p.setColor(Color.RED);
-                p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(jugador1.getMesa().get(i).getxInicio()
-                        ,jugador1.getMesa().get(i).getyInicio()
-                        ,jugador1.getMesa().get(i).getxFin()
-                        ,jugador1.getMesa().get(i).getyFin(),p);
-                xTemp += anchoCarta / 2;
-            }
-        }else{
-            Log.i("ONDRAW","Jugador null");
-        }
-
-        //ANIMACIONES
-
-        Log.i("ONDRAW3", "ANIMACION");
-        Log.i("ONDRAW3", "ANIMACIONJ2");
-        Bitmap animacion;
-        Log.i("ONDRAW3", "ANTES IF");
-        for(int i=0;i<jugador2.getMesa().size();i++){
-            Log.i("ONDRAW3", "ANTES IF2:"+jugador2.getMesa().get(i).isAnimar());
-            if(jugador2.getMesa().get(i).isAnimar()){
-                Log.i("ONDRAW3", "DENTRO IF"+jugador2.getMesa().get(i).getGrados());
-                jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados()+15);
-                Point punto= encontrarCarta(idAnimacion);
-                animacion=jugador2.getMesa().get(i).getImagenAnimacion();
-                animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
-                animacion=girarCirculo(animacion,jugador2.getMesa().get(i).getGrados());
-               // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+                Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
+                if (jugador1.getMesa().get(i).isAnimar()) {
+                    Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
+                    jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados() + 15);
+                    Point punto = encontrarCarta(idTemp);
+                    animacion = jugador1.getMesa().get(i).getImagenAnimacion();
+                    animacion = Bitmap.createScaledBitmap(animacion, anchoCarta, anchoCarta, true);
+                    try {
+                        animacion = girarCirculo(animacion, jugador1.getMesa().get(i).getGrados());
+                    } catch (IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
+                    // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
 //                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
 //                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
 //                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
 //                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
-                int desplazamiento=0;
-                if(animacion.getHeight()!=anchoCarta){
-                    desplazamiento=animacion.getHeight()-anchoCarta;
-                }
+                    int desplazamiento = 0;
+                    if (animacion.getHeight() != anchoCarta) {
+                        desplazamiento = animacion.getHeight() - anchoCarta;
+                    }
 //                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
 //                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
 //                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
-                canvas.drawBitmap(animacion,punto.x-(desplazamiento/2),punto.y-(desplazamiento/2),null);
-                this.invalidate();
+                    canvas.drawBitmap(animacion, punto.x - (desplazamiento / 2), punto.y - (desplazamiento / 2), null);
+                    this.invalidate();
+                }
             }
         }
-        Log.i("ONDRAW4", "ANIMACIONJ1");
-        Log.i("ONDRAW4", "ANTES IF");
-        for(int i=0;i<jugador1.getMesa().size();i++){
-            Log.i("ONDRAW4", "ANTES IF2:"+jugador1.getMesa().get(i).isAnimar());
-            if(jugador1.getMesa().get(i).isAnimar()){
-                Log.i("ONDRAW4", "DENTRO IF"+jugador1.getMesa().get(i).getGrados());
-                jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados()+15);
-                Point punto= encontrarCarta(idTemp);
-                animacion=jugador1.getMesa().get(i).getImagenAnimacion();
-                animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
-                animacion=girarCirculo(animacion,jugador1.getMesa().get(i).getGrados());
-                // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
-//                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
-//                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
-//                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
-//                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
-                int desplazamiento=0;
-                if(animacion.getHeight()!=anchoCarta){
-                    desplazamiento=animacion.getHeight()-anchoCarta;
-                }
-//                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
-//                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
-//                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
-                canvas.drawBitmap(animacion,punto.x-(desplazamiento/2),punto.y-(desplazamiento/2),null);
+        if(jugador1.getVidas()<=0||jugador2.getVidas()<=0) {
+            if (jugador1.isActivo() || jugador2.isActivo()) {
+                jugador1.setActivo(false);
+                jugador2.setActivo(false);
                 this.invalidate();
             }
         }
@@ -748,6 +774,12 @@ public class ViewJuego extends View {
                 Log.i("MULTITOUCH","action up");
             case MotionEvent.ACTION_POINTER_UP:
                 Log.i("MULTITOUCH","action pointer up");
+                if(jugador1.getVidas()<=0 || jugador2.getVidas()<=0){
+                   JuegoActivity host=(JuegoActivity)this.getContext();
+                    Log.i("MULTITOUCH3","HOST CREADO");
+                    Log.i("MULTITOUCH3","ON BACK?");
+                    host.onBackPressed();
+                }
                 if(jugador1.isActivo()) {
                     //LEVANTAR DECK
                     if (jugador1.getDeck().size() > 0 && jugador1.getDeck() != null) {

@@ -4,20 +4,24 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.util.Random;
+
 /**
- * Created by Luis Cerqueira on 10/02/2015.
+ * Created by Luis Cerqueira on 12/02/2015.
  */
-public class CardRitual extends Carta {
-    public CardRitual(Context context, Jugador owner, Jugador enemigo) {
-        super(context, owner, enemigo);
+public class CardMentalSpiral extends Carta {
+    public CardMentalSpiral(Context context, Jugador owner, Jugador enemigo) {
+        super(context,owner, enemigo);
         this.setCoste(2);
-        this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardritual));
+        this.setImagen(BitmapFactory.decodeResource(context.getResources(), R.drawable.cardmentalspiral2));
     }
 
     @Override
     public void playCard() {
         super.playCard();
-        getEnemigo().setVidas(getEnemigo().getVidas()-1);
+        Random random=new Random();
+        int idtemp=getEnemigo().getMano().get(random.nextInt(getEnemigo().getMano().size())).getId();
+        getEnemigo().moveCardFromHandToDiscard(idtemp);
         getOwner().moveFromDeckToHand(1);
         Log.i("CARTA JUGADA", "CARTA JUGADA -1 VIDAS +1CARTA");
         getOwner().moveCardFromTableToDiscard(getId());
@@ -30,3 +34,4 @@ public class CardRitual extends Carta {
         setAnimar(true);
     }
 }
+

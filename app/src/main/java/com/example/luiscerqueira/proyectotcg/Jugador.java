@@ -3,6 +3,7 @@ package com.example.luiscerqueira.proyectotcg;
         import android.util.Log;
 
         import java.util.ArrayList;
+        import java.util.UUID;
 
 /**
  * Created by Luis Cerqueira on 22/01/2015.
@@ -306,7 +307,9 @@ public class Jugador {
                 getDescarte().add(getDeck().get(0));
                 getDeck().get(0).movedFromDeckToDiscard();
                 getDeck().remove(0);
+                cantidad--;
             }
+            setVidas(getVidas()-cantidad);
         }
     }
     public void moveFromDeckToTable(int cantidad){
@@ -321,7 +324,9 @@ public class Jugador {
                 getMesa().add(getDeck().get(0));
                 getDeck().get(0).movedFromDeckToTable();
                 getDeck().remove(0);
+                cantidad--;
             }
+            setVidas(getVidas()-cantidad);
         }
     }
     //Mover cartas general desde Mano

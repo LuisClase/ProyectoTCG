@@ -5,6 +5,8 @@ package com.example.luiscerqueira.proyectotcg;
         import android.graphics.BitmapFactory;
         import android.util.Log;
 
+        import java.util.UUID;
+
 /**
  * Created by Luis Cerqueira on 22/01/2015.
  */
@@ -23,8 +25,9 @@ public class Carta {
     private int grados;
     private boolean animar;
     private Bitmap imagenAnimacion;
+    private Context contexto;
 
-    public Carta(int id,Jugador owner,Jugador enemigo,Bitmap imagen,Bitmap imagenBack,Bitmap imagenAnimacion){
+    public Carta(Context context,Jugador owner,Jugador enemigo,Bitmap imagen,Bitmap imagenBack,Bitmap imagenAnimacion){
         this.nombre="Prueba";
         this.id=id;
         this.coste=0;
@@ -41,9 +44,10 @@ public class Carta {
         this.imagenAnimacion=imagenAnimacion;
     }
 
-    public Carta(Context context,int id,Jugador owner,Jugador enemigo){
+    public Carta(Context context,Jugador owner,Jugador enemigo){
         this.nombre="Prueba";
-        this.id=id;
+        this.id= UUID.randomUUID().hashCode();
+        Log.i("UUID","HASCODE:"+this.getId());
         this.coste=0;
         this.xInicio=0;
         this.yInicio=0;
@@ -52,6 +56,7 @@ public class Carta {
         this.grados=0;
         this.animar=false;
         this.owner=owner;
+        this.contexto=context;
         Log.i("OWNER","VIDAS:"+getOwner().getVidas());
         this.enemigo=enemigo;
         Bitmap temp=BitmapFactory.decodeResource(context.getResources(), R.drawable.frontcard);
@@ -243,4 +248,12 @@ public class Carta {
         this.grados = grados;
     }
 
+
+    public Context getContexto() {
+        return contexto;
+    }
+
+    public void setContexto(Context contexto) {
+        this.contexto = contexto;
+    }
 }
