@@ -17,6 +17,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 /**
  * Created by Luis Cerqueira on 22/01/2015.
@@ -29,10 +30,18 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap cartaBack;
     private Bitmap avatar;
     private Bitmap temp;
-    private Bitmap infoCard;
-    private Bitmap infoCardJ2;
+    private Bitmap topDeck= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
+    private Bitmap botonPlay= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplay);
+    private Bitmap botonPlayPulsado= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplaypulsado);
+    private Bitmap botonPlayUsado= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplayusado);
+    private Bitmap botonActivo= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonactivo);
+    private Bitmap botonNoActivo= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonnoactivo);
+    private Bitmap botonPresionado= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonpresionado);
+    private Bitmap infoCard= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
+    private Bitmap infoCardJ2= BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
     private Bitmap animacion1;
     private Bitmap animacion2;
+    private ArrayList<Bitmap> arrayefectoGiro;
     private int anchoPantalla;
     private int altoPantalla;
     int anchoCarta;
@@ -75,6 +84,27 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         display.getSize(size);
         anchoPantalla=size.x;
         altoPantalla=size.y;
+        animacion= BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo);
+        arrayefectoGiro=new ArrayList<Bitmap>();
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo0));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo1));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo2));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo3));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo4));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo5));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo6));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo7));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo8));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo9));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo10));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo11));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo12));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo13));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo14));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo15));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo16));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo17));
+        arrayefectoGiro.add(BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo18));
 
         //Pruebas
 
@@ -125,6 +155,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 tiempodormido=tiempoReferencia-System.nanoTime();
                 if(tiempodormido>0){
                     try{
+                        Log.i("THREADSLEEP", "tiempo:"+tiempodormido/1000000);
                         Thread.sleep(tiempodormido/1000000);
                     }catch(InterruptedException e){
                         e.printStackTrace();
@@ -223,12 +254,6 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
                 //Zona-Informacion
                 p = new Paint();
-                if (infoCard == null) {
-                    infoCard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
-                }
-                if (infoCardJ2 == null) {
-                    infoCardJ2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cardbackprueba);
-                }
                 infoCard = Bitmap.createScaledBitmap(infoCard, (int) (1.5 * anchoCarta), (int) (altoCarta * 1.5), true);
                 infoCardJ2 = Bitmap.createScaledBitmap(infoCardJ2, (int) (1.5 * anchoCarta), (int) (altoCarta * 1.5), true);
                 if (jugador2.isActivo() && !animacionJ2) {
@@ -254,9 +279,9 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
                         , p);
 //                Log.i("ONDRAW", "dibujando DESCARTE");
-                temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplay);
+                temp = botonPlay;
                 if (pulsandoPlay) {
-                    temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonplaypulsado);
+                    temp = botonPlayPulsado;
                 }
                 temp = Bitmap.createScaledBitmap(temp, (int) (1.5 * anchoCarta), (int) (altoCarta * 0.4), true);
                 if (jugador2.isActivo()) {
@@ -272,11 +297,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         , (anchoPantalla / 2) + (anchoCarta)
                         , (altoPantalla / 2) + (altoCarta / 4), p);
 
-                temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonnoactivo);
+                temp = botonActivo;
                 if (jugador1.isTocandoFinTurno()) {
-                    temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonpresionado);
+                    temp = botonPresionado;
                 } else if (jugador1.isActivo()) {
-                    temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.botonnoactivo);
+                    temp = botonNoActivo;
                 }
                 temp = Bitmap.createScaledBitmap(temp, 2 * anchoCarta, altoCarta / 2, true);
                 if (jugador2.isActivo()) {
@@ -334,7 +359,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     if (jugador2.getDeck().size() > 0) {
 
 //                        Log.i("ONDRAW2", "dibujando DECK:" + jugador2.getDeck().get(0).getId());
-                        temp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador2.getDeck().get(0).getImagenBack()), anchoCarta, altoCarta, true);
+                        temp = Bitmap.createScaledBitmap(topDeck, anchoCarta, altoCarta, true);
                         canvas.drawBitmap(temp, jugador2.getDeckX(), jugador2.getDeckY(), null);
                         for (int i = 0; i < jugador2.getDeck().size(); i++) {
                             jugador2.getDeck().get(i).setxInicio(xDeck);
@@ -361,7 +386,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         if (jugador2.isActivo()) {
                             temp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador2.getMano().get(i).getImagen()), anchoCarta, altoCarta, true);
                         } else {
-                            temp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador2.getMano().get(i).getImagenBack()), anchoCarta, altoCarta, true);
+                            temp = Bitmap.createScaledBitmap(topDeck, anchoCarta, altoCarta, true);
                         }
 //                        Log.i("ONDRAW2", "Antes draw " + i);
                         jugador2.getMano().get(i).setxInicio(jugador2.getManoX() + (int) (0.5 * anchoCarta) * i);
@@ -488,7 +513,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     if (jugador1.getDeck().size() > 0) {
 
 //                        Log.i("ONDRAW", "dibujando DECK:" + jugador1.getDeck().get(0).getId());
-                        temp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getDeck().get(0).getImagenBack()), anchoCarta, altoCarta, true);
+                        temp = Bitmap.createScaledBitmap(topDeck, anchoCarta, altoCarta, true);
                         if (jugador2.isActivo()) {
                             temp = girarBitmap(temp, 180);
                         }
@@ -519,7 +544,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         if (jugador1.isActivo()) {
                             temp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getMano().get(i).getImagen()), anchoCarta, altoCarta, true);
                         } else {
-                            temp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getMano().get(i).getImagenBack()), anchoCarta, altoCarta, true);
+                            temp = Bitmap.createScaledBitmap(topDeck, anchoCarta, altoCarta, true);
                         }
 //                        Log.i("ONDRAW", "Antes draw " + i);
                         if (jugador2.isActivo()) {
@@ -536,7 +561,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         jugador1.getMano().get(i).setyInicio(jugador1.getManoY());
                         jugador1.getMano().get(i).setyFin(jugador1.getManoYfin());
                         if (i < jugador1.getMano().size() - 1) {
-                            jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + (anchoCarta / 2));
+                            jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + (int) (distanciaMinima * anchoCarta) * i);
                         } else {
                             jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + anchoCarta);
                         }
@@ -602,39 +627,41 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                    Log.i("ONDRAW", "Jugador null");
                 }
 
+                if(jugador2.isActivo()){
+                    canvas.rotate(90);
+                }
                 //ANIMACIONES
 
 //                Log.i("ONDRAW3", "ANIMACION");
 //                Log.i("ONDRAW3", "ANIMACIONJ2");
-                animacion = BitmapFactory.decodeResource(context.getResources(), R.drawable.circulo);
-                animacion = Bitmap.createScaledBitmap(animacion, anchoCarta, anchoCarta, true);
 //                Log.i("ONDRAW3", "ANTES IF");
                 for (int i = 0; i < jugador2.getMesa().size(); i++) {
 //                   Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
                     if (jugador2.getMesa().get(i).isAnimar()) {
 //                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
-                        jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 10);
+                        animacion=arrayefectoGiro.get(jugador2.getMesa().get(i).getGrados());
+                        jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 1);
 
                         Log.i("ONDRAW3", "ANIMACION ID:"+jugador2.getMesa().get(i).getNombre());
-                        Point punto = encontrarCarta(jugador2.getMesa().get(i).getId());
-                        try {
-                            animacion = girarCirculo(animacion, jugador2.getMesa().get(i).getGrados());
-                        } catch (IndexOutOfBoundsException e) {
-                            e.printStackTrace();
-                        }
-                        // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+//                        Point punto = encontrarCarta(jugador2.getMesa().get(i).getId());
+//                        try {
+//                            animacion = girarCirculo(animacion, jugador2.getMesa().get(i).getGrados());
+//                        } catch (IndexOutOfBoundsException e) {
+//                            e.printStackTrace();
+//                        }
+                        animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
 //                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
 //                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
 //                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
 //                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
-                        int desplazamiento = 0;
-                        if (animacion.getHeight() != anchoCarta) {
-                            desplazamiento = animacion.getHeight() - anchoCarta;
-                        }
+//                        int desplazamiento = 0;
+//                        if (animacion.getHeight() != anchoCarta) {
+//                            desplazamiento = animacion.getHeight() - anchoCarta;
+//                        }
 //                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
 //                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
 //                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
-                        canvas.drawBitmap(animacion, punto.x - (desplazamiento / 2), punto.y - (desplazamiento / 2), null);
+                        canvas.drawBitmap(animacion, jugador2.getMesa().get(i).getxInicio(), jugador2.getMesa().get(i).getyInicio(), null);
                     }
                 }
 //                Log.i("ONDRAW4", "ANIMACIONJ1");
@@ -643,27 +670,28 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                    Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
                     if (jugador1.getMesa().get(i).isAnimar()) {
 //                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
-                        jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados() + 15);
-                        Point punto = encontrarCarta(jugador1.getMesa().get(i).getId());
+                        animacion=arrayefectoGiro.get(jugador1.getMesa().get(i).getGrados());
+                        jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados() + 1);
+//                        Point punto = encontrarCarta(jugador1.getMesa().get(i).getId());
                         Log.i("ONDRAW3", "ANIMACION ID:"+jugador1.getMesa().get(i).getNombre());
-                        try {
-                            animacion = girarCirculo(animacion, jugador1.getMesa().get(i).getGrados());
-                        } catch (IndexOutOfBoundsException e) {
-                            e.printStackTrace();
-                        }
-                        // animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
+//                        try {
+//                            animacion = girarCirculo(animacion, jugador1.getMesa().get(i).getGrados());
+//                        } catch (IndexOutOfBoundsException e) {
+//                            e.printStackTrace();
+//                        }
+                        animacion=Bitmap.createScaledBitmap(animacion,anchoCarta, anchoCarta, true);
 //                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
 //                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
 //                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
 //                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
-                        int desplazamiento = 0;
-                        if (animacion.getHeight() != anchoCarta) {
-                            desplazamiento = animacion.getHeight() - anchoCarta;
-                        }
+//                        int desplazamiento = 0;
+//                        if (animacion.getHeight() != anchoCarta) {
+//                            desplazamiento = animacion.getHeight() - anchoCarta;
+//                        }
 //                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
 //                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
 //                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
-                        canvas.drawBitmap(animacion, punto.x - (desplazamiento / 2), punto.y - (desplazamiento / 2), null);
+                        canvas.drawBitmap(animacion,jugador1.getMesa().get(i).getxInicio(), jugador1.getMesa().get(i).getyInicio(), null);
                     }
                 }
             }

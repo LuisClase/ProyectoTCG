@@ -48,7 +48,7 @@ public class Jugador {
     public void startOfTurn(){
                         Log.i("TURNO", "PRINCIPIO TURNO");
         this.setRecursos(getRecursos()+1);
-        moveCardFromDeckToHand(getDeck().get(0).getId());
+        moveFromDeckToHand(1);
         Log.i("TURNO", "PRINCIPIO TURNO CARTA");
         for(int i=0;i<getDeck().size();i++){
             getDeck().get(i).startOfTurnDeck();

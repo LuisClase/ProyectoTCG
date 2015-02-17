@@ -37,7 +37,6 @@ public class JuegoActivity extends Activity {
         jugador2=new Jugador(20,0);
         //Jugador1
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
-        Carta cartaPrueba=new Carta(this, jugador1, jugador2);
         Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circulo);
         CardRelampago cardRelampago=new CardRelampago(this, jugador1, jugador2);
         CardHeal cardHeal=new CardHeal(this,jugador1,jugador2);
@@ -59,7 +58,6 @@ public class JuegoActivity extends Activity {
         jugador1.getDeck().add(cardMentalSpiral);
         jugador1.getDeck().add(cardBurningSign);
         jugador1.getDeck().add(cardIgniteMemories);
-        jugador1.getDeck().add(cardMentalSpiral);
         jugador1.getDeck().add(cardNightmare);
         jugador1.getDeck().add(cardTransfusion);
         jugador1.getDeck().add(cardHealingSign);
@@ -68,8 +66,8 @@ public class JuegoActivity extends Activity {
         jugador1.getDeck().add(cardNaturalHelp);
         jugador1.getDeck().add(cardNaturalResources);
         jugador1.setActivo(true);
+        jugador1.moveFromDeckToHand(3);
         //Jugador2
-        cartaPrueba=new Carta(this, jugador2, jugador1);
         cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
         cardRelampago=new CardRelampago(this, jugador2, jugador1);
         cardHeal=new CardHeal(this,jugador2,jugador1);
@@ -84,7 +82,6 @@ public class JuegoActivity extends Activity {
         cardNaturalHelp=new CardNaturalHelp(this,jugador2,jugador1);
         cardNaturalResources=new CardNaturalResources(this,jugador2,jugador1);
         cardNaturalSign=new CardNaturalSign(this,jugador2,jugador1);
-        jugador2.getDeck().add(cartaPrueba);
         jugador2.getDeck().add(cartaPrueba2);
         jugador2.getDeck().add(cardRelampago);
         jugador2.getDeck().add(cardHeal);
@@ -92,7 +89,6 @@ public class JuegoActivity extends Activity {
         jugador2.getDeck().add(cardMentalSpiral);
         jugador2.getDeck().add(cardBurningSign);
         jugador2.getDeck().add(cardIgniteMemories);
-        jugador2.getDeck().add(cardMentalSpiral);
         jugador2.getDeck().add(cardNightmare);
         jugador2.getDeck().add(cardTransfusion);
         jugador2.getDeck().add(cardHealingSign);
@@ -101,6 +97,7 @@ public class JuegoActivity extends Activity {
         jugador2.getDeck().add(cardNaturalHelp);
         jugador2.getDeck().add(cardNaturalResources);
         jugador2.setActivo(false);
+        jugador2.moveFromDeckToHand(3);
 //        Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
     }
     @Override

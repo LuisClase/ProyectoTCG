@@ -244,6 +244,9 @@ public class Carta {
     }
 
     public void setGrados(int grados) {
+        if(grados>=18){
+            grados=0;
+        }
         this.grados = grados;
     }
 
