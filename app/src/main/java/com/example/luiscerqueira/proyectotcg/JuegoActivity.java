@@ -34,6 +34,11 @@ public class JuegoActivity extends Activity {
 
         //Pruebas
         jugador1=new Jugador(20,1);
+        if(jugador1==null) {
+            Log.i("CONSTRUCTOR PRIN", "JUGADOR1:NULL");
+        }else{
+            Log.i("CONSTRUCTOR PRIN", "JUGADOR1:NO NULL");
+        }
         jugador2=new Jugador(20,0);
         //Jugador1
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
@@ -120,6 +125,36 @@ public class JuegoActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        pantallaJuego.getHilo().setFuncionando(false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pantallaJuego.getHilo().setFuncionando(false);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        pantallaJuego.getHilo().setFuncionando(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pantallaJuego.getHilo().setFuncionando(true);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        pantallaJuego.getHilo().setFuncionando(false);
     }
 }
 

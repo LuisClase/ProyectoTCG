@@ -134,19 +134,25 @@ public class Jugador {
         }
     }
     public void moveCardToTable(int id,ArrayList<Carta> origen){
-        for(int i=0;i<origen.size();i++){
-            if(origen.get(i).getId()==id){
-                this.getMesa().add(origen.get(i));
-                origen.remove(i);
+        if(getMesa().size()<6) {
+            for (int i = 0; i < origen.size(); i++) {
+                if (origen.get(i).getId() == id) {
+                    this.getMesa().add(origen.get(i));
+                    origen.remove(i);
+                }
             }
         }
     }
     public void moveCardToHand(int id,ArrayList<Carta> origen){
-        for(int i=0;i<origen.size();i++){
-            if(origen.get(i).getId()==id){
-                this.getMano().add(origen.get(i));
-                origen.remove(i);
+        if(getMano().size()<6) {
+            for (int i = 0; i < origen.size(); i++) {
+                if (origen.get(i).getId() == id) {
+                    this.getMano().add(origen.get(i));
+                    origen.remove(i);
+                }
             }
+        }else{
+            moveCardToDiscard(id,origen);
         }
     }
     public void moveCardToDiscard(int id,ArrayList<Carta> origen){
@@ -168,10 +174,12 @@ public class Jugador {
     //Mover carta especifica desde mano
     public void moveCardFromHandToTable(int id){
         for(int i=0;i<this.getMano().size();i++){
-            if(this.getMano().get(i).getId()==id){
-                this.getMesa().add(this.getMano().get(i));
-                this.getMano().get(i).movedFromHandToTable();
-                this.getMano().remove(i);
+            if(getMesa().size()<6) {
+                if (this.getMano().get(i).getId() == id) {
+                    this.getMesa().add(this.getMano().get(i));
+                    this.getMano().get(i).movedFromHandToTable();
+                    this.getMano().remove(i);
+                }
             }
         }
     }
@@ -195,11 +203,13 @@ public class Jugador {
     }
     //Mover carta especifica desde Deck
     public void moveCardFromDeckToTable(int id){
-        for(int i=0;i<this.getDeck().size();i++){
-            if(this.getDeck().get(i).getId()==id){
-                this.getMesa().add(this.getDeck().get(i));
-                this.getDeck().get(i).movedFromDeckToTable();
-                this.getDeck().remove(i);
+        if(getMesa().size()<6) {
+            for(int i=0;i<this.getDeck().size();i++){
+                if (this.getDeck().get(i).getId() == id) {
+                    this.getMesa().add(this.getDeck().get(i));
+                    this.getDeck().get(i).movedFromDeckToTable();
+                    this.getDeck().remove(i);
+                }
             }
         }
     }
@@ -213,6 +223,7 @@ public class Jugador {
         }
     }
     public void moveCardFromDeckToHand(int id){
+        if(getMano().size()<6) {
             for (int i = 0; i < this.getDeck().size(); i++) {
                 if (this.getDeck().get(i).getId() == id) {
                     this.getMano().add(this.getDeck().get(i));
@@ -220,6 +231,9 @@ public class Jugador {
                     this.getDeck().remove(i);
                 }
             }
+        }else{
+            moveCardFromDeckToDiscard(id);
+        }
     }
     //Mover carta especifica desde Mesa
     public void moveCardFromTableToDeck(int id){
@@ -241,12 +255,16 @@ public class Jugador {
         }
     }
     public void moveCardFromTableToHand(int id){
-        for(int i=0;i<this.getMesa().size();i++){
-            if(this.getMesa().get(i).getId()==id){
-                this.getMano().add(this.getMesa().get(i));
-                this.getMesa().get(i).movedFromTableToHand();
-                this.getMesa().remove(i);
+        if(getMano().size()<6) {
+            for (int i = 0; i < this.getMesa().size(); i++) {
+                if (this.getMesa().get(i).getId() == id) {
+                    this.getMano().add(this.getMesa().get(i));
+                    this.getMesa().get(i).movedFromTableToHand();
+                    this.getMesa().remove(i);
+                }
             }
+        }else{
+            moveCardFromTableToDiscard(id);
         }
     }
     //Mover carta especifica desde Descarte
@@ -260,20 +278,24 @@ public class Jugador {
         }
     }
     public void moveCardFromDiscardToTable(int id){
-        for(int i=0;i<this.getDescarte().size();i++){
-            if(this.getDescarte().get(i).getId()==id){
-                this.getMesa().add(this.getDescarte().get(i));
-                this.getDescarte().get(i).movedFromDiscardToTable();
-                this.getDescarte().remove(i);
+        if(getMesa().size()<6) {
+            for (int i = 0; i < this.getDescarte().size(); i++) {
+                if (this.getDescarte().get(i).getId() == id) {
+                    this.getMesa().add(this.getDescarte().get(i));
+                    this.getDescarte().get(i).movedFromDiscardToTable();
+                    this.getDescarte().remove(i);
+                }
             }
         }
     }
     public void moveCardFromDiscardToHand(int id){
-        for(int i=0;i<this.getDescarte().size();i++){
-            if(this.getDescarte().get(i).getId()==id){
-                this.getMano().add(this.getDescarte().get(i));
-                this.getDescarte().get(i).movedFromDiscardToHand();
-                this.getDescarte().remove(i);
+        if(getMano().size()<6) {
+            for (int i = 0; i < this.getDescarte().size(); i++) {
+                if (this.getDescarte().get(i).getId() == id) {
+                    this.getMano().add(this.getDescarte().get(i));
+                    this.getDescarte().get(i).movedFromDiscardToHand();
+                    this.getDescarte().remove(i);
+                }
             }
         }
     }
@@ -282,16 +304,24 @@ public class Jugador {
         if(getDeck().size()>=cantidad){
             Log.i("DECKtoHAND", "if");
             for(int i=0;i<cantidad;i++){
-                getMano().add(getDeck().get(0));
-                getDeck().get(0).movedFromDeckToHand();
-                getDeck().remove(0);
+                if(getMano().size()<6) {
+                    getMano().add(getDeck().get(0));
+                    getDeck().get(0).movedFromDeckToHand();
+                    getDeck().remove(0);
+                }else{
+                    moveCardFromDeckToDiscard(getDeck().get(0).getId());
+                }
             }
         }else{
             Log.i("DECKtoHAND", "else");
             for(int i=0;i<getDeck().size();i++){
-                getMano().add(getDeck().get(0));
-                getDeck().get(0).movedFromDeckToHand();
-                getDeck().remove(0);
+                if(getMano().size()<6) {
+                    getMano().add(getDeck().get(0));
+                    getDeck().get(0).movedFromDeckToHand();
+                    getDeck().remove(0);
+                }else{
+                    moveCardFromDeckToDiscard(getDeck().get(0).getId());
+                }
                 cantidad--;
             }
             setVidas(getVidas()-cantidad);
@@ -317,16 +347,20 @@ public class Jugador {
     public void moveFromDeckToTable(int cantidad){
         if(getDeck().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
-                getMesa().add(getDeck().get(0));
-                getDeck().get(0).movedFromDeckToTable();
-                getDeck().remove(0);
+                if(getMesa().size()<6) {
+                    getMesa().add(getDeck().get(0));
+                    getDeck().get(0).movedFromDeckToTable();
+                    getDeck().remove(0);
+                }
             }
         }else{
             for(int i=0;i<getMesa().size();i++){
-                getMesa().add(getDeck().get(0));
-                getDeck().get(0).movedFromDeckToTable();
-                getDeck().remove(0);
-                cantidad--;
+                if(getMesa().size()<6) {
+                    getMesa().add(getDeck().get(0));
+                    getDeck().get(0).movedFromDeckToTable();
+                    getDeck().remove(0);
+                    cantidad--;
+                }
             }
             setVidas(getVidas()-cantidad);
         }
@@ -366,15 +400,19 @@ public class Jugador {
     public void moveFromHandToTable(int cantidad){
         if(getMano().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
-                getMesa().add(getMano().get(0));
-                getDeck().get(0).movedFromHandToTable();
-                getMano().remove(0);
+                if(getMesa().size()<6) {
+                    getMesa().add(getMano().get(0));
+                    getDeck().get(0).movedFromHandToTable();
+                    getMano().remove(0);
+                }
             }
         }else{
             for(int i=0;i<getMesa().size();i++){
-                getMesa().add(getMano().get(0));
-                getDeck().get(0).movedFromHandToTable();
-                getMano().remove(0);
+                if(getMesa().size()<6) {
+                    getMesa().add(getMano().get(0));
+                    getDeck().get(0).movedFromHandToTable();
+                    getMano().remove(0);
+                }
             }
         }
     }
@@ -399,30 +437,38 @@ public class Jugador {
     public void moveFromDiscardToHand(int cantidad){
         if(getDescarte().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
-                getMano().add(getDescarte().get(0));
-                getDeck().get(0).movedFromDiscardToHand();
-                getDescarte().remove(0);
+                if(getMano().size()<6) {
+                    getMano().add(getDescarte().get(0));
+                    getDeck().get(0).movedFromDiscardToHand();
+                    getDescarte().remove(0);
+                }
             }
         }else{
             for(int i=0;i<getDescarte().size();i++){
-                getMano().add(getDescarte().get(0));
-                getDeck().get(0).movedFromDiscardToHand();
-                getDescarte().remove(0);
+                if(getMano().size()<6) {
+                    getMano().add(getDescarte().get(0));
+                    getDeck().get(0).movedFromDiscardToHand();
+                    getDescarte().remove(0);
+                }
             }
         }
     }
     public void moveFromDiscardToTable(int cantidad){
         if(getDescarte().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
-                getMesa().add(getDescarte().get(0));
-                getDeck().get(0).movedFromDiscardToTable();
-                getDescarte().remove(0);
+                if(getMesa().size()<6) {
+                    getMesa().add(getDescarte().get(0));
+                    getDeck().get(0).movedFromDiscardToTable();
+                    getDescarte().remove(0);
+                }
             }
         }else{
             for(int i=0;i<getMesa().size();i++){
-                getMesa().add(getDescarte().get(0));
-                getDeck().get(0).movedFromDiscardToTable();
-                getDescarte().remove(0);
+                if(getMesa().size()<6) {
+                    getMesa().add(getDescarte().get(0));
+                    getDeck().get(0).movedFromDiscardToTable();
+                    getDescarte().remove(0);
+                }
             }
         }
     }
@@ -432,15 +478,23 @@ public class Jugador {
 
         if(getMesa().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
-                getMano().add(getMesa().get(0));
-                getDeck().get(0).movedFromTableToHand();
-                getMesa().remove(0);
+                if(getMano().size()<6) {
+                    getMano().add(getMesa().get(0));
+                    getDeck().get(0).movedFromTableToHand();
+                    getMesa().remove(0);
+                }else{
+                    moveCardFromTableToDiscard(getMesa().get(0).getId());
+                }
             }
         }else{
             for(int i=0;i<getMesa().size();i++){
-                getMano().add(getMesa().get(0));
-                getDeck().get(0).movedFromTableToHand();
-                getMesa().remove(0);
+                if(getMano().size()<6) {
+                    getMano().add(getMesa().get(0));
+                    getDeck().get(0).movedFromTableToHand();
+                    getMesa().remove(0);
+                }else{
+                    moveCardFromTableToDiscard(getMesa().get(0).getId());
+                }
             }
         }
     }
