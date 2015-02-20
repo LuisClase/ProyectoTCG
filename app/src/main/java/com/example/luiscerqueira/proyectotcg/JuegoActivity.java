@@ -42,7 +42,7 @@ public class JuegoActivity extends Activity {
         jugador2=new Jugador(20,0);
         //Jugador1
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
-        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circulo);
+//        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circulo);
         CardRelampago cardRelampago=new CardRelampago(this, jugador1, jugador2);
         CardHeal cardHeal=new CardHeal(this,jugador1,jugador2);
         CardRitual cardRitual=new CardRitual(this,jugador1,jugador2);
@@ -56,7 +56,7 @@ public class JuegoActivity extends Activity {
         CardNaturalHelp cardNaturalHelp=new CardNaturalHelp(this,jugador1,jugador2);
         CardNaturalResources cardNaturalResources=new CardNaturalResources(this,jugador1,jugador2);
         CardNaturalSign cardNaturalSign=new CardNaturalSign(this,jugador1,jugador2);
-        jugador1.getDeck().add(cartaPrueba2);
+//        jugador1.getDeck().add(cartaPrueba2);
         jugador1.getDeck().add(cardRelampago);
         jugador1.getDeck().add(cardHeal);
         jugador1.getDeck().add(cardRitual);
@@ -73,7 +73,7 @@ public class JuegoActivity extends Activity {
         jugador1.setActivo(true);
         jugador1.moveFromDeckToHand(3);
         //Jugador2
-        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
+//        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
         cardRelampago=new CardRelampago(this, jugador2, jugador1);
         cardHeal=new CardHeal(this,jugador2,jugador1);
         cardRitual=new CardRitual(this,jugador2,jugador1);
@@ -87,7 +87,7 @@ public class JuegoActivity extends Activity {
         cardNaturalHelp=new CardNaturalHelp(this,jugador2,jugador1);
         cardNaturalResources=new CardNaturalResources(this,jugador2,jugador1);
         cardNaturalSign=new CardNaturalSign(this,jugador2,jugador1);
-        jugador2.getDeck().add(cartaPrueba2);
+//        jugador2.getDeck().add(cartaPrueba2);
         jugador2.getDeck().add(cardRelampago);
         jugador2.getDeck().add(cardHeal);
         jugador2.getDeck().add(cardRitual);
