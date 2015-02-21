@@ -12,7 +12,7 @@ public class CardHealingSign extends Carta {
         super(context, owner, enemigo);
         this.setCoste(2);
         this.setNombre("HealSign");
-        this.setImagen(R.drawable.cardnaturalsign);
+        this.setImagen(R.drawable.cardhealingsign);
     }
 
     @Override

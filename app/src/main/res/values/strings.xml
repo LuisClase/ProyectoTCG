@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="btnJugar">JUGAR</string>
     <string name="title_activity_juego">JuegoActivity</string>
+    <string name="title_activity_activity_mazos">ActivityMazos</string>
 
 </resources>

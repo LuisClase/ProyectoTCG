@@ -1,6 +1,9 @@
 package com.example.luiscerqueira.proyectotcg;
 
         import android.util.Log;
+        import java.util.Collections.*;
+        import java.util.Collections;
+        import java.util.Random;
 
         import java.util.ArrayList;
         import java.util.UUID;
@@ -79,6 +82,12 @@ public class Jugador {
             getDescarte().get(i).endOfTurnDiscard();
         }
     }
+
+    public void barajar(){
+        Random random=new Random();
+        Collections.shuffle(deck,random);
+    }
+
     public boolean isActivo() {
         return activo;
     }

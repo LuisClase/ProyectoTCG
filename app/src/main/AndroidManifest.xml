@@ -20,6 +20,10 @@
             android:name=".JuegoActivity"
             android:label="@string/title_activity_juego" >
         </activity>
+        <activity
+            android:name=".ActivityMazos"
+            android:label="@string/title_activity_activity_mazos" >
+        </activity>
     </application>
 
 </manifest>

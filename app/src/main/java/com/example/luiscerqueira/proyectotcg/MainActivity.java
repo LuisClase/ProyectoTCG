@@ -25,6 +25,13 @@ public class MainActivity extends ActionBarActivity {
                 Intent intent=new Intent(MainActivity.this,JuegoActivity.class);
                 startActivity(intent);
             }
+        });Button btnMazos=(Button)findViewById(R.id.btnMazos);
+        btnMazos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,ActivityMazos.class);
+                startActivity(intent);
+            }
         });
     }
 

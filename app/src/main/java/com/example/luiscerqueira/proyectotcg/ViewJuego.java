@@ -138,6 +138,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         }else{
             Log.i("CONSTRUCTOR", "JUGADOR2:NO NULL");
         }*/
+
         //deck
 
         alturaDeck=altoPantalla-altoCarta;
@@ -333,7 +334,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 for (int i = 0; i < jugador2.getMano().size(); i++) {
                     arrayManoJ2.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador2.getMano().get(i).getImagen()), anchoCarta, altoCarta, true));
                 }
-                contManoJ2=jugador1.getMano().size();
+                contManoJ2=jugador2.getMano().size();
             }
             if (contMesaJ1 != jugador1.getMesa().size()) {
                 if(arrayMesaJ1.size()!=0) {
@@ -351,7 +352,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 for (int i = 0; i < jugador2.getMesa().size(); i++) {
                     arrayMesaJ2.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador2.getMesa().get(i).getImagen()), anchoCarta, altoCarta, true));
                 }
-                contMesaJ1=jugador1.getMesa().size();
+                contMesaJ2=jugador2.getMesa().size();
             }
         }
 
@@ -530,19 +531,23 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         } else {
                             temp = topDeck;
                         }
-//                        Log.i("ONDRAW2", "Antes draw " + i);
-                        jugador2.getMano().get(i).setxInicio(jugador2.getManoX() + (int) (0.5 * anchoCarta) * i);
+                        double distanciaMinima=0;
+                        if(jugador2.getMano().size()>0) {
+                            distanciaMinima = ((jugador2.getManoXfin()-jugador2.getManoX()) / (double)jugador2.getMano().size())/anchoCarta;
+                        }
+                        jugador2.getMano().get(i).setxInicio(jugador2.getManoX() + (int) (distanciaMinima * anchoCarta) * i);
                         jugador2.getMano().get(i).setyInicio(jugador2.getManoY());
                         jugador2.getMano().get(i).setyFin(jugador2.getManoYfin());
+//                        Log.i("ONDRAW2", "Antes draw " + i);
                         if (i < jugador2.getMano().size() - 1) {
-                            jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio() + (anchoCarta / 2));
+                            jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio() + (int) (distanciaMinima * anchoCarta) * (i+1));
                         } else {
                             jugador2.getMano().get(i).setxFin(jugador2.getMano().get(i).getxInicio() + anchoCarta);
                         }
                         if (jugador2.isActivo()) {
                             temp = girarBitmap(temp, 180);
                         }
-                        canvas.drawBitmap(temp, jugador2.getMano().get(i).getxInicio(), jugador2.getMano().get(i).getyInicio(), null);
+                        canvas.drawBitmap(temp, jugador2.getManoX() + (int) (distanciaMinima * anchoCarta) * i, jugador2.getMano().get(i).getyInicio(), null);
                         p = new Paint();
                         p.setColor(Color.GREEN);
                         p.setStyle(Paint.Style.STROKE);
@@ -777,10 +782,6 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 } else {
 //                    Log.i("ONDRAW", "Jugador null");
                 }
-
-                if(jugador2.isActivo()){
-                    canvas.rotate(90);
-                }
                 //ANIMACIONES
 
 //                Log.i("ONDRAW3", "ANIMACION");
@@ -792,26 +793,9 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
                         animacion=arrayefectoGiro.get(jugador2.getMesa().get(i).getGrados());
                         jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 1);
-
-                        Log.i("ONDRAW3", "ANIMACION ID:"+jugador2.getMesa().get(i).getNombre());
-//                        Point punto = encontrarCarta(jugador2.getMesa().get(i).getId());
-//                        try {
-//                            animacion = girarCirculo(animacion, jugador2.getMesa().get(i).getGrados());
-//                        } catch (IndexOutOfBoundsException e) {
-//                            e.printStackTrace();
-//                        }
-//                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
-//                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
-//                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
-//                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
-//                        int desplazamiento = 0;
-//                        if (animacion.getHeight() != anchoCarta) {
-//                            desplazamiento = animacion.getHeight() - anchoCarta;
-//                        }
-//                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
-//                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
-//                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
+                        Log.i("ONDRAW3", "ANIMACION J2 ID:"+jugador2.getMesa().get(i).getNombre()+" x:"+jugador2.getMesa().get(i).getxInicio()+" y:"+jugador2.getMesa().get(i).getyInicio());
                         canvas.drawBitmap(animacion, jugador2.getMesa().get(i).getxInicio(), jugador2.getMesa().get(i).getyInicio(), null);
+                        Log.i("ONDRAW3", "DESPUES DIBUJAR"+jugador2.getMesa().get(i).getGrados());
                     }
                 }
 //                Log.i("ONDRAW4", "ANIMACIONJ1");
@@ -819,27 +803,9 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 for (int i = 0; i < jugador1.getMesa().size(); i++) {
 //                    Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
                     if (jugador1.getMesa().get(i).isAnimar()) {
-//                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
+                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
                         animacion=arrayefectoGiro.get(jugador1.getMesa().get(i).getGrados());
                         jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados() + 1);
-//                        Point punto = encontrarCarta(jugador1.getMesa().get(i).getId());
-//                        Log.i("ONDRAW3", "ANIMACION ID:"+jugador1.getMesa().get(i).getNombre());
-//                        try {
-//                            animacion = girarCirculo(animacion, jugador1.getMesa().get(i).getGrados());
-//                        } catch (IndexOutOfBoundsException e) {
-//                            e.printStackTrace();
-//                        }
-//                    Log.i("ONDRAW3", "ANIMACION x:"+punto.x);
-//                    Log.i("ONDRAW3", "ANIMACION y:"+punto.y);
-//                    Log.i("ONDRAW3", "ANIMACION w2:"+animacion.getWidth());
-//                    Log.i("ONDRAW3", "ANIMACION h2:"+animacion.getHeight());
-//                        int desplazamiento = 0;
-//                        if (animacion.getHeight() != anchoCarta) {
-//                            desplazamiento = animacion.getHeight() - anchoCarta;
-//                        }
-//                    Log.i("ONDRAW3", "DESPLAZAMIENTO:"+desplazamiento);
-//                    Log.i("ONDRAW3", "ANIMACION x2:"+(punto.x-desplazamiento));
-//                    Log.i("ONDRAW3", "ANIMACION y2:"+(punto.y-desplazamiento));
                         canvas.drawBitmap(animacion,jugador1.getMesa().get(i).getxInicio(), jugador1.getMesa().get(i).getyInicio(), null);
                     }
                 }

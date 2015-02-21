@@ -71,6 +71,7 @@ public class JuegoActivity extends Activity {
         jugador1.getDeck().add(cardNaturalHelp);
         jugador1.getDeck().add(cardNaturalResources);
         jugador1.setActivo(true);
+        jugador1.barajar();
         jugador1.moveFromDeckToHand(3);
         //Jugador2
 //        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
@@ -102,7 +103,9 @@ public class JuegoActivity extends Activity {
         jugador2.getDeck().add(cardNaturalHelp);
         jugador2.getDeck().add(cardNaturalResources);
         jugador2.setActivo(false);
+        jugador2.barajar();
         jugador2.moveFromDeckToHand(3);
+
 //        Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
     }
     @Override

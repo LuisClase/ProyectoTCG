@@ -126,7 +126,7 @@ public class Carta {
         this.animar=false;
         this.owner=owner;
         this.contexto=context;
-        Log.i("OWNER","VIDAS:"+getOwner().getVidas());
+//        Log.i("OWNER","VIDAS:"+getOwner().getVidas());
         this.enemigo=enemigo;
         this.imagen=R.drawable.frontcard;
         this.imagenBack=R.drawable.cardbackprueba;
