@@ -59,7 +59,7 @@ public class Adaptador extends BaseAdapter {
         Carta c=(Carta)getItem(position);
         contenedor.imagen.setImageResource(c.getImagen());
         contenedor.txtNombre.setText(c.getNombre());
-        contenedor.txtCantidad.setText("0");
+        contenedor.txtCantidad.setText(c.getCantidad()+"");
         return vista;
     }
 }

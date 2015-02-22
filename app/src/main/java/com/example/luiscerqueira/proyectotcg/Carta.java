@@ -16,6 +16,7 @@ public class Carta {
     private int coste;
     private Jugador owner;
     private Jugador enemigo;
+    private int cantidad;
     private int imagen;
     private int imagenBack;
     private int xInicio;
@@ -91,6 +92,7 @@ public class Carta {
         this.imagen=imagen;
         this.imagenBack=imagenBack;
         this.imagenAnimacion=imagenAnimacion;
+        this.cantidad=0;
     }
 
     public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen){
@@ -111,6 +113,7 @@ public class Carta {
         this.imagen=imagen;
         this.imagenBack=R.drawable.cardbackprueba;
         this.imagenAnimacion= R.drawable.circulo;
+        this.cantidad=0;
     }
 
     public Carta(Context context,Jugador owner,Jugador enemigo){
@@ -131,7 +134,7 @@ public class Carta {
         this.imagen=R.drawable.frontcard;
         this.imagenBack=R.drawable.cardbackprueba;
         this.imagenAnimacion= R.drawable.circulo;
-
+        this.cantidad=0;
     }
 
     public void animacion() {
@@ -758,4 +761,11 @@ public class Carta {
         OnMoveManoAMesa = onMoveManoAMesa;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 }
