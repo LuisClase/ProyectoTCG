@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:text="Cantidad"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_alignTop="@+id/btnMenos"
-        android:layout_alignParentRight="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/btnAñadir" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

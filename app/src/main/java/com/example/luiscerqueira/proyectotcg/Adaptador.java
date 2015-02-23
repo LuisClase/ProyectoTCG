@@ -54,42 +54,48 @@ public class Adaptador extends BaseAdapter {
 
             vista=inflador.inflate(R.layout.vistacartas,null);
             contenedor=new ViewHolder();
-            contenedor.imagen=(ImageView) vista.findViewById(R.id.logo);
-            contenedor.txtCantidad=(TextView) vista.findViewById(R.id.txtCantidad);
-            contenedor.txtNombre=(TextView) vista.findViewById(R.id.txtNombreCarta);
-            contenedor.btnAñadir=(Button) vista.findViewById(R.id.btnAñadir);
-            contenedor.btnMenos=(Button) vista.findViewById(R.id.btnMenos);
-            contenedor.carta=(Carta)getItem(position);
-            contenedor.btnMenos.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("BTN MENOS ANTES","Cantidad:"+contenedor.carta.getCantidad());
-                    if (contenedor.carta.getCantidad() > 0) {
-                        contenedor.carta.setCantidad(contenedor.carta.getCantidad() - 1);
-                        contenedor.txtCantidad.setText(contenedor.carta.getCantidad() + "");
-                        Log.i("BTN MENOS DESPUES","Cantidad:"+contenedor.carta.getCantidad());
-                    }
-                }
-            });
-            contenedor.btnAñadir.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("BTN AÑADIR ANTES","Cantidad:"+contenedor.carta.getCantidad());
-                    if(contenedor.carta.getCantidad()<4){
-                        contenedor.carta.setCantidad(contenedor.carta.getCantidad()+1);
-                        contenedor.txtCantidad.setText(contenedor.carta.getCantidad() + "");
-                        Log.i("BTN AÑADIR DESPUES","Cantidad:"+contenedor.carta.getCantidad());
-                    }
-                }
-            });
             vista.setTag(contenedor);
         }else{
             contenedor=(ViewHolder) vista.getTag();
         }
 
+        contenedor.imagen=(ImageView) vista.findViewById(R.id.logo);
+        contenedor.txtCantidad=(TextView) vista.findViewById(R.id.txtCantidad);
+        contenedor.txtNombre=(TextView) vista.findViewById(R.id.txtNombreCarta);
+        contenedor.btnAñadir=(Button) vista.findViewById(R.id.btnAñadir);
+        contenedor.btnMenos=(Button) vista.findViewById(R.id.btnMenos);
+        contenedor.carta=(Carta)getItem(position);
+        contenedor.btnAñadir.setTag(contenedor);
+        contenedor.btnMenos.setTag(contenedor);
+        contenedor.btnMenos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewHolder holder=(ViewHolder)v.getTag();
+                Log.i("BTN MENOS ANTES","Cantidad:"+holder.carta.getCantidad());
+                if (holder.carta.getCantidad() > 0) {
+                    holder.carta.setCantidad(holder.carta.getCantidad() - 1);
+                    holder.txtCantidad.setText("Cantidad: "+holder.carta.getCantidad());
+                    Log.i("BTN MENOS DESPUES","Cantidad:"+holder.carta.getCantidad());
+                }
+            }
+        });
+        contenedor.btnAñadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewHolder holder=(ViewHolder)v.getTag();
+                Log.i("BTN AÑADIR ANTES","Cantidad:"+holder.carta.getCantidad());
+                if(holder.carta.getCantidad()<4){
+                    holder.carta.setCantidad(holder.carta.getCantidad()+1);
+                    holder.txtCantidad.setText("Cantidad: "+holder.carta.getCantidad());
+                    Log.i("BTN AÑADIR DESPUES","Cantidad holder:"+holder.carta.getCantidad());
+                    Log.i("BTN AÑADIR DESPUES","Cantidad contenedor:"+contenedor.carta.getCantidad());
+
+                }
+            }
+        });
         contenedor.imagen.setImageResource(contenedor.carta.getImagen());
         contenedor.txtNombre.setText(contenedor.carta.getNombre());
-        contenedor.txtCantidad.setText(contenedor.carta.getCantidad() + "");
+        contenedor.txtCantidad.setText("Cantidad: "+contenedor.carta.getCantidad());
         return vista;
     }
 }

@@ -33,15 +33,6 @@ public class ActivityMazos extends ListActivity {
         contexto=getListView().getContext();
     }
 
-    public void clickAñadir(View v){
-        ListView lvItems=getListView();
-        LinearLayout parentFila=(LinearLayout)v.getParent();
-        Button btnChild=(Button)parentFila.getChildAt(3);
-        TextView cantidad=(TextView)parentFila.getChildAt(1);
-        int cont=Integer.parseInt(cantidad.getText().toString());
-        cantidad.setText(cont+1);
-        parentFila.refreshDrawableState();
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
