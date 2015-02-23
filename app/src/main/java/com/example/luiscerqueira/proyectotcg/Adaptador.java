@@ -51,6 +51,7 @@ public class Adaptador extends BaseAdapter {
     @Override
     public View getView(int position, View vista, ViewGroup grupo) {
         if(vista==null){
+
             vista=inflador.inflate(R.layout.vistacartas,null);
             contenedor=new ViewHolder();
             contenedor.imagen=(ImageView) vista.findViewById(R.id.logo);
