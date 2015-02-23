@@ -29,6 +29,11 @@ public class Adaptador extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public int getCount() {
         return mazo.size();
     }
@@ -83,7 +88,7 @@ public class Adaptador extends BaseAdapter {
 
         contenedor.imagen.setImageResource(contenedor.carta.getImagen());
         contenedor.txtNombre.setText(contenedor.carta.getNombre());
-        contenedor.txtCantidad.setText(contenedor.carta.getCantidad()+"");
+        contenedor.txtCantidad.setText(contenedor.carta.getCantidad() + "");
         return vista;
     }
 }
