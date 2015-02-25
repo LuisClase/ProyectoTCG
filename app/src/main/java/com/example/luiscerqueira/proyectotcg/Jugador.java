@@ -1,5 +1,7 @@
 package com.example.luiscerqueira.proyectotcg;
 
+        import android.os.Parcel;
+        import android.os.Parcelable;
         import android.util.Log;
         import java.util.Collections.*;
         import java.util.Collections;
@@ -11,7 +13,7 @@ package com.example.luiscerqueira.proyectotcg;
 /**
  * Created by Luis Cerqueira on 22/01/2015.
  */
-public class Jugador {
+public class Jugador implements Parcelable{
 
     final int CARTAS_MESA=4;
     final int CARTAS_MANO=5;
@@ -45,9 +47,52 @@ public class Jugador {
     private int mesaY;
     private int mesaYfin;
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(getDeck().get(0));
+//        dest.writeList(getDeck());
+//        dest.writeList(getMano());
+//        dest.writeList(getDescarte());
+//        dest.writeList(getMesa());
+        dest.writeInt(getVidas());
+        dest.writeInt(getRecursos());
+    }
+
+    private void readFromParcel(Parcel in){
+        getDeck().add((Carta)in.readValue(null));
+//        in.readList(deck, null);
+//        in.readList(mano, null);
+//        in.readList(descarte, null);
+//        in.readList(mesa, null);
+        setVidas(in.readInt());
+        setRecursos(in.readInt());
+    }
+
+    public static final Creator<Jugador> CREADOR=new Creator<Jugador>() {
+        @Override
+        public Jugador createFromParcel(Parcel source) {
+            return new Jugador(source);
+        }
+
+        @Override
+        public Jugador[] newArray(int size) {
+            return new Jugador[size];
+        }
+    };
+
     public Jugador(int vidas,int recursos){
         this.vidas=vidas;
         this.recursos=recursos;
+    }
+
+    public Jugador(Parcel in){
+        readFromParcel(in);
     }
 
     public void startOfTurn(){

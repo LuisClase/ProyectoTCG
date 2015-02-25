@@ -11,6 +11,7 @@ package com.example.luiscerqueira.proyectotcg;
  * Created by Luis Cerqueira on 22/01/2015.
  */
 public class Carta {
+    private boolean seleccionada=false;
     private String nombre;
     private int id;
     private int coste;
@@ -76,6 +77,62 @@ public class Carta {
     private boolean OnMoveManoADescarte=false;
     private boolean OnMoveManoAMesa=false;
     private boolean OnMoveManoADeck=false;
+
+    public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste,int[]valoresEnemigo,int[]valoresOwner){
+        this.nombre=nombre;
+        this.id= UUID.randomUUID().hashCode();
+        Log.i("UUID","HASCODE:"+this.getId());
+        this.coste=coste;
+        this.xInicio=0;
+        this.yInicio=0;
+        this.xFin=0;
+        this.yFin=0;
+        this.grados=0;
+        this.animar=false;
+        this.owner=owner;
+        this.contexto=context;
+//        Log.i("OWNER","VIDAS:"+getOwner().getVidas());
+        this.enemigo=enemigo;
+        this.imagen=imagen;
+        this.imagenBack=R.drawable.cardbackprueba;
+        this.imagenAnimacion= R.drawable.circulo;
+        this.cantidad=0;
+        this.dañoEnemigo=valoresEnemigo[0];
+        this.curaEnemigo=valoresEnemigo[1];
+        this.cartasEnemigo=valoresEnemigo[2];
+        this.descarteEnemigo=valoresEnemigo[3];
+        this.recursosEnemigo=valoresEnemigo[4];
+        this.moverMesaAManoEnemigo=valoresEnemigo[5];
+        this.moverDescarteAManoEnemigo=valoresEnemigo[6];
+        this.moverDeckAManoEnemigo=valoresEnemigo[7];
+        this.moverMesaADeckEnemigo=valoresEnemigo[8];
+        this.moverDescarteADeckEnemigo=valoresEnemigo[9];
+        this.moverManoADeckEnemigo=valoresEnemigo[10];
+        this.moverMesaADescarteEnemigo=valoresEnemigo[11];
+        this.moverManoADescarteEnemigo=valoresEnemigo[12];
+        this.moverDeckADescarteEnemigo=valoresEnemigo[13];
+        this.moverDescarteAMesaEnemigo=valoresEnemigo[14];
+        this.moverManoAMesaEnemigo=valoresEnemigo[15];
+        this.moverDeckAMesaEnemigo=valoresEnemigo[16];
+        //
+        this.dañoOwner=valoresOwner[0];
+        this.curaOwner=valoresOwner[1];
+        this.cartasOwner=valoresOwner[2];
+        this.descarteOwner=valoresOwner[3];
+        this.recursosOwner=valoresOwner[4];
+        this.moverMesaAManoOwner=valoresOwner[5];
+        this.moverDescarteAManoOwner=valoresOwner[6];
+        this.moverDeckAManoOwner=valoresOwner[7];
+        this.moverMesaADeckOwner=valoresOwner[8];
+        this.moverDescarteADeckOwner=valoresOwner[9];
+        this.moverManoADeckOwner=valoresOwner[10];
+        this.moverMesaADescarteOwner=valoresOwner[11];
+        this.moverManoADescarteOwner=valoresOwner[12];
+        this.moverDeckADescarteOwner=valoresOwner[13];
+        this.moverDescarteAMesaOwner=valoresOwner[14];
+        this.moverManoAMesaOwner=valoresOwner[15];
+        this.moverDeckAMesaOwner=valoresOwner[16];
+    }
 
     public Carta(Context context,Jugador owner,Jugador enemigo,int imagen,int imagenBack,int imagenAnimacion){
         this.nombre="Saber";
@@ -768,4 +825,13 @@ public class Carta {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public boolean isSeleccionada() {
+        return seleccionada;
+    }
+
+    public void setSeleccionada(boolean seleccionada) {
+        this.seleccionada = seleccionada;
+    }
+
 }
