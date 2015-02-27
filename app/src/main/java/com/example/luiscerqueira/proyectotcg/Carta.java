@@ -77,8 +77,16 @@ public class Carta {
     private boolean OnMoveManoADescarte=false;
     private boolean OnMoveManoAMesa=false;
     private boolean OnMoveManoADeck=false;
+    private boolean OnStartTurnTable=false;
+    private boolean OnStartTurnHand=false;
+    private boolean OnStartTurnDiscard=false;
+    private boolean OnStartTurnDeck=false;
+    private boolean OnEndTurnTable=false;
+    private boolean OnEndTurnHand=false;
+    private boolean OnEndTurnDiscard=false;
+    private boolean OnEndTurnDeck=false;
 
-    public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste,int[]valoresEnemigo,int[]valoresOwner){
+    public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste,int[]valoresEnemigo,int[]valoresOwner, boolean[]valoresPlay){
         this.nombre=nombre;
         this.id= UUID.randomUUID().hashCode();
         Log.i("UUID","HASCODE:"+this.getId());
@@ -132,6 +140,27 @@ public class Carta {
         this.moverDescarteAMesaOwner=valoresOwner[14];
         this.moverManoAMesaOwner=valoresOwner[15];
         this.moverDeckAMesaOwner=valoresOwner[16];
+        //
+        this.OnMoveMesaADescarte=valoresPlay[0];
+        this.OnMoveMesaADeck=valoresPlay[1];
+        this.OnMoveMesaAMano=valoresPlay[2];
+        this.OnMoveDescarteAMesa=valoresPlay[3];
+        this.OnMoveDescarteADeck=valoresPlay[4];
+        this.OnMoveDescarteAMano=valoresPlay[5];
+        this.OnMoveDeckADescarte=valoresPlay[6];
+        this.OnMoveDeckAMesa=valoresPlay[7];
+        this.OnMoveDeckAMano=valoresPlay[8];
+        this.OnMoveManoADescarte=valoresPlay[9];
+        this.OnMoveManoAMesa=valoresPlay[10];
+        this.OnMoveManoADeck=valoresPlay[11];
+        this.OnStartTurnTable=valoresPlay[12];
+        this.OnStartTurnHand=valoresPlay[13];
+        this.OnStartTurnDiscard=valoresPlay[14];
+        this.OnStartTurnDeck=valoresPlay[15];
+        this.OnEndTurnTable=valoresPlay[16];
+        this.OnEndTurnHand=valoresPlay[17];
+        this.OnEndTurnDiscard=valoresPlay[18];
+        this.OnEndTurnDeck=valoresPlay[19];
     }
 
     public Carta(Context context,Jugador owner,Jugador enemigo,int imagen,int imagenBack,int imagenAnimacion){
@@ -245,20 +274,44 @@ public class Carta {
     }
 
     public void startOfTurnTable(){
+        if(isOnStartTurnTable()){
+            playCard();
+        }
     }
     public void startOfTurnHand(){
+        if(isOnStartTurnHand()){
+            playCard();
+        }
     }
     public void startOfTurnDiscard(){
+        if(isOnStartTurnDiscard()){
+            playCard();
+        }
     }
     public void startOfTurnDeck(){
+        if(isOnStartTurnDeck()){
+            playCard();
+        }
     }
     public void endOfTurnTable(){
+        if(isOnEndTurnTable()){
+            playCard();
+        }
     }
     public void endOfTurnHand(){
+        if(isOnEndTurnHand()){
+            playCard();
+        }
     }
     public void endOfTurnDiscard(){
+        if(isOnEndTurnDiscard()){
+            playCard();
+        }
     }
     public void endOfTurnDeck(){
+        if(isOnEndTurnDeck()){
+            playCard();
+        }
     }
 
     public void movedFromDeckToHand(){
@@ -834,4 +887,67 @@ public class Carta {
         this.seleccionada = seleccionada;
     }
 
+    public boolean isOnStartTurnTable() {
+        return OnStartTurnTable;
+    }
+
+    public void setOnStartTurnTable(boolean onStartTurnTable) {
+        OnStartTurnTable = onStartTurnTable;
+    }
+
+    public boolean isOnStartTurnHand() {
+        return OnStartTurnHand;
+    }
+
+    public void setOnStartTurnHand(boolean onStartTurnHand) {
+        OnStartTurnHand = onStartTurnHand;
+    }
+
+    public boolean isOnStartTurnDiscard() {
+        return OnStartTurnDiscard;
+    }
+
+    public void setOnStartTurnDiscard(boolean onStartTurnDiscard) {
+        OnStartTurnDiscard = onStartTurnDiscard;
+    }
+
+    public boolean isOnStartTurnDeck() {
+        return OnStartTurnDeck;
+    }
+
+    public void setOnStartTurnDeck(boolean onStartTurnDeck) {
+        OnStartTurnDeck = onStartTurnDeck;
+    }
+
+    public boolean isOnEndTurnTable() {
+        return OnEndTurnTable;
+    }
+
+    public void setOnEndTurnTable(boolean onEndTurnTable) {
+        OnEndTurnTable = onEndTurnTable;
+    }
+
+    public boolean isOnEndTurnHand() {
+        return OnEndTurnHand;
+    }
+
+    public void setOnEndTurnHand(boolean onEndTurnHand) {
+        OnEndTurnHand = onEndTurnHand;
+    }
+
+    public boolean isOnEndTurnDiscard() {
+        return OnEndTurnDiscard;
+    }
+
+    public void setOnEndTurnDiscard(boolean onEndTurnDiscard) {
+        OnEndTurnDiscard = onEndTurnDiscard;
+    }
+
+    public boolean isOnEndTurnDeck() {
+        return OnEndTurnDeck;
+    }
+
+    public void setOnEndTurnDeck(boolean onEndTurnDeck) {
+        OnEndTurnDeck = onEndTurnDeck;
+    }
 }

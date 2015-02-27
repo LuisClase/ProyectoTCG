@@ -97,7 +97,51 @@ public class ActivityMazos extends ListActivity {
 //        this.moverDeckAMesaOwner=valoresOwner[16];
                 0
         };
-        cartas.add(new Carta(this,null,null,"Prueba",R.drawable.saberchibi,1,valoresEnemigo,valoresOwner));
+
+        boolean[]valoresPlay={
+                //this.OnMoveMesaADescarte=valoresPlay[0];
+                false,
+        //this.OnMoveMesaADeck=valoresPlay[1];
+                false,
+        //this.OnMoveMesaAMano=valoresPlay[2];
+                false,
+        //this.OnMoveDescarteAMesa=valoresPlay[3];
+                false,
+        //this.OnMoveDescarteADeck=valoresPlay[4];
+                false,
+//        this.OnMoveDescarteAMano=valoresPlay[5];
+                false,
+//        this.OnMoveDeckADescarte=valoresPlay[6];
+                false,
+//        this.OnMoveDeckAMesa=valoresPlay[7];
+                false,
+//        this.OnMoveDeckAMano=valoresPlay[8];
+                false,
+//        this.OnMoveManoADescarte=valoresPlay[9];
+                false,
+//        this.OnMoveManoAMesa=valoresPlay[10];
+                false,
+//        this.OnMoveManoADeck=valoresPlay[11];
+                false,
+//        this.OnStartTurnTable=valoresPlay[12];
+                false,
+//        this.OnStartTurnHand=valoresPlay[13];
+                false,
+//        this.OnStartTurnDiscard=valoresPlay[14];
+                false,
+//        this.OnStartTurnDeck=valoresPlay[15];
+                false,
+//        this.OnEndTurnTable=valoresPlay[16];
+                false,
+//        this.OnEndTurnHand=valoresPlay[17];
+                false,
+//        this.OnEndTurnDiscard=valoresPlay[18];
+                false,
+//        this.OnEndTurnDeck=valoresPlay[19];
+                false,
+        };
+
+        cartas.add(new Carta(this,null,null,"Prueba",R.drawable.saberchibi,1,valoresEnemigo,valoresOwner,valoresPlay));
         cartas.add(new CardHealingSign(this,null,null));
         cartas.add(new CardHeal(this,null,null));
         cartas.add(new CardBurningSign(this,null,null));
