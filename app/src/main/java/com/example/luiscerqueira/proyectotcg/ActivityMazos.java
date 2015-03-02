@@ -17,6 +17,7 @@ public class ActivityMazos extends ListActivity {
     Context contexto;
     Jugador jugador1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
