@@ -15,7 +15,7 @@ import java.util.Hashtable;
 public class BDSQLite extends SQLiteOpenHelper {
 
     String sqlCreateTable="CREATE TABLE cartas(" +
-            "jugador INTEGER, nombre TEXT, imagen INT, coste INT, " +
+            "jugador INTEGER, nombre TEXT, imagen INT, coste INT, cantidad INT" +
             "dañoEnemigo INT, curaEnemigo INT, cartasEnemigo INT, descarteEnemigo INT, " +
             "recursosEnemigo INT, moverMesaAManoEnemigo INT, moverDescarteAmanoEnemigo INT, " +
             "moverDeckAmanoEnemigo INT, moverMesaADeckEnemigo INT, moverDescarteADeckEnemigo INT, " +

@@ -29,6 +29,7 @@ public class ActivityMazos extends ListActivity {
                 int jugador;
                 String nombre="";
                 int imagen;
+                int cantidad;
                 int coste;
                 int[] datos = new int[17];
                 int[] datos2 = new int[17];
@@ -39,6 +40,7 @@ public class ActivityMazos extends ListActivity {
                     nombre=c.getString(c.getColumnIndex("nombre"));
                     imagen=c.getInt(c.getColumnIndex("imagen"));
                     coste=c.getInt(c.getColumnIndex("coste"));
+                    cantidad=c.getInt(c.getColumnIndex("cantidad"));
                     datos[0]=c.getInt(c.getColumnIndex("dañoEnemigo"));
                     datos[1]=(c.getInt(c.getColumnIndex("curaEnemigo")));
                     datos[2]=(c.getInt(c.getColumnIndex("cartasEnemigo")));
