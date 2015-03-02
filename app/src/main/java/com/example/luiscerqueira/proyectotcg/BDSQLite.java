@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -12,8 +13,6 @@ import java.util.Hashtable;
  * Created by Luis Cerqueira on 27/02/2015.
  */
 public class BDSQLite extends SQLiteOpenHelper {
-
-    Hashtable<String,ArrayList<Integer>> hastableCartas= new Hashtable<String,ArrayList<Integer>>();
 
     String sqlCreateTable="CREATE TABLE cartas(" +
             "jugador INTEGER, nombre TEXT, imagen INT, coste INT, " +
@@ -29,26 +28,26 @@ public class BDSQLite extends SQLiteOpenHelper {
             "moverManoADeckOwner INT, moverMesaADescarteOwner INT, moverManoADescarteOwner INT, " +
             "moverDeckADescarteOwner INT, moverDescarteAMesaOwner INT, moverManoAMesaOwner INT, " +
             "moverDeckAMesaOwner INT, " +
-            "onMoveMesaADescarte BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveMesaADeck BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveMesaAMano BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveDescarteAMesa BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveDescarteADeck BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveDescarteAMano BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveDeckADescarte BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveDeckAMesa BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveDeckAMano BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveManoADescarte BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveManoAMesa BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onMoveManoADeck BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onStartTurnTable BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onStartTurnHand BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onStartTurnDiscard BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onStartTurnDeck BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onEndTurnTable BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onEndTurnHand BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onEndTurnDiscard BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)), " +
-            "onEndTurnDeck BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)) " +
+            "onMoveMesaADescarte BOOLEAN NOT NULL CHECK (onMoveMesaADescarte IN (0,1)), " +
+            "onMoveMesaADeck BOOLEAN NOT NULL CHECK (onMoveMesaADeck IN (0,1)), " +
+            "onMoveMesaAMano BOOLEAN NOT NULL CHECK (onMoveMesaAMano IN (0,1)), " +
+            "onMoveDescarteAMesa BOOLEAN NOT NULL CHECK (onMoveDescarteAMesa IN (0,1)), " +
+            "onMoveDescarteADeck BOOLEAN NOT NULL CHECK (onMoveDescarteADeck IN (0,1)), " +
+            "onMoveDescarteAMano BOOLEAN NOT NULL CHECK (onMoveDescarteAMano IN (0,1)), " +
+            "onMoveDeckADescarte BOOLEAN NOT NULL CHECK (onMoveDeckADescarte IN (0,1)), " +
+            "onMoveDeckAMesa BOOLEAN NOT NULL CHECK (onMoveDeckAMesa IN (0,1)), " +
+            "onMoveDeckAMano BOOLEAN NOT NULL CHECK (onMoveDeckAMano IN (0,1)), " +
+            "onMoveManoADescarte BOOLEAN NOT NULL CHECK (onMoveManoADescarte IN (0,1)), " +
+            "onMoveManoAMesa BOOLEAN NOT NULL CHECK (onMoveManoAMesa IN (0,1)), " +
+            "onMoveManoADeck BOOLEAN NOT NULL CHECK (onMoveManoADeck IN (0,1)), " +
+            "onStartTurnTable BOOLEAN NOT NULL CHECK (onStartTurnTable IN (0,1)), " +
+            "onStartTurnHand BOOLEAN NOT NULL CHECK (onStartTurnHand IN (0,1)), " +
+            "onStartTurnDiscard BOOLEAN NOT NULL CHECK (onStartTurnDiscard IN (0,1)), " +
+            "onStartTurnDeck BOOLEAN NOT NULL CHECK (onStartTurnDeck IN (0,1)), " +
+            "onEndTurnTable BOOLEAN NOT NULL CHECK (onEndTurnTable IN (0,1)), " +
+            "onEndTurnHand BOOLEAN NOT NULL CHECK (onEndTurnHand IN (0,1)), " +
+            "onEndTurnDiscard BOOLEAN NOT NULL CHECK (onEndTurnDiscard IN (0,1)), " +
+            "onEndTurnDeck BOOLEAN NOT NULL CHECK (onEndTurnDeck IN (0,1)) " +
             " )";
 
     public BDSQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -61,7 +60,9 @@ public class BDSQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.i("BD","ANTES ONCREATE");
         db.execSQL(sqlCreateTable);
+        Log.i("BD","DESPUES ONCREATE");
         String insert="INSERT INTO cartas VALUES " +
                 "(1, 'BurningSign', "+R.drawable.cardburningsign+", 2, " +
                 ""+insertarCartaBurningSign()+"," +
@@ -92,8 +93,35 @@ public class BDSQLite extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXIST cartas");
+        db.execSQL("DROP TABLE IF EXIST cartas ;");
         db.execSQL(sqlCreateTable);
+        String insert="INSERT INTO cartas VALUES " +
+                "(1, 'BurningSign', "+R.drawable.cardburningsign+", 2, " +
+                ""+insertarCartaBurningSign()+"," +
+                "(1, 'Heal', "+R.drawable.cardheal+", 2, " +
+                ""+insertarCartaHeal()+", " +
+                "(1, 'HealingSing', "+R.drawable.cardhealingsign+", 2, " +
+                ""+insertarCartaHealingSign()+", " +
+                "(1, 'Lightning', "+R.drawable.cardlightning+", 1, " +
+                ""+insertarCartaLightning()+", " +
+                "(1, 'MentalSpiral', "+R.drawable.cardmentalspiral2+", 2, " +
+                ""+insertarCartaMentalSpiral()+", " +
+                "(1, 'MysticalSign', "+R.drawable.cardmysticalsign+", 2, " +
+                ""+insertarCartaMysticalSign()+", " +
+                "(1, 'NaturalHelp', "+R.drawable.cardnaturalhelp+", 2, " +
+                ""+insertarCartaNaturalHelp()+", " +
+                "(1, 'NaturalResources', "+R.drawable.cardnaturalresources+", 2, " +
+                ""+insertarCartaNaturalResources()+", " +
+                "(1, 'NaturalSign', "+R.drawable.cardnaturalsign+", 2, " +
+                ""+insertarCartaNaturalSign()+", " +
+                "(1, 'Nightmare', "+R.drawable.cardnightmare+", 2, " +
+                ""+insertarCartaNightmare()+", " +
+                "(1, 'Ritual', "+R.drawable.cardritual+", 2, " +
+                ""+insertarCartaRitual()+", " +
+                "(1, 'VitalTransfusion', "+R.drawable.cardvitaltransfusion+", 2, " +
+                ""+insertarCartaVitalTransfusion()+" ;";
+        db.execSQL(insert);
+        Log.i("INSERT", insert);
     }
 
     private String insertarCarta() {
