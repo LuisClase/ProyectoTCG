@@ -179,6 +179,7 @@ public class Carta {
         this.imagenBack=imagenBack;
         this.imagenAnimacion=imagenAnimacion;
         this.cantidad=0;
+        this.contexto=context;
     }
 
     public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen){
