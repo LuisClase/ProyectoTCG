@@ -2,6 +2,8 @@ package com.example.luiscerqueira.proyectotcg;
 
         import android.app.Activity;
         import android.content.pm.ActivityInfo;
+        import android.database.Cursor;
+        import android.database.sqlite.SQLiteDatabase;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
         import android.support.v7.app.ActionBarActivity;
@@ -57,19 +59,107 @@ public class JuegoActivity extends Activity {
         CardNaturalResources cardNaturalResources=new CardNaturalResources(this,jugador1,jugador2);
         CardNaturalSign cardNaturalSign=new CardNaturalSign(this,jugador1,jugador2);
 //        jugador1.getDeck().add(cartaPrueba2);
-        jugador1.getDeck().add(cardRelampago);
-        jugador1.getDeck().add(cardHeal);
-        jugador1.getDeck().add(cardRitual);
-        jugador1.getDeck().add(cardMentalSpiral);
-        jugador1.getDeck().add(cardBurningSign);
-        jugador1.getDeck().add(cardIgniteMemories);
-        jugador1.getDeck().add(cardNightmare);
-        jugador1.getDeck().add(cardTransfusion);
-        jugador1.getDeck().add(cardHealingSign);
-        jugador1.getDeck().add(cardMysticalSign);
-        jugador1.getDeck().add(cardNaturalSign);
-        jugador1.getDeck().add(cardNaturalHelp);
-        jugador1.getDeck().add(cardNaturalResources);
+//        jugador1.getDeck().add(cardRelampago);
+//        jugador1.getDeck().add(cardHeal);
+//        jugador1.getDeck().add(cardRitual);
+//        jugador1.getDeck().add(cardMentalSpiral);
+//        jugador1.getDeck().add(cardBurningSign);
+//        jugador1.getDeck().add(cardIgniteMemories);
+//        jugador1.getDeck().add(cardNightmare);
+//        jugador1.getDeck().add(cardTransfusion);
+//        jugador1.getDeck().add(cardHealingSign);
+//        jugador1.getDeck().add(cardMysticalSign);
+//        jugador1.getDeck().add(cardNaturalSign);
+//        jugador1.getDeck().add(cardNaturalHelp);
+//        jugador1.getDeck().add(cardNaturalResources);
+        //PRUEBAS
+        ArrayList<Carta> cartas=new ArrayList<Carta>();
+        SQLiteDatabase sqLiteDB=(new BDSQLite(this,"cartas",null,1)).getReadableDatabase();
+        if(sqLiteDB!=null){
+            Cursor c=sqLiteDB.rawQuery("select * from cartas",null);
+            Carta carta=null;
+            if(c.moveToFirst()){
+                int jugador;
+                String nombre="";
+                int imagen;
+                int cantidad;
+                int coste;
+                int[] datos = new int[17];
+                int[] datos2 = new int[17];
+                boolean[] boleans = new boolean[20];
+
+                do{
+                    jugador=c.getInt(c.getColumnIndex("jugador"));
+                    nombre=c.getString(c.getColumnIndex("nombre"));
+                    imagen=c.getInt(c.getColumnIndex("imagen"));
+                    coste=c.getInt(c.getColumnIndex("coste"));
+                    cantidad=c.getInt(c.getColumnIndex("cantidad"));
+                    datos[0]=c.getInt(c.getColumnIndex("dañoEnemigo"));
+                    datos[1]=(c.getInt(c.getColumnIndex("curaEnemigo")));
+                    datos[2]=(c.getInt(c.getColumnIndex("cartasEnemigo")));
+                    datos[3]=(c.getInt(c.getColumnIndex("descarteEnemigo")));
+                    datos[4]=(c.getInt(c.getColumnIndex("recursosEnemigo")));
+                    datos[5]=(c.getInt(c.getColumnIndex("moverMesaAManoEnemigo")));
+                    datos[6]=(c.getInt(c.getColumnIndex("moverDescarteAmanoEnemigo")));
+                    datos[7]=(c.getInt(c.getColumnIndex("moverDeckAmanoEnemigo")));
+                    datos[8]=(c.getInt(c.getColumnIndex("moverMesaADeckEnemigo")));
+                    datos[9]=(c.getInt(c.getColumnIndex("moverDescarteADeckEnemigo")));
+                    datos[10]=(c.getInt(c.getColumnIndex("moverManoADeckEnemigo")));
+                    datos[11]=(c.getInt(c.getColumnIndex("moverMesaADescarteEnemigo")));
+                    datos[12]=(c.getInt(c.getColumnIndex("moverManoADescarteEnemigo")));
+                    datos[13]=(c.getInt(c.getColumnIndex("moverDeckADescarteEnemigo")));
+                    datos[14]=(c.getInt(c.getColumnIndex("moverDescarteAMesaEnemigo")));
+                    datos[15]=(c.getInt(c.getColumnIndex("moverManoAMesaEnemigo")));
+                    datos[16]=(c.getInt(c.getColumnIndex("moverDeckAMesaEnemigo")));
+                    datos2[0]=(c.getInt(c.getColumnIndex("dañoOwner")));
+                    datos2[1]=(c.getInt(c.getColumnIndex("curaOwner")));
+                    datos2[2]=(c.getInt(c.getColumnIndex("cartasOwner")));
+                    datos2[3]=(c.getInt(c.getColumnIndex("descarteOwner")));
+                    datos2[4]=(c.getInt(c.getColumnIndex("recursosOwner")));
+                    datos2[5]=(c.getInt(c.getColumnIndex("moverMesaAManoOwner")));
+                    datos2[6]=(c.getInt(c.getColumnIndex("moverDescarteAmanoOwner")));
+                    datos2[7]=(c.getInt(c.getColumnIndex("moverDeckAmanoOwner")));
+                    datos2[8]=(c.getInt(c.getColumnIndex("moverMesaADeckOwner")));
+                    datos2[9]=(c.getInt(c.getColumnIndex("moverDescarteADeckOwner")));
+                    datos2[10]=(c.getInt(c.getColumnIndex("moverManoADeckOwner")));
+                    datos2[11]=(c.getInt(c.getColumnIndex("moverMesaADescarteOwner")));
+                    datos2[12]=(c.getInt(c.getColumnIndex("moverManoADescarteOwner")));
+                    datos2[13]=(c.getInt(c.getColumnIndex("moverDeckADescarteOwner")));
+                    datos2[14]=(c.getInt(c.getColumnIndex("moverDescarteAMesaOwner")));
+                    datos2[15]=(c.getInt(c.getColumnIndex("moverManoAMesaOwner")));
+                    datos2[16]=(c.getInt(c.getColumnIndex("moverDeckAMesaOwner")));
+                    boleans[0]=(c.getInt(c.getColumnIndex("onMoveMesaADescarte"))>0);
+                    boleans[1]=(c.getInt(c.getColumnIndex("onMoveMesaADeck"))>0);
+                    boleans[2]=(c.getInt(c.getColumnIndex("onMoveMesaAMano"))>0);
+                    boleans[3]=(c.getInt(c.getColumnIndex("onMoveDescarteAMesa"))>0);
+                    boleans[4]=(c.getInt(c.getColumnIndex("onMoveDescarteADeck"))>0);
+                    boleans[5]=(c.getInt(c.getColumnIndex("onMoveDescarteAMano"))>0);
+                    boleans[6]=(c.getInt(c.getColumnIndex("onMoveDeckADescarte"))>0);
+                    boleans[7]=(c.getInt(c.getColumnIndex("onMoveDeckAMesa"))>0);
+                    boleans[8]=(c.getInt(c.getColumnIndex("onMoveDeckAMano"))>0);
+                    boleans[9]=(c.getInt(c.getColumnIndex("onMoveManoADescarte"))>0);
+                    boleans[10]=(c.getInt(c.getColumnIndex("onMoveManoAMesa"))>0);
+                    boleans[11]=(c.getInt(c.getColumnIndex("onMoveManoADeck"))>0);
+                    boleans[12]=(c.getInt(c.getColumnIndex("onStartTurnTable"))>0);
+                    boleans[13]=(c.getInt(c.getColumnIndex("onStartTurnHand"))>0);
+                    boleans[14]=(c.getInt(c.getColumnIndex("onStartTurnDiscard"))>0);
+                    boleans[15]=(c.getInt(c.getColumnIndex("onStartTurnDeck"))>0);
+                    boleans[16]=(c.getInt(c.getColumnIndex("onEndTurnTable"))>0);
+                    boleans[17]=(c.getInt(c.getColumnIndex("onEndTurnHand"))>0);
+                    boleans[18]=(c.getInt(c.getColumnIndex("onEndTurnDiscard"))>0);
+                    boleans[19]=(c.getInt(c.getColumnIndex("onEndTurnDeck"))>0);
+                    for(int j=0;j<cantidad;j++){
+                        carta=new Carta(this,jugador1,jugador2,nombre,imagen,coste,datos,datos2,boleans);
+                        jugador1.getDeck().add(carta);
+                    }
+                }while(c.moveToNext());
+            }
+
+        }else{
+            sqLiteDB.close();
+        }
+        sqLiteDB.close();
+
         jugador1.setActivo(true);
         jugador1.barajar();
         jugador1.moveFromDeckToHand(3);

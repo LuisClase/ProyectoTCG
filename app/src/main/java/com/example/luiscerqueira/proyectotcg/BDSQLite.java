@@ -16,7 +16,7 @@ public class BDSQLite extends SQLiteOpenHelper {
 
 
     String sqlCreateTable="CREATE TABLE cartas(" +
-            "jugador INTEGER, nombre TEXT, imagen INT, coste INT, cantidad INT" +
+            "jugador INTEGER, nombre TEXT, imagen INT, coste INT, cantidad INT, " +
             "dañoEnemigo INT, curaEnemigo INT, cartasEnemigo INT, descarteEnemigo INT, " +
             "recursosEnemigo INT, moverMesaAManoEnemigo INT, moverDescarteAmanoEnemigo INT, " +
             "moverDeckAmanoEnemigo INT, moverMesaADeckEnemigo INT, moverDescarteADeckEnemigo INT, " +
@@ -65,61 +65,61 @@ public class BDSQLite extends SQLiteOpenHelper {
         db.execSQL(sqlCreateTable);
         Log.i("BD","DESPUES ONCREATE");
         String insert="INSERT INTO cartas VALUES " +
-                "(1, 'BurningSign', "+R.drawable.cardburningsign+", 2, " +
+                "(1, 'BurningSign', "+R.drawable.cardburningsign+", 2, 0," +
                 ""+insertarCartaBurningSign()+"," +
-                "(1, 'Heal', "+R.drawable.cardheal+", 2, " +
+                "(1, 'Heal', "+R.drawable.cardheal+", 2, 0," +
                 ""+insertarCartaHeal()+", " +
-                "(1, 'HealingSing', "+R.drawable.cardhealingsign+", 2, " +
+                "(1, 'HealingSing', "+R.drawable.cardhealingsign+", 2, 0," +
                 ""+insertarCartaHealingSign()+", " +
-                "(1, 'Lightning', "+R.drawable.cardlightning+", 1, " +
+                "(1, 'Lightning', "+R.drawable.cardlightning+", 1, 0," +
                 ""+insertarCartaLightning()+", " +
-                "(1, 'MentalSpiral', "+R.drawable.cardmentalspiral2+", 2, " +
+                "(1, 'MentalSpiral', "+R.drawable.cardmentalspiral2+", 2, 0," +
                 ""+insertarCartaMentalSpiral()+", " +
-                "(1, 'MysticalSign', "+R.drawable.cardmysticalsign+", 2, " +
+                "(1, 'MysticalSign', "+R.drawable.cardmysticalsign+", 2, 0," +
                 ""+insertarCartaMysticalSign()+", " +
-                "(1, 'NaturalHelp', "+R.drawable.cardnaturalhelp+", 2, " +
+                "(1, 'NaturalHelp', "+R.drawable.cardnaturalhelp+", 0, 0," +
                 ""+insertarCartaNaturalHelp()+", " +
-                "(1, 'NaturalResources', "+R.drawable.cardnaturalresources+", 2, " +
+                "(1, 'NaturalResources', "+R.drawable.cardnaturalresources+", 2, 0," +
                 ""+insertarCartaNaturalResources()+", " +
-                "(1, 'NaturalSign', "+R.drawable.cardnaturalsign+", 2, " +
+                "(1, 'NaturalSign', "+R.drawable.cardnaturalsign+", 2, 0," +
                 ""+insertarCartaNaturalSign()+", " +
-                "(1, 'Nightmare', "+R.drawable.cardnightmare+", 2, " +
+                "(1, 'Nightmare', "+R.drawable.cardnightmare+", 5, 0," +
                 ""+insertarCartaNightmare()+", " +
-                "(1, 'Ritual', "+R.drawable.cardritual+", 2, " +
+                "(1, 'Ritual', "+R.drawable.cardritual+", 2, 0," +
                 ""+insertarCartaRitual()+", " +
-                "(1, 'VitalTransfusion', "+R.drawable.cardvitaltransfusion+", 2, " +
+                "(1, 'VitalTransfusion', "+R.drawable.cardvitaltransfusion+", 2, 0," +
                 ""+insertarCartaVitalTransfusion()+" ;";
         db.execSQL(insert);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXIST cartas ;");
+        db.execSQL("DROP TABLE IF EXISTS cartas ;");
         db.execSQL(sqlCreateTable);
         String insert="INSERT INTO cartas VALUES " +
-                "(1, 'BurningSign', "+R.drawable.cardburningsign+", 2, " +
+                "(1, 'BurningSign', "+R.drawable.cardburningsign+", 2, 0, " +
                 ""+insertarCartaBurningSign()+"," +
-                "(1, 'Heal', "+R.drawable.cardheal+", 2, " +
+                "(1, 'Heal', "+R.drawable.cardheal+", 2, 0, " +
                 ""+insertarCartaHeal()+", " +
-                "(1, 'HealingSing', "+R.drawable.cardhealingsign+", 2, " +
+                "(1, 'HealingSing', "+R.drawable.cardhealingsign+", 2, 0, " +
                 ""+insertarCartaHealingSign()+", " +
-                "(1, 'Lightning', "+R.drawable.cardlightning+", 1, " +
+                "(1, 'Lightning', "+R.drawable.cardlightning+", 1, 0, " +
                 ""+insertarCartaLightning()+", " +
-                "(1, 'MentalSpiral', "+R.drawable.cardmentalspiral2+", 2, " +
+                "(1, 'MentalSpiral', "+R.drawable.cardmentalspiral2+", 2, 0, " +
                 ""+insertarCartaMentalSpiral()+", " +
-                "(1, 'MysticalSign', "+R.drawable.cardmysticalsign+", 2, " +
+                "(1, 'MysticalSign', "+R.drawable.cardmysticalsign+", 2, 0, " +
                 ""+insertarCartaMysticalSign()+", " +
-                "(1, 'NaturalHelp', "+R.drawable.cardnaturalhelp+", 2, " +
+                "(1, 'NaturalHelp', "+R.drawable.cardnaturalhelp+", 2, 0, " +
                 ""+insertarCartaNaturalHelp()+", " +
-                "(1, 'NaturalResources', "+R.drawable.cardnaturalresources+", 2, " +
+                "(1, 'NaturalResources', "+R.drawable.cardnaturalresources+", 2, 0, " +
                 ""+insertarCartaNaturalResources()+", " +
-                "(1, 'NaturalSign', "+R.drawable.cardnaturalsign+", 2, " +
+                "(1, 'NaturalSign', "+R.drawable.cardnaturalsign+", 2, 0, " +
                 ""+insertarCartaNaturalSign()+", " +
-                "(1, 'Nightmare', "+R.drawable.cardnightmare+", 2, " +
+                "(1, 'Nightmare', "+R.drawable.cardnightmare+", 2, 0, " +
                 ""+insertarCartaNightmare()+", " +
-                "(1, 'Ritual', "+R.drawable.cardritual+", 2, " +
+                "(1, 'Ritual', "+R.drawable.cardritual+", 2, 0, " +
                 ""+insertarCartaRitual()+", " +
-                "(1, 'VitalTransfusion', "+R.drawable.cardvitaltransfusion+", 2, " +
+                "(1, 'VitalTransfusion', "+R.drawable.cardvitaltransfusion+", 2, 0, " +
                 ""+insertarCartaVitalTransfusion()+" ;";
         db.execSQL(insert);
         Log.i("INSERT", insert);
@@ -519,7 +519,6 @@ public class BDSQLite extends SQLiteOpenHelper {
                 false,
         };
         ArrayList<Integer> datos = new ArrayList<Integer>();
-        String nombre = "";
         for (int i = 0; i < valoresEnemigo.length; i++) {
             datos.add(valoresEnemigo[i]);
         }
@@ -638,7 +637,7 @@ public class BDSQLite extends SQLiteOpenHelper {
 //        this.OnMoveManoADescarte=valoresPlay[9];
                 false,
 //        this.OnMoveManoAMesa=valoresPlay[10];
-                true,
+                false,
 //        this.OnMoveManoADeck=valoresPlay[11];
                 false,
 //        this.OnStartTurnTable=valoresPlay[12];
@@ -650,7 +649,7 @@ public class BDSQLite extends SQLiteOpenHelper {
 //        this.OnStartTurnDeck=valoresPlay[15];
                 false,
 //        this.OnEndTurnTable=valoresPlay[16];
-                false,
+                true,
 //        this.OnEndTurnHand=valoresPlay[17];
                 false,
 //        this.OnEndTurnDiscard=valoresPlay[18];

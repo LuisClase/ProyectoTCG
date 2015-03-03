@@ -275,104 +275,104 @@ public class Carta {
 
     public void startOfTurnTable(){
         if(isOnStartTurnTable()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void startOfTurnHand(){
         if(isOnStartTurnHand()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void startOfTurnDiscard(){
         if(isOnStartTurnDiscard()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void startOfTurnDeck(){
         if(isOnStartTurnDeck()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void endOfTurnTable(){
         if(isOnEndTurnTable()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void endOfTurnHand(){
         if(isOnEndTurnHand()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void endOfTurnDiscard(){
         if(isOnEndTurnDiscard()){
-            playCard();
+            setAnimar(true);
         }
     }
     public void endOfTurnDeck(){
         if(isOnEndTurnDeck()){
-            playCard();
+            setAnimar(true);
         }
     }
 
     public void movedFromDeckToHand(){
         if(isOnMoveDeckAMano()){
-            playCard();
+            setAnimar(true);
         }
     }
 
     public void movedFromDeckToTable(){
         if(isOnMoveDeckAMesa()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromDeckToDiscard(){
         if(isOnMoveDeckADescarte()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromHandToDiscard(){
         if(isOnMoveManoADescarte()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromHandToDeck(){
         if(isOnMoveManoADeck()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromHandToTable(){
         if(isOnMoveManoAMesa()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromTableToDiscard(){
         if(isOnMoveMesaADescarte()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromTableToDeck(){
         if(isOnMoveMesaADeck()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromTableToHand(){
         if(isOnMoveMesaAMano()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromDiscardToTable(){
         if(isOnMoveDescarteAMesa()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromDiscardToDeck(){
         if(isOnMoveDescarteADeck()){
-            playCard();
+            setAnimar(true);
         }}
 
     public void movedFromDiscardToHand(){
         if(isOnMoveDescarteAMano()){
-            playCard();
+            setAnimar(true);
         }}
 
     public String getNombre() {

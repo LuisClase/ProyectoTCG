@@ -14,15 +14,20 @@ import android.content.*;
 
 
 public class ActivityMazos extends ListActivity {
-    Context contexto;
+    public Context contexto;
     Jugador jugador1;
-
+    public BDSQLite bd=new BDSQLite(this,"cartas",null,1);
+    public SQLiteDatabase sqLiteDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("BD","NULL?"+bd==null?"SI":"NO" );
+        sqLiteDB=bd.getReadableDatabase();
         ArrayList<Carta> cartas=new ArrayList<Carta>();
-        SQLiteDatabase sqLiteDB=(new BDSQLite(this,"cartas",null,1)).getReadableDatabase();
+
+        Log.i("BD","ANTES ONCREATE");
         if(sqLiteDB!=null){
             Cursor c=sqLiteDB.rawQuery("select * from cartas",null);
             Carta carta=null;
@@ -38,10 +43,15 @@ public class ActivityMazos extends ListActivity {
 
                 do{
                     jugador=c.getInt(c.getColumnIndex("jugador"));
+                    Log.i("BD","COMPROBACION "+jugador);
                     nombre=c.getString(c.getColumnIndex("nombre"));
+                    Log.i("BD","COMPROBACION2 "+nombre);
                     imagen=c.getInt(c.getColumnIndex("imagen"));
+                    Log.i("BD","COMPROBACION3 "+imagen);
                     coste=c.getInt(c.getColumnIndex("coste"));
+                    Log.i("BD","COMPROBACION4 "+coste);
                     cantidad=c.getInt(c.getColumnIndex("cantidad"));
+                    Log.i("BD","COMPROBACION5 "+cantidad);
                     datos[0]=c.getInt(c.getColumnIndex("dañoEnemigo"));
                     datos[1]=(c.getInt(c.getColumnIndex("curaEnemigo")));
                     datos[2]=(c.getInt(c.getColumnIndex("cartasEnemigo")));
@@ -97,6 +107,7 @@ public class ActivityMazos extends ListActivity {
                     boleans[18]=(c.getInt(c.getColumnIndex("onEndTurnDiscard"))>0);
                     boleans[19]=(c.getInt(c.getColumnIndex("onEndTurnDeck"))>0);
                     carta=new Carta(this,null,null,nombre,imagen,coste,datos,datos2,boleans);
+                    carta.setCantidad(cantidad);
                     cartas.add(carta);
                 }while(c.moveToNext());
             }

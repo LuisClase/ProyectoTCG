@@ -3,6 +3,7 @@ package com.example.luiscerqueira.proyectotcg;
 /**
  * Created by soylu_000 on 21/02/2015.
  */
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
@@ -11,6 +12,7 @@ import java.util.*;
 
 public class Adaptador extends BaseAdapter {
      public ViewHolder contenedor=null;
+    Context contexto=null;
 
     class ViewHolder{
         ImageView imagen;
@@ -26,6 +28,7 @@ public class Adaptador extends BaseAdapter {
     public Adaptador(Context context, ArrayList<Carta> mazo){
         this.inflador=LayoutInflater.from(context);
         this.mazo=mazo;
+        this.contexto=context;
     }
 
     @Override
@@ -73,9 +76,16 @@ public class Adaptador extends BaseAdapter {
                 ViewHolder holder=(ViewHolder)v.getTag();
                 Log.i("BTN MENOS ANTES","Cantidad:"+holder.carta.getCantidad());
                 if (holder.carta.getCantidad() > 0) {
-                    holder.carta.setCantidad(holder.carta.getCantidad() - 1);
-                    holder.txtCantidad.setText("Cantidad: "+holder.carta.getCantidad());
-                    Log.i("BTN MENOS DESPUES","Cantidad:"+holder.carta.getCantidad());
+                    BDSQLite bd=((ActivityMazos)contexto).bd;
+                    SQLiteDatabase sqLiteDB=bd.getWritableDatabase();
+                    if(sqLiteDB!=null) {
+                        holder.carta.setCantidad(holder.carta.getCantidad() - 1);
+                        sqLiteDB.execSQL("UPDATE cartas SET cantidad="+holder.carta.getCantidad()
+                        +" WHERE nombre = '"+holder.carta.getNombre()+"'");
+                        holder.txtCantidad.setText("Cantidad: " + holder.carta.getCantidad());
+                        Log.i("BTN MENOS DESPUES", "Cantidad:" + holder.carta.getCantidad());
+                    }
+                    sqLiteDB.close();
                 }
             }
         });
@@ -85,11 +95,17 @@ public class Adaptador extends BaseAdapter {
                 ViewHolder holder=(ViewHolder)v.getTag();
                 Log.i("BTN AÑADIR ANTES","Cantidad:"+holder.carta.getCantidad());
                 if(holder.carta.getCantidad()<4){
-                    holder.carta.setCantidad(holder.carta.getCantidad()+1);
-                    holder.txtCantidad.setText("Cantidad: "+holder.carta.getCantidad());
-                    Log.i("BTN AÑADIR DESPUES","Cantidad holder:"+holder.carta.getCantidad());
-                    Log.i("BTN AÑADIR DESPUES","Cantidad contenedor:"+contenedor.carta.getCantidad());
-
+                    BDSQLite bd=((ActivityMazos)contexto).bd;
+                    SQLiteDatabase sqLiteDB=bd.getWritableDatabase();
+                    if(sqLiteDB!=null) {
+                        holder.carta.setCantidad(holder.carta.getCantidad() + 1);
+                        sqLiteDB.execSQL("UPDATE cartas SET cantidad="+holder.carta.getCantidad()
+                                +" WHERE nombre = '"+holder.carta.getNombre()+"'");
+                        holder.txtCantidad.setText("Cantidad: " + holder.carta.getCantidad());
+                        Log.i("BTN AÑADIR DESPUES", "Cantidad holder:" + holder.carta.getCantidad());
+                        Log.i("BTN AÑADIR DESPUES", "Cantidad contenedor:" + contenedor.carta.getCantidad());
+                    }
+                    sqLiteDB.close();
                 }
             }
         });
