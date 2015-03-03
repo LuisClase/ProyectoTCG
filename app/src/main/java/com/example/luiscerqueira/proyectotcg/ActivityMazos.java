@@ -37,21 +37,18 @@ public class ActivityMazos extends ListActivity {
                 int imagen;
                 int cantidad;
                 int coste;
+                int tipo;
                 int[] datos = new int[17];
                 int[] datos2 = new int[17];
                 boolean[] boleans = new boolean[20];
 
                 do{
                     jugador=c.getInt(c.getColumnIndex("jugador"));
-                    Log.i("BD","COMPROBACION "+jugador);
                     nombre=c.getString(c.getColumnIndex("nombre"));
-                    Log.i("BD","COMPROBACION2 "+nombre);
                     imagen=c.getInt(c.getColumnIndex("imagen"));
-                    Log.i("BD","COMPROBACION3 "+imagen);
                     coste=c.getInt(c.getColumnIndex("coste"));
-                    Log.i("BD","COMPROBACION4 "+coste);
                     cantidad=c.getInt(c.getColumnIndex("cantidad"));
-                    Log.i("BD","COMPROBACION5 "+cantidad);
+                    tipo=c.getInt(c.getColumnIndex("tipo"));
                     datos[0]=c.getInt(c.getColumnIndex("dañoEnemigo"));
                     datos[1]=(c.getInt(c.getColumnIndex("curaEnemigo")));
                     datos[2]=(c.getInt(c.getColumnIndex("cartasEnemigo")));
@@ -106,7 +103,20 @@ public class ActivityMazos extends ListActivity {
                     boleans[17]=(c.getInt(c.getColumnIndex("onEndTurnHand"))>0);
                     boleans[18]=(c.getInt(c.getColumnIndex("onEndTurnDiscard"))>0);
                     boleans[19]=(c.getInt(c.getColumnIndex("onEndTurnDeck"))>0);
-                    carta=new Carta(this,null,null,nombre,imagen,coste,datos,datos2,boleans);
+                    Tipos tipos;
+                    if(tipo==Tipos.HECHIZO.ordinal()){
+                        tipos=Tipos.HECHIZO;
+                    }
+                    else if(tipo==Tipos.PERMANENTE.ordinal()){
+                        tipos=Tipos.PERMANENTE;
+                    }
+                    else if(tipo==Tipos.MAGO.ordinal()){
+                        tipos=Tipos.MAGO;
+                    }
+                    else{
+                        tipos=Tipos.HECHIZO;
+                    }
+                    carta=new Carta(this,null,null,nombre,imagen,coste,tipos,datos,datos2,boleans);
                     carta.setCantidad(cantidad);
                     cartas.add(carta);
                 }while(c.moveToNext());

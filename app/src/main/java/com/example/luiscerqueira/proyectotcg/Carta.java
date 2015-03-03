@@ -19,6 +19,7 @@ public class Carta {
     private Jugador enemigo;
     private int cantidad;
     private int imagen;
+    private Tipos tipo;
     private int imagenBack;
     private int xInicio;
     private int yInicio;
@@ -86,11 +87,12 @@ public class Carta {
     private boolean OnEndTurnDiscard=false;
     private boolean OnEndTurnDeck=false;
 
-    public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste,int[]valoresEnemigo,int[]valoresOwner, boolean[]valoresPlay){
+    public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste, Tipos tipo,int[]valoresEnemigo,int[]valoresOwner, boolean[]valoresPlay){
         this.nombre=nombre;
         this.id= UUID.randomUUID().hashCode();
         Log.i("UUID","HASCODE:"+this.getId());
         this.coste=coste;
+        this.tipo=tipo;
         this.xInicio=0;
         this.yInicio=0;
         this.xFin=0;
@@ -270,6 +272,9 @@ public class Carta {
         }
         if(recursosOwner!=0){
             owner.setRecursos(owner.getRecursos()+recursosOwner);
+        }
+        if(this.getTipo().ordinal()==Tipos.HECHIZO.ordinal()){
+            getOwner().moveCardFromTableToDiscard(getId());
         }
         //owner.setRecursos(owner.getRecursos()-getCoste());
     }
@@ -951,4 +956,13 @@ public class Carta {
     public void setOnEndTurnDeck(boolean onEndTurnDeck) {
         OnEndTurnDeck = onEndTurnDeck;
     }
+
+    public Tipos getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipos tipo) {
+        this.tipo = tipo;
+    }
+
 }

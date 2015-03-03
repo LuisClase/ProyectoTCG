@@ -84,6 +84,7 @@ public class JuegoActivity extends Activity {
                 int imagen;
                 int cantidad;
                 int coste;
+                int tipo;
                 int[] datos = new int[17];
                 int[] datos2 = new int[17];
                 boolean[] boleans = new boolean[20];
@@ -94,6 +95,7 @@ public class JuegoActivity extends Activity {
                     imagen=c.getInt(c.getColumnIndex("imagen"));
                     coste=c.getInt(c.getColumnIndex("coste"));
                     cantidad=c.getInt(c.getColumnIndex("cantidad"));
+                    tipo=c.getInt(c.getColumnIndex("tipo"));
                     datos[0]=c.getInt(c.getColumnIndex("dañoEnemigo"));
                     datos[1]=(c.getInt(c.getColumnIndex("curaEnemigo")));
                     datos[2]=(c.getInt(c.getColumnIndex("cartasEnemigo")));
@@ -148,8 +150,21 @@ public class JuegoActivity extends Activity {
                     boleans[17]=(c.getInt(c.getColumnIndex("onEndTurnHand"))>0);
                     boleans[18]=(c.getInt(c.getColumnIndex("onEndTurnDiscard"))>0);
                     boleans[19]=(c.getInt(c.getColumnIndex("onEndTurnDeck"))>0);
+                    Tipos tipos;
+                    if(tipo==Tipos.HECHIZO.ordinal()){
+                        tipos=Tipos.HECHIZO;
+                    }
+                    else if(tipo==Tipos.PERMANENTE.ordinal()){
+                        tipos=Tipos.PERMANENTE;
+                    }
+                    else if(tipo==Tipos.MAGO.ordinal()){
+                        tipos=Tipos.MAGO;
+                    }
+                    else{
+                        tipos=Tipos.HECHIZO;
+                    }
                     for(int j=0;j<cantidad;j++){
-                        carta=new Carta(this,jugador1,jugador2,nombre,imagen,coste,datos,datos2,boleans);
+                        carta=new Carta(this,jugador1,jugador2,nombre,imagen,coste,tipos,datos,datos2,boleans);
                         jugador1.getDeck().add(carta);
                     }
                 }while(c.moveToNext());
