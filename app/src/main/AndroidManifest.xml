@@ -24,6 +24,10 @@
             android:name=".ActivityMazos"
             android:label="@string/title_activity_activity_mazos" >
         </activity>
+        <activity
+            android:name=".ActivityCombinar"
+            android:label="@string/title_activity_activity_combinar" >
+        </activity>
     </application>
 
 </manifest>
