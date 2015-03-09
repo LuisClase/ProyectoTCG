@@ -169,6 +169,7 @@ public class Carta {
         this.nombre="Saber";
         this.id= UUID.randomUUID().hashCode();
         this.coste=0;
+        this.tipo=Tipos.HECHIZO;
         this.xInicio=0;
         this.yInicio=0;
         this.xFin=0;
@@ -189,6 +190,7 @@ public class Carta {
         this.id= UUID.randomUUID().hashCode();
         Log.i("UUID","HASCODE:"+this.getId());
         this.coste=0;
+        this.tipo=Tipos.HECHIZO;
         this.xInicio=0;
         this.yInicio=0;
         this.xFin=0;
@@ -210,6 +212,7 @@ public class Carta {
         this.id= UUID.randomUUID().hashCode();
         Log.i("UUID","HASCODE:"+this.getId());
         this.coste=0;
+        this.tipo=Tipos.HECHIZO;
         this.xInicio=0;
         this.yInicio=0;
         this.xFin=0;

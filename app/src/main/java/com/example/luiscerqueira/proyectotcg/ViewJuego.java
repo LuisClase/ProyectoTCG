@@ -293,6 +293,8 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
             }
+
+            Log.i("SURFACE","HILO DESTROYED");
         }
 
        public void setFuncionando(boolean flag){
@@ -819,8 +821,6 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     }
-
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -1361,7 +1361,20 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         hilo.setFuncionando(true);
-        hilo.start();
+        Log.i("SURFACE", "SURFACE CREATED");
+        try {
+            if(!hilo.isAlive()) {
+                hilo.start();
+            }
+        }catch(Exception e) {
+            try {
+                Log.i("SURFACE", "SURFACE CREATED2");
+                hilo.join();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1372,7 +1385,8 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         hilo.setFuncionando(false);
-        try{
+        Log.i("SURFACE","SURFACE DESTROYED");
+        try {
             hilo.join();
         }catch(InterruptedException e){
             e.printStackTrace();

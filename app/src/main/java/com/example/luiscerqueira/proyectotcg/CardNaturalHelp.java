@@ -11,6 +11,7 @@ public class CardNaturalHelp extends Carta {
     public CardNaturalHelp(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(0);
+        this.setTipo(Tipos.HECHIZO);
         this.setNombre("NaturalHelp");
         this.setImagen(R.drawable.cardnaturalhelp);
     }

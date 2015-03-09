@@ -11,6 +11,7 @@ public class CardMysticalSign extends Carta {
     public CardMysticalSign(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
+        this.setTipo(Tipos.PERMANENTE);
         this.setNombre("MysticSign");
         this.setImagen(R.drawable.cardmysticalsign);
     }

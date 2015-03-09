@@ -13,6 +13,7 @@ public class CardMentalSpiral extends Carta {
     public CardMentalSpiral(Context context, Jugador owner, Jugador enemigo) {
         super(context,owner, enemigo);
         this.setCoste(2);
+        this.setTipo(Tipos.HECHIZO);
         this.setNombre("MentalSpiral");
         this.setImagen(R.drawable.cardmentalspiral2);
     }

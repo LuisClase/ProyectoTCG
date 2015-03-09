@@ -11,6 +11,7 @@ public class CardNaturalResources extends Carta {
     public CardNaturalResources(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
+        this.setTipo(Tipos.HECHIZO);
         this.setNombre("NaturalResources");
         this.setImagen(R.drawable.cardnaturalresources);
     }

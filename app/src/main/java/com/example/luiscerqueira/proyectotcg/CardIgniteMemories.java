@@ -12,6 +12,7 @@ public class CardIgniteMemories extends Carta{
     public CardIgniteMemories(Context context,Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(5);
+        this.setTipo(Tipos.HECHIZO);
         this.setNombre("IgniteMemories");
         this.setImagen(R.drawable.cardignitememories);
     }

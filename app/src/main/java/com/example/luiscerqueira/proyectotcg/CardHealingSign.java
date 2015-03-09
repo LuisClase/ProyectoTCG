@@ -11,6 +11,7 @@ public class CardHealingSign extends Carta {
     public CardHealingSign(Context context, Jugador owner, Jugador enemigo) {
         super(context, owner, enemigo);
         this.setCoste(2);
+        this.setTipo(Tipos.PERMANENTE);
         this.setNombre("HealSign");
         this.setImagen(R.drawable.cardhealingsign);
     }
