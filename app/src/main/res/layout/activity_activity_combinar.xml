@@ -29,4 +29,20 @@
         android:layout_below="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
         android:src="@drawable/circulo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Caracteristicas"
+        android:id="@+id/btnCaracteristicas"
+        android:layout_above="@+id/btnCombinar"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Imagen"
+        android:id="@+id/btnImagen"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/btnCombinar" />
 </RelativeLayout>

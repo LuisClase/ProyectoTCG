@@ -6,11 +6,13 @@ package com.example.luiscerqueira.proyectotcg;
         import android.database.sqlite.SQLiteDatabase;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
+        import android.os.Build;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.view.View;
         import android.view.Window;
         import android.view.WindowManager;
 
@@ -25,12 +27,14 @@ public class JuegoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         super.onCreate(savedInstanceState);
+        //getActionBar().hide();
         pantallaJuego=new ViewJuego(this);
         pantallaJuego.setKeepScreenOn(true);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(pantallaJuego);
 
@@ -213,11 +217,26 @@ public class JuegoActivity extends Activity {
 
 //        Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_juego, menu);
         return true;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            if (hasFocus) {
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
     }
 
     @Override

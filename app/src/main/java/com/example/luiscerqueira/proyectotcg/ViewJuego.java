@@ -201,7 +201,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
             Log.i("CONSTRUCTOR", "JUGADOR2:NO NULL");
         }
         //deck
-        alturaDeck=altoPantalla-altoCarta;
+        alturaDeck=(altoPantalla)-(altoCarta/6);
         anchuraDeck=anchoCarta;
         x=avatar.getWidth();
         y=alturaDeck;
@@ -211,20 +211,23 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         yDescarte=y;
         Log.i("CONSTRUCTOR", "FIN CONSTRUCTOR INICIALIZACION");
 
-
+        Log.i("CONSTRUCTOR", "ALTURA DECK: "+alturaDeck);
+        Log.i("CONSTRUCTOR", "ALTURA PANTALLA: "+altoPantalla);
+        Log.i("CONSTRUCTOR", "ALTURA CARTA: "+altoCarta);
+        Log.i("CONSTRUCTOR", "Y DECK: "+y);
         //jugador1
         jugador1.setDeckX(xDeck);
         jugador1.setDeckXfin(xDeck+anchoCarta);
         jugador1.setDeckY(yDeck);
-        jugador1.setDeckYfin(yDeck+alturaDeck);
+        jugador1.setDeckYfin(yDeck+altoCarta);
         jugador1.setDescarteX(anchoPantalla-(int)(anchoCarta*1.2));
         jugador1.setDescarteXfin(jugador1.getDescarteX()+anchoCarta);
         jugador1.setDescarteY(yDeck);
-        jugador1.setDescarteYfin(yDeck+alturaDeck);
+        jugador1.setDescarteYfin(yDeck+altoCarta);
         jugador1.setManoX(jugador1.getDeckX()+(int)(1.2*anchoCarta));
         jugador1.setManoXfin(jugador1.getDescarteX()-(int)(0.5*anchoCarta));
         jugador1.setManoY(yDeck);
-        jugador1.setManoYfin(yDeck+alturaDeck);
+        jugador1.setManoYfin(yDeck+altoCarta);
         jugador1.setMesaX(jugador1.getManoX());
         jugador1.setMesaXfin(jugador1.getManoXfin());
         jugador1.setMesaY(jugador1.getManoY()-(int)(1.2*altoCarta));
@@ -1360,21 +1363,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        hilo.setFuncionando(true);
-        Log.i("SURFACE", "SURFACE CREATED");
-        try {
-            if(!hilo.isAlive()) {
-                hilo.start();
-            }
-        }catch(Exception e) {
-            try {
-                Log.i("SURFACE", "SURFACE CREATED2");
-                hilo.join();
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
+        if (this.hilo.getState() == Thread.State.TERMINATED) {
+            this.hilo = new Hilo();
         }
+        this.hilo.setFuncionando(true);
+        this.hilo.start();
     }
 
     @Override
