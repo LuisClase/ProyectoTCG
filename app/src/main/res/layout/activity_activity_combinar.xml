@@ -6,21 +6,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.luiscerqueira.proyectotcg.ActivityCombinar">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Combinar"
-        android:id="@+id/btnCombinar"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/frontcard" />
+        android:src="@drawable/marco" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -28,14 +20,15 @@
         android:id="@+id/imageView2"
         android:layout_below="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
-        android:src="@drawable/circulo" />
+        android:src="@drawable/saberchibi2"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Caracteristicas"
         android:id="@+id/btnCaracteristicas"
-        android:layout_above="@+id/btnCombinar"
+        android:layout_above="@+id/btnImagen"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -43,6 +36,6 @@
         android:layout_height="wrap_content"
         android:text="Imagen"
         android:id="@+id/btnImagen"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/btnCombinar" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
