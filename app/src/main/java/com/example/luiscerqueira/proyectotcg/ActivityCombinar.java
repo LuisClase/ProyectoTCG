@@ -1,6 +1,7 @@
 package com.example.luiscerqueira.proyectotcg;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -17,6 +18,9 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +28,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 
@@ -49,13 +56,20 @@ public class ActivityCombinar extends ActionBarActivity {
         imagenCarta=(ImageView)findViewById(R.id.imageView);
         imagenCentral=(ImageView)findViewById(R.id.imageView2);
         imagenMarco=((BitmapDrawable)imagenCarta.getDrawable()).getBitmap();
-        Button btnCombinar=(Button)findViewById(R.id.btnCombinar);
         Button btnCaracteristicas=(Button)findViewById(R.id.btnCaracteristicas);
         Button btnImagen=(Button)findViewById(R.id.btnImagen);
 
         Bitmap imagen1=imagenMarco;
         Bitmap imagen2=((BitmapDrawable)imagenCentral.getDrawable()).getBitmap();
         imagenCombinada=overlay(imagen1,imagen2);
+
+        btnCaracteristicas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogoCombinar dialogoCombinar=new DialogoCombinar();
+                dialogoCombinar.show(getFragmentManager(),"Combinar");
+            }
+        });
 
         btnImagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +132,7 @@ public class ActivityCombinar extends ActionBarActivity {
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         int tamañoLetra = 100;
         paint.setTextSize(tamañoLetra);
-        String texto = "Prueba \nTexto \nCarta";
+        String texto = "Turno: 1Carta \n2:2Daños";
 //        Rect bounds = new Rect();/
 //
 //        paint.getTextBounds(texto, 0, texto.length(), bounds);
@@ -149,12 +163,19 @@ public class ActivityCombinar extends ActionBarActivity {
         }
 
         Log.i("LETRA3", "FUERA WHILE: " + tamañoLetra);
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        canvas.drawRect(tempX,tempY-paint.getTextSize(),bmp1.getWidth()-imagenColumna.getWidth(),bmp1.getHeight()-imagenLinea.getHeight(),paint);
+//        paint.setColor(Color.RED);
+//        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+//        canvas.drawRect(tempX,tempY-paint.getTextSize(),bmp1.getWidth()-imagenColumna.getWidth(),bmp1.getHeight()-imagenLinea.getHeight(),paint);
 
+        TextPaint mTextPaint=new TextPaint();
+        mTextPaint.setTextSize(tamañoLetra);
+        StaticLayout mTextLayout=new StaticLayout(texto,mTextPaint,canvas.getWidth(), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f,false);
+        canvas.save();
+        canvas.translate(tempX-(float)(tamañoLetra*1.5),tempY-tamañoLetra);
+        mTextLayout.draw(canvas);
+        canvas.restore();
         paint.setColor(Color.BLACK);
-        canvas.drawText(texto,tempX,tempY,paint);
+//        canvas.drawText(texto,tempX,tempY,paint);
         return bmOverlay;
     }
 
