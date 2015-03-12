@@ -8,5 +8,6 @@
     <string name="title_activity_juego">JuegoActivity</string>
     <string name="title_activity_activity_mazos">ActivityMazos</string>
     <string name="title_activity_activity_combinar">ActivityCombinar</string>
+    <string name="title_activity_dialogo_combinar_propio">DialogoCombinarPropio</string>
 
 </resources>

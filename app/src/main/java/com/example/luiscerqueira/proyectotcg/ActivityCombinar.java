@@ -57,17 +57,27 @@ public class ActivityCombinar extends ActionBarActivity {
         imagenCentral=(ImageView)findViewById(R.id.imageView2);
         imagenMarco=((BitmapDrawable)imagenCarta.getDrawable()).getBitmap();
         Button btnCaracteristicas=(Button)findViewById(R.id.btnCaracteristicas);
+        Button btnCaracteristicasJugador=(Button)findViewById(R.id.btnCaracteristicasJugador);
         Button btnImagen=(Button)findViewById(R.id.btnImagen);
 
         Bitmap imagen1=imagenMarco;
         Bitmap imagen2=((BitmapDrawable)imagenCentral.getDrawable()).getBitmap();
         imagenCombinada=overlay(imagen1,imagen2);
+        imagenCarta.setImageBitmap(imagenCombinada);
 
         btnCaracteristicas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogoCombinar dialogoCombinar=new DialogoCombinar();
                 dialogoCombinar.show(getFragmentManager(),"Combinar");
+            }
+        });
+
+        btnCaracteristicasJugador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogoCombinarPropio dialogoCombinarPropio=new DialogoCombinarPropio();
+                dialogoCombinarPropio.show(getFragmentManager(),"Combinar");
             }
         });
 

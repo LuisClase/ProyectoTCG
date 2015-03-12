@@ -17,7 +17,7 @@ import android.widget.TextView;
 /**
  * Created by Luis Cerqueira on 04/03/2015.
  */
-public class DialogoCombinar extends DialogFragment {
+public class DialogoCombinarPropio extends DialogFragment {
 
     int puntos=0;
 
@@ -46,7 +46,7 @@ public class DialogoCombinar extends DialogFragment {
     TextView txt10;
     TextView txt11;
     TextView txt12;
-//    TextView txt13;
+    TextView txt13;
     TextView txt14;
     AlertDialog.Builder builder;
 
@@ -56,13 +56,13 @@ public class DialogoCombinar extends DialogFragment {
         LayoutInflater inflador=getActivity().getLayoutInflater();
         View layout=inflador.inflate(R.layout.dialogo, null);
         builder.setView(layout).
-            setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                setPositiveButton("OK",new DialogInterface.OnClickListener(){
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dismiss();
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                });
 
 
         txt1=(TextView)layout.findViewById(R.id.textView);
@@ -77,7 +77,7 @@ public class DialogoCombinar extends DialogFragment {
         txt10=(TextView)layout.findViewById(R.id.textView10);
         txt11=(TextView)layout.findViewById(R.id.textView11);
         txt12=(TextView)layout.findViewById(R.id.textView12);
-//        txt13=(TextView)layout.findViewById(R.id.textView13);
+//        txt13=(TextView)layout.findViewById(R.id.textView14);
 
         Button btn1=(Button)layout.findViewById(R.id.button);
         Button btn2=(Button)layout.findViewById(R.id.button2);
@@ -117,7 +117,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 daño++;
                 puntos--;
-                txt1.setText("Daño Enemigo: "+daño);
+                txt1.setText("Daño Jugador: "+daño);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -127,7 +127,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(daño>0) {
                     daño--;
                     puntos++;
-                    txt1.setText("Daño Enemigo: " + daño);
+                    txt1.setText("Daño Jugador: " + daño);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -137,7 +137,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 cura++;
                 puntos--;
-                txt2.setText("Cura Enemigo: "+cura);
+                txt1.setText("Cura Jugador: "+cura);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -147,7 +147,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(cura>0) {
                     cura--;
                     puntos++;
-                    txt2.setText("Cura Enemigo: " + cura);
+                    txt1.setText("Cura Jugador: " + cura);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -157,7 +157,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 cartas++;
                 puntos--;
-                txt3.setText("Cartas a Enemigo: "+cartas);
+                txt1.setText("Cartas a Jugador: "+cartas);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -167,7 +167,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(cartas>0) {
                     cartas--;
                     puntos++;
-                    txt3.setText("Cartas a Enemigo: " + cartas);
+                    txt1.setText("Cartas a Jugador: " + cartas);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -177,7 +177,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 descarte++;
                 puntos--;
-                txt4.setText("Descarte Enemigo: "+descarte);
+                txt1.setText("Descarte Jugador: "+descarte);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -187,7 +187,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(descarte>0) {
                     descarte--;
                     puntos++;
-                    txt4.setText("Descartar Enemigo: " + daño);
+                    txt1.setText("Descartar Jugador: " + daño);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -197,7 +197,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 recursos++;
                 puntos--;
-                txt5.setText("Recursos a Enemigo: "+recursos);
+                txt1.setText("Recursos a Jugador: "+recursos);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -207,7 +207,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(recursos>0) {
                     recursos--;
                     puntos++;
-                    txt5.setText("Recursos a Enemigo: " + recursos);
+                    txt1.setText("Recursos a Jugador: " + recursos);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -217,7 +217,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 moverMesaMano++;
                 puntos--;
-                txt6.setText("Mover de mesa a mano Enemigo: "+moverMesaMano);
+                txt1.setText("Mover de mesa a mano Jugador: "+moverMesaMano);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -227,7 +227,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(moverMesaMano>0) {
                     moverMesaMano--;
                     puntos++;
-                    txt6.setText("Mover de mesa a mano Enemigo: " + moverMesaMano);
+                    txt1.setText("Mover de mesa a mano Jugador: " + moverMesaMano);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -237,7 +237,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 moverDeckMano++;
                 puntos--;
-                txt7.setText("Mover de deck a mano Enemigo: "+moverDeckMano);
+                txt1.setText("Mover de deck a mano Jugador: "+moverDeckMano);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -247,7 +247,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(moverDeckMano>0) {
                     moverDeckMano--;
                     puntos++;
-                    txt7.setText("Mover de deck a mano Enemigo: " + moverDeckMano);
+                    txt1.setText("Mover de deck a mano Jugador: " + moverDeckMano);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -257,7 +257,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 moverMesaDeck++;
                 puntos--;
-                txt8.setText("Mover de mesa a deck Enemigo: "+moverMesaDeck);
+                txt1.setText("Mover de mesa a deck Jugador: "+moverMesaDeck);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -267,7 +267,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(moverMesaDeck>0) {
                     moverMesaDeck--;
                     puntos++;
-                    txt8.setText("Mover de mesa a dek Enemigo: " + moverMesaDeck);
+                    txt1.setText("Mover de mesa a dek Jugador: " + moverMesaDeck);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -277,7 +277,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 moverdescarteDeck++;
                 puntos--;
-                txt9.setText("Mover de descarte a deck Enemigo: "+moverdescarteDeck);
+                txt1.setText("Mover de descarte a deck Jugador: "+moverdescarteDeck);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -287,7 +287,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(moverdescarteDeck>0) {
                     moverdescarteDeck--;
                     puntos++;
-                    txt9.setText("Mover de descarte a deck Enemigo: " + moverdescarteDeck);
+                    txt1.setText("Mover de descarte a deck Jugador: " + moverdescarteDeck);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -297,7 +297,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 moverManoDeck++;
                 puntos--;
-                txt10.setText("Mover de mano a deck Enemigo: "+moverManoDeck);
+                txt1.setText("Mover de mano a deck Jugador: "+moverManoDeck);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -307,7 +307,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(moverManoDeck>0) {
                     moverManoDeck--;
                     puntos++;
-                    txt10.setText("Mover de mano a deck Enemigo: " + moverManoDeck);
+                    txt1.setText("Mover de mano a deck Jugador: " + moverManoDeck);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -317,7 +317,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 moverDeckDescarte++;
                 puntos--;
-                txt11.setText("Mover de deck a descarte Enemigo: "+moverDeckDescarte);
+                txt1.setText("Mover de deck a descarte Jugador: "+moverDeckDescarte);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -327,7 +327,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(moverDeckDescarte>0) {
                     moverDeckDescarte--;
                     puntos++;
-                    txt11.setText("Mover de deck a descarte Enemigo: " + moverDeckDescarte);
+                    txt1.setText("Mover de deck a descarte Jugador: " + moverDeckDescarte);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
@@ -337,7 +337,7 @@ public class DialogoCombinar extends DialogFragment {
             public void onClick(View v) {
                 destruirMesa++;
                 puntos--;
-                txt12.setText("Destruir de mesa: "+destruirMesa);
+                txt1.setText("Destruir de mesa: "+destruirMesa);
                 txt14.setText("Puntos: "+puntos);
             }
         });
@@ -347,7 +347,7 @@ public class DialogoCombinar extends DialogFragment {
                 if(destruirMesa>0) {
                     destruirMesa--;
                     puntos++;
-                    txt12.setText("Destruir de mesa: " + destruirMesa);
+                    txt1.setText("Destruir de mesa: " + destruirMesa);
                     txt14.setText("Puntos: " + puntos);
                 }
             }
