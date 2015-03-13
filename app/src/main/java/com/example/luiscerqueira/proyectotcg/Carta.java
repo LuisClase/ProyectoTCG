@@ -5,6 +5,7 @@ package com.example.luiscerqueira.proyectotcg;
         import android.graphics.BitmapFactory;
         import android.util.Log;
 
+        import java.util.ArrayList;
         import java.util.UUID;
 
 /**
@@ -26,27 +27,28 @@ public class Carta {
     private int xFin;
     private int yFin;
     private int grados;
+    private Bitmap imagenCreada;
     private boolean animar;
     private int imagenAnimacion;
     private Context contexto;
     //enemigo
-    private int dañoEnemigo;
-    private int curaEnemigo;
-    private int cartasEnemigo;
-    private int descarteEnemigo;
-    private int recursosEnemigo;
-    private int moverMesaAManoEnemigo;
-    private int moverDescarteAManoEnemigo;
-    private int moverDeckAManoEnemigo;
-    private int moverMesaADeckEnemigo;
-    private int moverDescarteADeckEnemigo;
-    private int moverManoADeckEnemigo;
-    private int moverMesaADescarteEnemigo;
-    private int moverManoADescarteEnemigo;
-    private int moverDeckADescarteEnemigo;
-    private int moverDescarteAMesaEnemigo;
-    private int moverManoAMesaEnemigo;
-    private int moverDeckAMesaEnemigo;
+    private int dañoEnemigo=0;
+    private int curaEnemigo=0;
+    private int cartasEnemigo=0;
+    private int descarteEnemigo=0;
+    private int recursosEnemigo=0;
+    private int moverMesaAManoEnemigo=0;
+    private int moverDescarteAManoEnemigo=0;
+    private int moverDeckAManoEnemigo=0;
+    private int moverMesaADeckEnemigo=0;
+    private int moverDescarteADeckEnemigo=0;
+    private int moverManoADeckEnemigo=0;
+    private int moverMesaADescarteEnemigo=0;
+    private int moverManoADescarteEnemigo=0;
+    private int moverDeckADescarteEnemigo=0;
+    private int moverDescarteAMesaEnemigo=0;
+    private int moverManoAMesaEnemigo=0;
+    private int moverDeckAMesaEnemigo=0;
     //owner
     private int dañoOwner=0;
     private int curaOwner=0;
@@ -86,6 +88,8 @@ public class Carta {
     private boolean OnEndTurnHand=false;
     private boolean OnEndTurnDiscard=false;
     private boolean OnEndTurnDeck=false;
+    //creada
+    private boolean creada=false;
 
     public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste, Tipos tipo,int[]valoresEnemigo,int[]valoresOwner, boolean[]valoresPlay){
         this.nombre=nombre;
@@ -253,33 +257,81 @@ public class Carta {
 
     public void playCard(){
         if(dañoEnemigo>0){
-            enemigo.setVidas(enemigo.getVidas()-dañoEnemigo);
+            enemigo.setVidas(enemigo.getVidas() - dañoEnemigo);
         }
         if(descarteEnemigo>0){
             enemigo.moveFromHandToDiscard(descarteEnemigo);
         }
+        if(cartasEnemigo>0){
+            enemigo.moveFromDeckToHand(cartasEnemigo);
+        }
         if(curaEnemigo>0){
-            enemigo.setVidas(enemigo.getVidas()+curaEnemigo);
+            enemigo.setVidas(enemigo.getVidas() + curaEnemigo);
         }
         if(recursosEnemigo!=0){
-            enemigo.setRecursos(enemigo.getRecursos()+recursosEnemigo);
+            enemigo.setRecursos(enemigo.getRecursos() + recursosEnemigo);
+        }
+        if(moverMesaAManoEnemigo!=0){
+            enemigo.moveFromTableToHand(moverMesaAManoEnemigo);
+        }
+        if(moverDescarteAManoEnemigo!=0){
+            enemigo.moveFromTableToHand(moverMesaAManoEnemigo);
+        }
+        if(moverMesaADeckEnemigo!=0){
+            enemigo.moveFromTableToDeck(moverMesaADeckEnemigo);
+        }
+        if(moverDescarteADeckEnemigo!=0){
+            enemigo.moveFromDiscardToDeck(moverDescarteADeckEnemigo);
+        }
+        if(moverManoADeckEnemigo!=0){
+            enemigo.moveFromTableToHand(moverManoADeckEnemigo);
+        }
+        if(moverMesaADescarteEnemigo!=0){
+            enemigo.moveFromTableToHand(moverMesaADescarteEnemigo);
+        }
+        if(moverDeckADescarteEnemigo!=0){
+            enemigo.moveFromTableToHand(moverMesaADescarteEnemigo);
         }
         if(dañoOwner>0){
-            owner.setVidas(owner.getVidas()-dañoOwner);
+            owner.setVidas(owner.getVidas() - dañoOwner);
         }
         if(descarteOwner>0){
             owner.moveFromHandToDiscard(descarteOwner);
         }
         if(curaOwner>0){
-            owner.setVidas(owner.getVidas()+curaOwner);
+            owner.setVidas(owner.getVidas() + curaOwner);
         }
         if(recursosOwner!=0){
-            owner.setRecursos(owner.getRecursos()+recursosOwner);
+            owner.setRecursos(owner.getRecursos() + recursosOwner);
         }
+        if(cartasOwner>0){
+            owner.moveFromDeckToHand(cartasOwner);
+        }
+        if(moverMesaAManoOwner>0){
+            owner.moveFromTableToHand(moverMesaAManoOwner);
+        }
+        if(moverDescarteAManoOwner>0){
+            owner.moveFromDiscardToHand(moverDescarteAManoOwner);
+        }
+        if(moverMesaADeckOwner>0){
+            owner.moveFromTableToDeck(moverMesaADeckOwner);
+        }
+        if(moverDescarteADeckOwner>0){
+            owner.moveFromDiscardToDeck(moverDescarteADeckOwner);
+        }
+        if(moverManoADeckOwner>0){
+            owner.moveFromHandToDeck(moverManoADeckOwner);
+        }
+        if(moverMesaADescarteOwner>0){
+            owner.moveFromTableToDiscard(moverMesaADescarteOwner);
+        }
+        if(moverDeckADescarteOwner>0){
+            owner.moveFromDeckToDiscard(moverDeckADescarteOwner);
+        }
+        //owner.setRecursos(owner.getRecursos()-getCoste());
         if(this.getTipo().ordinal()==Tipos.HECHIZO.ordinal()){
             getOwner().moveCardFromTableToDiscard(getId());
         }
-        //owner.setRecursos(owner.getRecursos()-getCoste());
     }
 
     public void startOfTurnTable(){
@@ -966,6 +1018,22 @@ public class Carta {
 
     public void setTipo(Tipos tipo) {
         this.tipo = tipo;
+    }
+
+    public boolean isCreada() {
+        return creada;
+    }
+
+    public void setCreada(boolean creada) {
+        this.creada = creada;
+    }
+
+    public Bitmap getImagenCreada() {
+        return imagenCreada;
+    }
+
+    public void setImagenCreada(Bitmap imagenCreada) {
+        this.imagenCreada = imagenCreada;
     }
 
 }

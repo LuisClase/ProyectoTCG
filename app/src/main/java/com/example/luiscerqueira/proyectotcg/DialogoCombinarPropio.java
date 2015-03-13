@@ -19,21 +19,6 @@ import android.widget.TextView;
  */
 public class DialogoCombinarPropio extends DialogFragment {
 
-    int puntos=0;
-
-    int daño=0;
-    int cura=0;
-    int cartas=0;
-    int descarte=0;
-    int recursos=0;
-    int moverMesaMano=0;
-    int moverDeckMano=0;
-    int moverMesaDeck=0;
-    int moverdescarteDeck=0;
-    int moverManoDeck=0;
-    int moverDeckDescarte=0;
-    int destruirMesa=0;
-    int moverDescarteMesa=0;
     TextView txt1;
     TextView txt2;
     TextView txt3;
@@ -77,7 +62,7 @@ public class DialogoCombinarPropio extends DialogFragment {
         txt10=(TextView)layout.findViewById(R.id.textView10);
         txt11=(TextView)layout.findViewById(R.id.textView11);
         txt12=(TextView)layout.findViewById(R.id.textView12);
-//        txt13=(TextView)layout.findViewById(R.id.textView14);
+        txt14=(TextView)layout.findViewById(R.id.textView14);
 
         Button btn1=(Button)layout.findViewById(R.id.button);
         Button btn2=(Button)layout.findViewById(R.id.button2);
@@ -115,240 +100,240 @@ public class DialogoCombinarPropio extends DialogFragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                daño++;
-                puntos--;
-                txt1.setText("Daño Jugador: "+daño);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setDañoOwner(((ActivityCombinar)getActivity()).cartaPropia.getDañoOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt1.setText("Daño Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getDañoOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(daño>0) {
-                    daño--;
-                    puntos++;
-                    txt1.setText("Daño Jugador: " + daño);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getDañoOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setDañoOwner(((ActivityCombinar)getActivity()).cartaPropia.getDañoOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt1.setText("Daño Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getDañoOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cura++;
-                puntos--;
-                txt1.setText("Cura Jugador: "+cura);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setCuraOwner(((ActivityCombinar)getActivity()).cartaPropia.getCuraOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt2.setText("Cura Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getCuraOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cura>0) {
-                    cura--;
-                    puntos++;
-                    txt1.setText("Cura Jugador: " + cura);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getCuraOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setCuraOwner(((ActivityCombinar)getActivity()).cartaPropia.getCuraOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt2.setText("Cura Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getCuraOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartas++;
-                puntos--;
-                txt1.setText("Cartas a Jugador: "+cartas);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setCartasOwner(((ActivityCombinar)getActivity()).cartaPropia.getCartasOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt3.setText("Cartas a Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getCartasOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cartas>0) {
-                    cartas--;
-                    puntos++;
-                    txt1.setText("Cartas a Jugador: " + cartas);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getCartasOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setCartasOwner(((ActivityCombinar)getActivity()).cartaPropia.getCartasOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt3.setText("Cartas a Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getCartasOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                descarte++;
-                puntos--;
-                txt1.setText("Descarte Jugador: "+descarte);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setDescarteOwner(((ActivityCombinar)getActivity()).cartaPropia.getDescarteOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt4.setText("Descarte Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getDescarteOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(descarte>0) {
-                    descarte--;
-                    puntos++;
-                    txt1.setText("Descartar Jugador: " + daño);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getDescarteOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setDescarteOwner(((ActivityCombinar)getActivity()).cartaPropia.getDescarteOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt4.setText("Descartar Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getDescarteOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recursos++;
-                puntos--;
-                txt1.setText("Recursos a Jugador: "+recursos);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setRecursosOwner(((ActivityCombinar)getActivity()).cartaPropia.getRecursosOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt5.setText("Recursos a Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getRecursosOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(recursos>0) {
-                    recursos--;
-                    puntos++;
-                    txt1.setText("Recursos a Jugador: " + recursos);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getRecursosOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setRecursosOwner(((ActivityCombinar)getActivity()).cartaPropia.getRecursosOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt5.setText("Recursos a Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getRecursosOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moverMesaMano++;
-                puntos--;
-                txt1.setText("Mover de mesa a mano Jugador: "+moverMesaMano);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverMesaAManoOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaAManoOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt6.setText("Mover de mesa a mano Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaAManoOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(moverMesaMano>0) {
-                    moverMesaMano--;
-                    puntos++;
-                    txt1.setText("Mover de mesa a mano Jugador: " + moverMesaMano);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaAManoOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverMesaAManoOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaAManoOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt6.setText("Mover de mesa a mano Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaAManoOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moverDeckMano++;
-                puntos--;
-                txt1.setText("Mover de deck a mano Jugador: "+moverDeckMano);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverDeckAManoOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckAManoOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt7.setText("Mover de deck a mano Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckAManoOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(moverDeckMano>0) {
-                    moverDeckMano--;
-                    puntos++;
-                    txt1.setText("Mover de deck a mano Jugador: " + moverDeckMano);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckAManoOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverDeckAManoOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckAManoOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt7.setText("Mover de deck a mano Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckAManoOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moverMesaDeck++;
-                puntos--;
-                txt1.setText("Mover de mesa a deck Jugador: "+moverMesaDeck);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverMesaADeckOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADeckOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt8.setText("Mover de mesa a deck Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADeckOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(moverMesaDeck>0) {
-                    moverMesaDeck--;
-                    puntos++;
-                    txt1.setText("Mover de mesa a dek Jugador: " + moverMesaDeck);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADeckOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverMesaADeckOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADeckOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt8.setText("Mover de mesa a dek Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADeckOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn17.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moverdescarteDeck++;
-                puntos--;
-                txt1.setText("Mover de descarte a deck Jugador: "+moverdescarteDeck);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverDescarteADeckOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverDescarteADeckOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt9.setText("Mover de descarte a deck Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverDescarteADeckOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(moverdescarteDeck>0) {
-                    moverdescarteDeck--;
-                    puntos++;
-                    txt1.setText("Mover de descarte a deck Jugador: " + moverdescarteDeck);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverDescarteADeckOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverDescarteADeckOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverDescarteADeckOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt9.setText("Mover de descarte a deck Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverDescarteADeckOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn19.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moverManoDeck++;
-                puntos--;
-                txt1.setText("Mover de mano a deck Jugador: "+moverManoDeck);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverManoADeckOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverManoADeckOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt10.setText("Mover de mano a deck Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverManoADeckOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(moverManoDeck>0) {
-                    moverManoDeck--;
-                    puntos++;
-                    txt1.setText("Mover de mano a deck Jugador: " + moverManoDeck);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverManoADeckOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverManoADeckOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverManoADeckOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt10.setText("Mover de mano a deck Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverManoADeckOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moverDeckDescarte++;
-                puntos--;
-                txt1.setText("Mover de deck a descarte Jugador: "+moverDeckDescarte);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverDeckADescarteOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckADescarteOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt11.setText("Mover de deck a descarte Jugador: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckADescarteOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(moverDeckDescarte>0) {
-                    moverDeckDescarte--;
-                    puntos++;
-                    txt1.setText("Mover de deck a descarte Jugador: " + moverDeckDescarte);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckADescarteOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverDeckADescarteOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckADescarteOwner()-1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt11.setText("Mover de deck a descarte Jugador: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverDeckADescarteOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });
         btn23.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                destruirMesa++;
-                puntos--;
-                txt1.setText("Destruir de mesa: "+destruirMesa);
-                txt14.setText("Puntos: "+puntos);
+                ((ActivityCombinar)getActivity()).cartaPropia.setMoverMesaADescarteOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADescarteOwner()+1);
+                ((ActivityCombinar)getActivity()).puntos--;
+                txt12.setText("Destruir de mesa: "+((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADescarteOwner());
+                txt14.setText("Puntos: "+((ActivityCombinar)getActivity()).puntos);
             }
         });
         btn24.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(destruirMesa>0) {
-                    destruirMesa--;
-                    puntos++;
-                    txt1.setText("Destruir de mesa: " + destruirMesa);
-                    txt14.setText("Puntos: " + puntos);
+                if(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADescarteOwner()>0) {
+                    ((ActivityCombinar)getActivity()).cartaPropia.setMoverMesaADescarteOwner(((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADescarteOwner()+1);
+                    ((ActivityCombinar)getActivity()).puntos++;
+                    txt12.setText("Destruir de mesa: " + ((ActivityCombinar)getActivity()).cartaPropia.getMoverMesaADescarteOwner());
+                    txt14.setText("Puntos: " + ((ActivityCombinar)getActivity()).puntos);
                 }
             }
         });

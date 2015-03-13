@@ -327,7 +327,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 for (int i = 0; i < jugador1.getMano().size(); i++) {
                     //infoCard = Bitmap.createScaledBitmap(infoCard, (int) (1.5 * anchoCarta), (int) (altoCarta * 1.5), true);
-                    arrayManoJ1.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getMano().get(i).getImagen()), anchoCarta, altoCarta, true));
+                    if(!jugador1.getMano().get(i).isCreada()) {
+                        arrayManoJ1.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getMano().get(i).getImagen()), anchoCarta, altoCarta, true));
+                    }else{
+                        arrayManoJ1.add(Bitmap.createScaledBitmap(jugador1.getMano().get(i).getImagenCreada(), anchoCarta, altoCarta, true));
+                    }
                 }
                 contManoJ1=jugador1.getMano().size();
             }
@@ -346,7 +350,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     arrayMesaJ1.clear();
                 }
                 for (int i = 0; i < jugador1.getMesa().size(); i++) {
-                    arrayMesaJ1.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getMesa().get(i).getImagen()), anchoCarta, altoCarta, true));
+                    if(!jugador1.getMesa().get(i).isCreada()) {
+                        arrayMesaJ1.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), jugador1.getMesa().get(i).getImagen()), anchoCarta, altoCarta, true));
+                    }else{
+                        arrayMesaJ1.add(Bitmap.createScaledBitmap(jugador1.getMesa().get(i).getImagenCreada(), anchoCarta, altoCarta, true));
+                    }
                 }
                 contMesaJ1=jugador1.getMesa().size();
             }

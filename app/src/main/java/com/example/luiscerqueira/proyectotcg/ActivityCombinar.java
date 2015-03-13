@@ -18,15 +18,19 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -44,8 +48,12 @@ public class ActivityCombinar extends ActionBarActivity {
     Bitmap imagenLinea;
     Bitmap imagenColumna;
     Bitmap imagenTemp;
+    Button btnGuardar;
     ImageView imagenCentral;
     ImageView imagenCarta;
+    EditText textoNombreCarta;
+    Carta cartaPropia;
+    int puntos=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +64,48 @@ public class ActivityCombinar extends ActionBarActivity {
         imagenCarta=(ImageView)findViewById(R.id.imageView);
         imagenCentral=(ImageView)findViewById(R.id.imageView2);
         imagenMarco=((BitmapDrawable)imagenCarta.getDrawable()).getBitmap();
+
+        cartaPropia=new Carta(getApplicationContext(),null,null);
+
+        textoNombreCarta=(EditText)findViewById(R.id.editText);
+        TextView txtNombre=(TextView)findViewById(R.id.txtNombreCarta);
+
         Button btnCaracteristicas=(Button)findViewById(R.id.btnCaracteristicas);
         Button btnCaracteristicasJugador=(Button)findViewById(R.id.btnCaracteristicasJugador);
         Button btnImagen=(Button)findViewById(R.id.btnImagen);
+        Button btnGuardar=(Button)findViewById(R.id.btnGuardar);
 
         Bitmap imagen1=imagenMarco;
         Bitmap imagen2=((BitmapDrawable)imagenCentral.getDrawable()).getBitmap();
         imagenCombinada=overlay(imagen1,imagen2);
         imagenCarta.setImageBitmap(imagenCombinada);
+
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO GUARDAR EN CARPETA PROPIA
+            }
+        });
+
+        textoNombreCarta.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Bitmap imagen1=imagenMarco;
+                Bitmap imagen2=((BitmapDrawable)imagenCentral.getDrawable()).getBitmap();
+                imagenCombinada=overlay(imagen1,imagen2);
+                imagenCarta.setImageBitmap(imagenCombinada);
+            }
+        });
 
         btnCaracteristicas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +183,10 @@ public class ActivityCombinar extends ActionBarActivity {
         paint.setColor(Color.RED);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         int tamañoLetra = 100;
+        int tamañoLetraNombre=100;
         paint.setTextSize(tamañoLetra);
+
+                //TEXTO CARTA
         String texto = "Turno: 1Carta \n2:2Daños";
 //        Rect bounds = new Rect();/
 //
@@ -185,6 +230,55 @@ public class ActivityCombinar extends ActionBarActivity {
         mTextLayout.draw(canvas);
         canvas.restore();
         paint.setColor(Color.BLACK);
+
+
+        //TEXTO NOMBRE CARTA
+
+
+        paint.setTextSize(tamañoLetra);
+        String textoNombre = textoNombreCarta.getText().toString();
+//        Rect bounds = new Rect();/
+//
+//        paint.getTextBounds(texto, 0, texto.length(), bounds);
+        float tamañoTextoNombre = paint.measureText(texto);
+        float tempX2 = bmp1.getWidth() - (bmp1.getWidth() - (float) (bmp1.getWidth() * 0.1));
+
+        Float alto2 = Math.abs(paint.ascent() + paint.descent());
+        while (tamañoTextoNombre > ((bmp1.getWidth() - imagenColumna.getWidth()) - tempX)) {
+            tamañoLetraNombre--;
+            paint.setTextSize(tamañoLetraNombre);
+            tamañoTextoNombre = paint.measureText(textoNombre);
+            Log.i("LETRA", "TAMAÑO MAXIMO: " + ((bmp1.getWidth() - imagenColumna.getWidth()) - tempX));
+            Log.i("LETRA", "TAMAÑO TEXTO: " + tamañoTextoNombre);
+            Log.i("LETRA", "TAMAÑO: " + tamañoLetraNombre);
+        }
+//        paint.getTextBounds(texto, 0, texto.length(), bounds);
+        alto2 = Math.abs(paint.ascent()) + Math.abs(paint.descent());
+
+        while(alto>imagenLinea.getHeight()){
+            tamañoLetraNombre--;
+            paint.setTextSize(tamañoLetraNombre);
+            alto2 = Math.abs(paint.ascent()) + Math.abs(paint.descent());
+
+            Log.i("LETRA2","TAMAÑO MAXIMO: "+(imagenLinea.getHeight()));
+            Log.i("LETRA2","TAMAÑO: "+tamañoLetraNombre);
+            Log.i("LETRA2","ALTO: "+alto2);
+        }
+
+        Log.i("LETRA3", "FUERA WHILE: " + tamañoLetraNombre);
+//        paint.setColor(Color.RED);
+//        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+//        canvas.drawRect(tempX,tempY-paint.getTextSize(),bmp1.getWidth()-imagenColumna.getWidth(),bmp1.getHeight()-imagenLinea.getHeight(),paint);
+
+        TextPaint mTextPaint2=new TextPaint();
+        mTextPaint2.setTextSize(tamañoLetraNombre);
+        StaticLayout mTextLayout2=new StaticLayout(textoNombre,mTextPaint2,canvas.getWidth(), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f,false);
+        canvas.save();
+        canvas.translate((float)(tempX2*1.4)-(float)(tamañoLetra),(imagenLinea.getHeight()/3)*2-tamañoLetra);
+        mTextLayout2.draw(canvas);
+        canvas.restore();
+        paint.setTextSize(70);
+        canvas.drawText(""+(Math.abs(puntos)/4),(float)(tempX2*1.2),(float)(imagenLinea.getHeight()*1.4),paint);
 //        canvas.drawText(texto,tempX,tempY,paint);
         return bmOverlay;
     }
