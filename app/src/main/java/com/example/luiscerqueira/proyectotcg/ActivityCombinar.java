@@ -187,7 +187,238 @@ public class ActivityCombinar extends ActionBarActivity {
         paint.setTextSize(tamañoLetra);
 
                 //TEXTO CARTA
-        String texto = "Turno: 1Carta \n2:2Daños";
+        int cont=0;
+        int contHabilidades=0;
+        String texto = "";
+        if(cartaPropia.getDañoEnemigo()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getDañoEnemigo()+"Daño(s).";
+        }
+        if(cartaPropia.getDescarteEnemigo()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getDescarteEnemigo()+"Descarte(s).";
+        }
+        if(cartaPropia.getCartasEnemigo()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getCartasEnemigo()+"carta(s).";
+        }
+        if(cartaPropia.getCuraEnemigo()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getCuraEnemigo()+"cura(s).";
+        }
+        if(cartaPropia.getRecursosEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getRecursosEnemigo()+"recurso(s).";
+        }
+        if(cartaPropia.getMoverMesaAManoEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverMesaAManoEnemigo()+"mover de mesa a mano.";
+        }
+        if(cartaPropia.getMoverDescarteAManoEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverDescarteAManoEnemigo()+"mover de descarte a mano.";
+        }
+        if(cartaPropia.getMoverMesaADeckEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverMesaADeckEnemigo()+"mover de mesa a deck.";
+        }
+        if(cartaPropia.getMoverDescarteADeckEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverDescarteADeckEnemigo()+"mover de descarte a deck.";
+        }
+        if(cartaPropia.getMoverManoADeckEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverManoADeckEnemigo()+"mover de mano a deck.";
+        }
+        if(cartaPropia.getMoverMesaADescarteEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverMesaADescarteEnemigo()+"destruir de mesa.";
+        }
+        if(cartaPropia.getMoverDeckADescarteEnemigo()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                texto+="\n";
+            }
+            texto+=cartaPropia.getMoverDeckADescarteEnemigo()+" deck.";
+        }
+        if(contHabilidades>0) {
+            texto="Enemigo:"+texto+"\n";
+            contHabilidades=0;
+            cont=0;
+        }
+        String textoTemp="";
+        if(cartaPropia.getDañoOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getDañoOwner()+"Daño(s).";
+        }
+        if(cartaPropia.getDescarteOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getDescarteOwner()+"descarte(s).";
+        }
+        if(cartaPropia.getCuraOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getCuraOwner()+"cura(s).";
+        }
+        if(cartaPropia.getRecursosOwner()!=0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getRecursosOwner()+"recurso(s).";
+        }
+        if(cartaPropia.getCartasOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getCartasOwner()+"carta(s).";
+        }
+        if(cartaPropia.getMoverMesaAManoOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverMesaAManoOwner()+"mover a mano.";
+        }
+        if(cartaPropia.getMoverDescarteAManoOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverDescarteAManoOwner()+"mover de descarte a mano.";
+        }
+        if(cartaPropia.getMoverMesaADeckOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverMesaADeckOwner()+"mover de mesa a deck.";
+        }
+        if(cartaPropia.getMoverDescarteADeckOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverDescarteADeckOwner()+"mover de descarte a deck.";
+        }
+        if(cartaPropia.getMoverManoADeckOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverManoADeckOwner()+"mover de mano a deck.";
+        }
+        if(cartaPropia.getMoverMesaADescarteOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverMesaADescarteOwner()+"destruir de mesa.";
+        }
+        if(cartaPropia.getMoverDeckADescarteOwner()>0){
+            contHabilidades++;
+            cont++;
+            if(cont>2){
+                cont=0;
+                textoTemp+="\n";
+            }
+            textoTemp+=cartaPropia.getMoverDeckADescarteOwner()+" deck.";
+        }
+        if(contHabilidades>0){
+            texto+="Propio:"+textoTemp;
+        }
+        //owner.setRecursos(owner.getRecursos()-getCoste());
+        if(cartaPropia.getTipo().ordinal()==Tipos.PERMANENTE.ordinal()){
+            texto+=" cada turno.";
+        }
 //        Rect bounds = new Rect();/
 //
 //        paint.getTextBounds(texto, 0, texto.length(), bounds);
@@ -207,15 +438,15 @@ public class ActivityCombinar extends ActionBarActivity {
 //        paint.getTextBounds(texto, 0, texto.length(), bounds);
         alto = Math.abs(paint.ascent()) + Math.abs(paint.descent());
 
-        while(alto>((bmp1.getHeight()-imagenLinea.getHeight())-(tempY))){
-            tamañoLetra--;
-            paint.setTextSize(tamañoLetra);
-            alto = Math.abs(paint.ascent()) + Math.abs(paint.descent());
-
-            Log.i("LETRA2","TAMAÑO MAXIMO: "+((bmp1.getHeight()-imagenLinea.getHeight())-(tempY)));
-            Log.i("LETRA2","TAMAÑO: "+tamañoLetra);
-            Log.i("LETRA2","ALTO: "+alto);
-        }
+//        while(alto>((bmp1.getHeight()-imagenLinea.getHeight())-(tempY))){
+//            tamañoLetra--;
+//            paint.setTextSize(tamañoLetra);
+//            alto = Math.abs(paint.ascent()) + Math.abs(paint.descent());
+//
+//            Log.i("LETRA2","TAMAÑO MAXIMO: "+((bmp1.getHeight()-imagenLinea.getHeight())-(tempY)));
+//            Log.i("LETRA2","TAMAÑO: "+tamañoLetra);
+//            Log.i("LETRA2","ALTO: "+alto);
+//        }
 
         Log.i("LETRA3", "FUERA WHILE: " + tamañoLetra);
 //        paint.setColor(Color.RED);
@@ -240,7 +471,7 @@ public class ActivityCombinar extends ActionBarActivity {
 //        Rect bounds = new Rect();/
 //
 //        paint.getTextBounds(texto, 0, texto.length(), bounds);
-        float tamañoTextoNombre = paint.measureText(texto);
+        float tamañoTextoNombre = paint.measureText(textoNombre);
         float tempX2 = bmp1.getWidth() - (bmp1.getWidth() - (float) (bmp1.getWidth() * 0.1));
 
         Float alto2 = Math.abs(paint.ascent() + paint.descent());
@@ -248,24 +479,24 @@ public class ActivityCombinar extends ActionBarActivity {
             tamañoLetraNombre--;
             paint.setTextSize(tamañoLetraNombre);
             tamañoTextoNombre = paint.measureText(textoNombre);
-            Log.i("LETRA", "TAMAÑO MAXIMO: " + ((bmp1.getWidth() - imagenColumna.getWidth()) - tempX));
-            Log.i("LETRA", "TAMAÑO TEXTO: " + tamañoTextoNombre);
-            Log.i("LETRA", "TAMAÑO: " + tamañoLetraNombre);
+            Log.i("LETRA3", "TAMAÑO MAXIMO: " + ((bmp1.getWidth() - imagenColumna.getWidth()) - tempX));
+            Log.i("LETRA3", "TAMAÑO TEXTO: " + tamañoTextoNombre);
+            Log.i("LETRA3", "TAMAÑO: " + tamañoLetraNombre);
         }
 //        paint.getTextBounds(texto, 0, texto.length(), bounds);
         alto2 = Math.abs(paint.ascent()) + Math.abs(paint.descent());
 
-        while(alto>imagenLinea.getHeight()){
-            tamañoLetraNombre--;
-            paint.setTextSize(tamañoLetraNombre);
-            alto2 = Math.abs(paint.ascent()) + Math.abs(paint.descent());
+//        while(alto2>imagenLinea.getHeight()){
+//            tamañoLetraNombre--;
+//            paint.setTextSize(tamañoLetraNombre);
+//            alto2 = Math.abs(paint.ascent()) + Math.abs(paint.descent());
+//
+//            Log.i("LETRA4","TAMAÑO MAXIMO: "+(imagenLinea.getHeight()));
+//            Log.i("LETRA4","TAMAÑO: "+tamañoLetraNombre);
+//            Log.i("LETRA4","ALTO: "+alto2);
+//        }
 
-            Log.i("LETRA2","TAMAÑO MAXIMO: "+(imagenLinea.getHeight()));
-            Log.i("LETRA2","TAMAÑO: "+tamañoLetraNombre);
-            Log.i("LETRA2","ALTO: "+alto2);
-        }
-
-        Log.i("LETRA3", "FUERA WHILE: " + tamañoLetraNombre);
+        Log.i("LETRA5", "FUERA WHILE: " + tamañoLetraNombre);
 //        paint.setColor(Color.RED);
 //        paint.setStyle(Paint.Style.FILL_AND_STROKE);
 //        canvas.drawRect(tempX,tempY-paint.getTextSize(),bmp1.getWidth()-imagenColumna.getWidth(),bmp1.getHeight()-imagenLinea.getHeight(),paint);
@@ -274,7 +505,7 @@ public class ActivityCombinar extends ActionBarActivity {
         mTextPaint2.setTextSize(tamañoLetraNombre);
         StaticLayout mTextLayout2=new StaticLayout(textoNombre,mTextPaint2,canvas.getWidth(), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f,false);
         canvas.save();
-        canvas.translate((float)(tempX2*1.4)-(float)(tamañoLetra),(imagenLinea.getHeight()/3)*2-tamañoLetra);
+//        canvas.translate((float)(tempX2*1.4)-(float)(tamañoLetra),(imagenLinea.getHeight()/3)*2-tamañoLetra);
         mTextLayout2.draw(canvas);
         canvas.restore();
         paint.setTextSize(70);

@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -345,5 +346,15 @@ public class DialogoCombinar extends DialogFragment {
         builder.setMessage("PRUEBA");
         builder.setTitle("Puntos: 0");
         return builder.create();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Bitmap imagen1=((ActivityCombinar)getActivity()).imagenMarco;
+        Bitmap imagen2=((BitmapDrawable)((ActivityCombinar)getActivity()).imagenCentral.getDrawable()).getBitmap();
+        ((ActivityCombinar)getActivity()).imagenCombinada=((ActivityCombinar)getActivity()).overlay(imagen1,imagen2);
+        ((ActivityCombinar)getActivity()).imagenCarta.setImageBitmap(((ActivityCombinar)getActivity()).imagenCombinada);
     }
 }
