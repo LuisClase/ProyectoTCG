@@ -11,6 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 /**
+ * Clase para la gestion de guardado y cargado de imagenes de forma interna de la aplicacion
+ * Sacado de los apuntes de la asignatura de Acceso a datos de Javi
+ *
+ *  @author Luis Cerqueira
  * Created by Luis Cerqueira on 12/03/2015.
  */
 public class TratamientoImagenes {

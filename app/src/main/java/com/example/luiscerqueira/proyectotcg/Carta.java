@@ -11,6 +11,9 @@ package com.example.luiscerqueira.proyectotcg;
         import java.util.UUID;
 
 /**
+ * Clase para la construccion generica de una carta
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 22/01/2015.
  */
 public class Carta {
@@ -239,6 +242,10 @@ public class Carta {
         this.cantidad=0;
     }
 
+    /**
+     * Funcion para controlar la animacion de una carta, tanto para graficos, como para audio
+     *
+     */
     public void animacion() {
         Thread hilo=new Thread(new Runnable() {
             @Override
@@ -266,6 +273,9 @@ public class Carta {
         hilo.start();
     }
 
+    /**
+     * Funcion que se ejecuta cuando se produce el efecto de una carta, varia las estadisticas y estado del juego
+     */
     public void playCard(){
         if(dañoEnemigo>0){
             enemigo.setVidas(enemigo.getVidas() - dañoEnemigo);
@@ -345,103 +355,170 @@ public class Carta {
         }
     }
 
+    /**
+     * Funcion que se ejecuta cuando la carta empieza el turno en la mesa
+     */
     public void startOfTurnTable(){
         if(isOnStartTurnTable()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta empieza el turno en la mano
+     */
     public void startOfTurnHand(){
         if(isOnStartTurnHand()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta empieza el turno en el descarte
+     */
     public void startOfTurnDiscard(){
         if(isOnStartTurnDiscard()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta empieza el turno en el mazo
+     */
     public void startOfTurnDeck(){
         if(isOnStartTurnDeck()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta termina el turno en la mesa
+     */
     public void endOfTurnTable(){
         if(isOnEndTurnTable()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta termina el turno en la mano
+     */
     public void endOfTurnHand(){
         if(isOnEndTurnHand()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta termina el turno en el descarte
+     */
     public void endOfTurnDiscard(){
         if(isOnEndTurnDiscard()){
             setAnimar(true);
         }
     }
+
+    /**
+     * Funcion que se ejecuta cuando la carta termina el turno en el deck
+     */
     public void endOfTurnDeck(){
         if(isOnEndTurnDeck()){
             setAnimar(true);
         }
     }
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido del deck a la mano
+     */
     public void movedFromDeckToHand(){
         if(isOnMoveDeckAMano()){
             setAnimar(true);
         }
     }
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido del deck a la mesa
+     */
     public void movedFromDeckToTable(){
         if(isOnMoveDeckAMesa()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido del deck al descarte
+     */
     public void movedFromDeckToDiscard(){
         if(isOnMoveDeckADescarte()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido de la mano al descarte
+     */
     public void movedFromHandToDiscard(){
         if(isOnMoveManoADescarte()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido de la mano al deck
+     */
     public void movedFromHandToDeck(){
         if(isOnMoveManoADeck()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido de la mano a la mesa
+     */
     public void movedFromHandToTable(){
         if(isOnMoveManoAMesa()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido de la mesa al descarte
+     */
     public void movedFromTableToDiscard(){
         if(isOnMoveMesaADescarte()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido de la mesa al deck
+     */
     public void movedFromTableToDeck(){
         if(isOnMoveMesaADeck()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido de la mesa a la mano
+     */
     public void movedFromTableToHand(){
         if(isOnMoveMesaAMano()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido del descarte a la mesa
+     */
     public void movedFromDiscardToTable(){
         if(isOnMoveDescarteAMesa()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido del descarte al mazo
+     */
     public void movedFromDiscardToDeck(){
         if(isOnMoveDescarteADeck()){
             setAnimar(true);
         }}
 
+    /**
+     * Funcion que se ejecuta cuando la carta se ha movido del descarte a la mano
+     */
     public void movedFromDiscardToHand(){
         if(isOnMoveDescarteAMano()){
             setAnimar(true);

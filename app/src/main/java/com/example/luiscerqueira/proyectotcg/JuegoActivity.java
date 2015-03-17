@@ -21,7 +21,11 @@ package com.example.luiscerqueira.proyectotcg;
 
         import java.util.ArrayList;
 
-
+/**
+ * Clase para la activity de juego 1v1 en el mismo dispositivo
+ *
+ * @author Luis Cerqueira
+ */
 public class JuegoActivity extends Activity {
 
     public MediaPlayer mediaPlayer;

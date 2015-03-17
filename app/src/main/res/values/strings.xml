@@ -4,7 +4,9 @@
     <string name="app_name">ProyectoTCG</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="btnJugar">JUGAR</string>
+    <string name="btnJugar">1v1</string>
+    <string name="btnMazo">Tu mazo</string>
+    <string name="btnCreador">Creador</string>
     <string name="title_activity_juego">JuegoActivity</string>
     <string name="title_activity_activity_mazos">ActivityMazos</string>
     <string name="title_activity_activity_combinar">ActivityCombinar</string>

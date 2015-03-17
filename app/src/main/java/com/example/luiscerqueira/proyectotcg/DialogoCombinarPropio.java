@@ -16,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
+ * Clase para gestionar el dialogo de la activity combinar donde elegiremos las caracteristicas de nuestra carta
+ * que afectan al enemigo
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 04/03/2015.
  */
 public class DialogoCombinarPropio extends DialogFragment {

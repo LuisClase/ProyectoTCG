@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
+ * Clase para la construccion especifica de una carta estilo Heal, actualmente en uso solo para Jugador 2
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 10/02/2015.
  */
 public class CardHeal extends Carta {

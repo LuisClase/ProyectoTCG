@@ -12,7 +12,11 @@ import android.support.v7.app.ActionBarActivity;
         import android.view.View;
         import android.widget.Button;
 
-
+/**
+ * Clase para la gestion de la activity principal del juego
+ *
+ * @author Luis Cerqueira
+ */
 public class MainActivity extends ActionBarActivity {
 
     public MediaPlayer mediaPlayer;

@@ -12,7 +12,12 @@ import android.app.*;
 import android.content.*;
 
 
-
+/**
+ * Clase para la activity de mazos, en esta activity podremos elegir las cartas
+ * con las que queremos jugar
+ *
+ * @author Luis Cerqueira
+ */
 public class ActivityMazos extends ListActivity {
     public Context contexto;
     Jugador jugador1;

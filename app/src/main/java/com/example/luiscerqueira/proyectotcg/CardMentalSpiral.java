@@ -7,6 +7,9 @@ import android.util.Log;
 import java.util.Random;
 
 /**
+ * Clase para la construccion especifica de una carta estilo MentalSpiral, actualmente en uso solo para Jugador 2
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 12/02/2015.
  */
 public class CardMentalSpiral extends Carta {

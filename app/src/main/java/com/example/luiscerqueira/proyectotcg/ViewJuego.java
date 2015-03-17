@@ -20,6 +20,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
+ * Clase para la gestion del apartado grafico de la ventana de juego
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 22/01/2015.
  */
 public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
@@ -161,7 +164,10 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         //Log.i("CONSTRUCTOR", "FIN CONSTRUCTOR");
     }
 
-
+    /**
+     * Funcion para inicializar las variables mas importantes de la clase
+     * @param context contexto desde el que se llama la funcion
+     */
     public void inicializarCosas(Context context){
 
 //        WindowManager wm=(WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
@@ -277,6 +283,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    /**
+     * Clase interna para la gestion del hilo necesario para el SurfaceView
+     *
+     * @author Luis Cerqueira
+     */
     class Hilo extends Thread{
         public Hilo(){
             //Fondo
@@ -363,6 +374,9 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
+        /**
+         * Funcion para comprobar los cambios en las distintas zonas de juego
+         */
         protected void cambios(){
 //            Log.i("CAMBIOS", "TAMAÑOJ2 MANO:"+jugador2.getMano().size());
 //            Log.i("CAMBIOS", "TAMAÑOJ2 ARRAYMANO:"+arrayManoJ2.size());
@@ -419,6 +433,10 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
+        /**
+         * Funcion de dibujado que pintara las cosas necesarias en la pantalla de juego
+         * @param canvas Parte de la pantalla sobra la que queremos dibujar
+         */
         protected void dibujar(Canvas canvas) {
 
             //Jugadores
@@ -1309,6 +1327,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
+    /**
+     * Funcion para el girado de un itmap un numero de terminado de grados
+     * @param bitmap Imagen que se quiere rotar
+     * @param angulo numero de grados que se desea rotar la imagen
+     * @return imagen una vez rotada
+     */
     public Bitmap girarBitmap(Bitmap bitmap,float angulo){
 //        Matrix matrix = new Matrix();
 //        matrix.postRotate(angulo);
@@ -1331,6 +1355,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
+    /**
+     * Funcion para la rotacion de un circulo
+     * @param bitmap imagen circular que se desea rotar
+     * @param angulo numero de grados que se desea rotar la imagen
+     * @return imagen una vez rotada
+     */
     public Bitmap girarCirculo(Bitmap bitmap,float angulo){
         Matrix matrix = new Matrix();
         matrix.postRotate(angulo);
@@ -1371,6 +1401,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         return Bitmap.createBitmap(bitmap, 0, 0, 180, 180, matrix, true);
     }
 
+    /**
+     * Funcion para encontrar una carta especifica
+     * @param id identificador de la carta a buscar
+     * @return punto donde se encuentra la carta
+     */
     public Point encontrarCarta(int id){
         Point p=new Point();
         //MAZO

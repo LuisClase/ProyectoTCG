@@ -11,6 +11,9 @@ package com.example.luiscerqueira.proyectotcg;
         import java.util.UUID;
 
 /**
+ * Clase donde se almacenan datos que corresponden al jugador
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 22/01/2015.
  */
 public class Jugador implements Parcelable{
@@ -64,6 +67,10 @@ public class Jugador implements Parcelable{
         dest.writeInt(getRecursos());
     }
 
+    /**
+     * Funcion para inicializar apartir de un parcelable, actualmente en sin uso
+     * @param in Parcelable del que queremos leer
+     */
     private void readFromParcel(Parcel in){
         getDeck().add((Carta)in.readValue(null));
 //        in.readList(deck, null);
@@ -74,6 +81,9 @@ public class Jugador implements Parcelable{
         setRecursos(in.readInt());
     }
 
+    /**
+     * Funcion para la gestion del parcelable jugador
+     */
     public static final Creator<Jugador> CREADOR=new Creator<Jugador>() {
         @Override
         public Jugador createFromParcel(Parcel source) {
@@ -95,6 +105,10 @@ public class Jugador implements Parcelable{
         readFromParcel(in);
     }
 
+    /**
+     * Funcion que se ejecuta al principio de cada turno del jugador, produce cambios en sus recursos y su mano
+     * y ejecuta la funcion correspondiente de comienzo de turno en cada carta del jugador
+     */
     public void startOfTurn(){
                         Log.i("TURNO", "PRINCIPIO TURNO");
         this.setRecursos(getRecursos()+1);
@@ -113,6 +127,11 @@ public class Jugador implements Parcelable{
             getDescarte().get(i).startOfTurnDiscard();
         }
     }
+
+    /**
+     * Funcion que se ejecuta al final de cada turno del jugador,
+     * ejecuta la funcion correspondiente de final de turno en cada carta del jugador
+     */
     public void endOfTurn(){
         for(int i=0;i<getDeck().size();i++){
             getDeck().get(i).endOfTurnDeck();
@@ -128,6 +147,9 @@ public class Jugador implements Parcelable{
         }
     }
 
+    /**
+     * Funcion para aleatorizar las cartas del mazo del jugador
+     */
     public void barajar(){
         Random random=new Random();
         Collections.shuffle(deck,random);
@@ -181,6 +203,13 @@ public class Jugador implements Parcelable{
     }
 
     //Genericas
+
+    /**
+     * Funcion para el transpaso de cartas entre dos zonas del jugador
+     * @param id carta que se quiere transpasar
+     * @param origen arraylist de origen de la carta
+     * @param destino arraylist de destino de la carta
+     */
     public void moveCard(int id,ArrayList<Carta> origen,ArrayList<Carta> destino){
         for(int i=0;i<origen.size();i++){
             if(origen.get(i).getId()==id){
@@ -189,6 +218,12 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion que envia una carta a la mesa del jugador
+     * @param id Carta que se quiere transpasar a la mesa
+     * @param origen arraylist de origen de la carta
+     */
     public void moveCardToTable(int id,ArrayList<Carta> origen){
         if(getMesa().size()<CARTAS_MESA) {
             for (int i = 0; i < origen.size(); i++) {
@@ -199,6 +234,12 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion que envia una carta a la mano del jugador
+     * @param id Carta que se quiere transpasar a la mano
+     * @param origen arraylist de origen de la carta
+     */
     public void moveCardToHand(int id,ArrayList<Carta> origen){
         if(getMano().size()<CARTAS_MANO) {
             for (int i = 0; i < origen.size(); i++) {
@@ -211,6 +252,12 @@ public class Jugador implements Parcelable{
             moveCardToDiscard(id,origen);
         }
     }
+
+    /**
+     * Funcion que envia una carta al descarte del jugador
+     * @param id Carta que se quiere transpasar al descarte
+     * @param origen arraylist de origen de la carta
+     */
     public void moveCardToDiscard(int id,ArrayList<Carta> origen){
         for(int i=0;i<origen.size();i++){
             if(origen.get(i).getId()==id){
@@ -219,6 +266,12 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion que envia una carta al mazo del jugador
+     * @param id Carta que se quiere transpasar al mazo
+     * @param origen arraylist de origen de la carta
+     */
     public void moveCardToDeck(int id,ArrayList<Carta> origen){
         for(int i=0;i<origen.size();i++){
             if(origen.get(i).getId()==id){
@@ -228,6 +281,11 @@ public class Jugador implements Parcelable{
         }
     }
     //Mover carta especifica desde mano
+
+    /**
+     * Funcion para mover una carta especifica de la mano a la mesa
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromHandToTable(int id){
         for(int i=0;i<this.getMano().size();i++){
             if(getMesa().size()<CARTAS_MESA) {
@@ -239,6 +297,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica de la mano al descarte
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromHandToDiscard(int id){
         for(int i=0;i<this.getMano().size();i++){
             if(this.getMano().get(i).getId()==id){
@@ -248,6 +311,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica de la mano al mazo
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromHandToDeck(int id){
         for(int i=0;i<this.getMano().size();i++){
             if(this.getMano().get(i).getId()==id){
@@ -258,6 +326,11 @@ public class Jugador implements Parcelable{
         }
     }
     //Mover carta especifica desde Deck
+
+    /**
+     * Funcion para mover una carta especifica del mazo a la mesa
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromDeckToTable(int id){
         if(getMesa().size()<CARTAS_MESA) {
             for(int i=0;i<this.getDeck().size();i++){
@@ -269,6 +342,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica del mazo al descarte
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromDeckToDiscard(int id){
         for(int i=0;i<this.getDeck().size();i++){
             if(this.getDeck().get(i).getId()==id){
@@ -278,6 +356,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica del mazo a la mano
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromDeckToHand(int id){
         if(getMano().size()<CARTAS_MANO) {
             for (int i = 0; i < this.getDeck().size(); i++) {
@@ -292,6 +375,11 @@ public class Jugador implements Parcelable{
         }
     }
     //Mover carta especifica desde Mesa
+
+    /**
+     * Funcion para mover una carta especifica de la mesa al deck
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromTableToDeck(int id){
         for(int i=0;i<this.getMesa().size();i++){
             if(this.getMesa().get(i).getId()==id){
@@ -301,6 +389,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica de la mesa al descarte
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromTableToDiscard(int id){
         for(int i=0;i<this.getMesa().size();i++){
             if(this.getMesa().get(i).getId()==id){
@@ -310,6 +403,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica de la mesa a la mano
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromTableToHand(int id){
         if(getMano().size()<CARTAS_MANO) {
             for (int i = 0; i < this.getMesa().size(); i++) {
@@ -324,6 +422,11 @@ public class Jugador implements Parcelable{
         }
     }
     //Mover carta especifica desde Descarte
+
+    /**
+     * Funcion para mover una carta especifica del descarte al deck
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromDiscardToDeck(int id){
         for(int i=0;i<this.getDescarte().size();i++){
             if(this.getDescarte().get(i).getId()==id){
@@ -333,6 +436,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica del descarte a la mesa
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromDiscardToTable(int id){
         if(getMesa().size()<CARTAS_MESA) {
             for (int i = 0; i < this.getDescarte().size(); i++) {
@@ -344,6 +452,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una carta especifica del descarte a la mano
+     * @param id carta que se quiere transpasar
+     */
     public void moveCardFromDiscardToHand(int id){
         if(getMano().size()<CARTAS_MANO) {
             for (int i = 0; i < this.getDescarte().size(); i++) {
@@ -356,6 +469,11 @@ public class Jugador implements Parcelable{
         }
     }
     //Mover cartas general desde Deck
+
+    /**
+     * Funcion para mover una determinada cantidad de cartas a la mano desde el mazo
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromDeckToHand(int cantidad){
         if(getDeck().size()>=cantidad){
             Log.i("DECKtoHAND", "if");
@@ -383,6 +501,11 @@ public class Jugador implements Parcelable{
             setVidas(getVidas()-cantidad);
         }
     }
+
+    /**
+     * Funcion para mover una determinada cantidad de cartas al descarte desde el mazo
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromDeckToDiscard(int cantidad){
         if(getDeck().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -400,6 +523,11 @@ public class Jugador implements Parcelable{
             setVidas(getVidas()-cantidad);
         }
     }
+
+    /**
+     * Funcion para mover una determinada cantidad de cartas a la mesa desde el mazo
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromDeckToTable(int cantidad){
         if(getDeck().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -423,6 +551,10 @@ public class Jugador implements Parcelable{
     }
     //Mover cartas general desde Mano
 
+    /**
+     * Funcion para mover una determinada cantidad de cartas al mazo desde la mano
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromHandToDeck(int cantidad){
         if(getMano().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -438,6 +570,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una determinada cantidad de cartas al descarte desde la mano
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromHandToDiscard(int cantidad){
         if(getMano().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -453,6 +590,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una determinada cantidad de cartas a la mesa desde la mano
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromHandToTable(int cantidad){
         if(getMano().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -474,6 +616,10 @@ public class Jugador implements Parcelable{
     }
     //Mover cartas general desde Descarte
 
+    /**
+     * Funcion para mover una determinada cantidad de cartas al mazo desde el descarte
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromDiscardToDeck(int cantidad){
         if(getDescarte().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -490,6 +636,10 @@ public class Jugador implements Parcelable{
         }
     }
 
+    /**
+     * Funcion para mover una determinada cantidad de cartas a la mano desde el descarte
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromDiscardToHand(int cantidad){
         if(getDescarte().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -509,6 +659,11 @@ public class Jugador implements Parcelable{
             }
         }
     }
+
+    /**
+     * Funcion para mover una determinada cantidad de cartas a la mesa desde el descarte
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromDiscardToTable(int cantidad){
         if(getDescarte().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -530,6 +685,10 @@ public class Jugador implements Parcelable{
     }
     //Mover cartas general desde Mesa
 
+    /**
+     * Funcion para mover una determinada cantidad de cartas a la mano desde la mesa
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromTableToHand(int cantidad){
 
         if(getMesa().size()>=cantidad){
@@ -555,6 +714,10 @@ public class Jugador implements Parcelable{
         }
     }
 
+    /**
+     * Funcion para mover una determinada cantidad de cartas al descarte desde la mesa
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromTableToDiscard(int cantidad){
         if(getMesa().size()>=cantidad){
             for(int i=0;i<cantidad;i++){
@@ -571,6 +734,10 @@ public class Jugador implements Parcelable{
         }
     }
 
+    /**
+     * Funcion para mover una determinada cantidad de cartas al mazo desde la mesa
+     * @param cantidad numero de cartas que se quieren mover
+     */
     public void moveFromTableToDeck(int cantidad){
         if(getMesa().size()>=cantidad){
             for(int i=0;i<cantidad;i++){

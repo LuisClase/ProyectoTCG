@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
+ * Clase para la construccion especifica de una carta estilo Naturalhelp, actualmente en uso solo para Jugador 2
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 13/02/2015.
  */
 public class CardNaturalHelp extends Carta {

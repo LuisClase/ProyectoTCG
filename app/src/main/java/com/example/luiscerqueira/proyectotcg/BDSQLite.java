@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
+ * Clase para el manejo y gestion de la base de datos SQLite que utiliza el juego
+ * para la gestion de las cartas de cada jugador
+ *
+ * @author Luis Cerqueira
  * Created by Luis Cerqueira on 27/02/2015.
  */
 public class BDSQLite extends SQLiteOpenHelper {
@@ -77,6 +81,7 @@ public class BDSQLite extends SQLiteOpenHelper {
             ""+insertarCartaRitual()+", " +
             "(1, 'VitalTransfusion', "+R.drawable.cardvitaltransfusion+", 2, 0, "+Tipos.HECHIZO.ordinal()+", 0," +
             ""+insertarCartaVitalTransfusion()+" ;";
+
     public BDSQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -101,6 +106,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         Log.i("INSERT", insert);
     }
 
+    /**
+     * Funcion para la insercion en la base de datos de una carta dada
+     * @param carta Carta que se introducira en la base de datos
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCarta(Carta carta) {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -325,6 +335,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         return insert;
     }
 
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta generica
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCarta() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -464,6 +479,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo BurningSign
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaBurningSign() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -603,6 +623,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo Heal
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaHeal() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -742,6 +767,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo HealingSign
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaHealingSign() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -881,6 +911,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo Lightning
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaLightning() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1021,6 +1056,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo MentalSpiral
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaMentalSpiral() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1161,6 +1201,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo MysticalSign
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaMysticalSign() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1301,6 +1346,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo NaturalHelp
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaNaturalHelp() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1441,6 +1491,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo NaturalResources
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaNaturalResources() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1581,6 +1636,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo NaturalSign
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaNaturalSign() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1721,6 +1781,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo Nightmare
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaNightmare() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -1861,6 +1926,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo Ritual
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaRitual() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];
@@ -2001,6 +2071,11 @@ public class BDSQLite extends SQLiteOpenHelper {
         }
         return insert;
     }
+
+    /**
+     * Funcion para la insercion en la base de datos de una carta tipo VitalTransfusion
+     * @return query con la que hacer el insert en la base de datos
+     */
     private String insertarCartaVitalTransfusion() {
         int[] valoresEnemigo = {
 //                this.dañoEnemigo=valoresEnemigo[0];

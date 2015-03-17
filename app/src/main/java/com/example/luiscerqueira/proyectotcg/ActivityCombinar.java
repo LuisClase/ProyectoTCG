@@ -39,7 +39,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
+/**
+ * Clase para la activity de combinar, permite la creacion y guardado de tus propias cartas
+ * de forma personalizable
+ *
+ * @author Luis Cerqueira
+ */
 public class ActivityCombinar extends ActionBarActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
@@ -54,6 +59,7 @@ public class ActivityCombinar extends ActionBarActivity {
     EditText textoNombreCarta;
     Carta cartaPropia;
     int puntos=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,6 +182,13 @@ public class ActivityCombinar extends ActionBarActivity {
         }
     }
 
+
+    /**
+     * Funcion que superpone dos imagenes y les añade texto para crear una carta
+     * @param bmp1 Bitmap base para la superposicion
+     * @param bmp2 Bitmap que se pondra por encima
+     * @return
+     */
     public Bitmap overlay(Bitmap bmp1, Bitmap bmp2) {
 //        bmp2=Bitmap.createScaledBitmap(bmp2,(int)(bmp1.getWidth()/1.2),(int)(bmp1.getHeight()/1.5),true);
         bmp2 = Bitmap.createScaledBitmap(bmp2, imagenTemp.getWidth(), imagenTemp.getHeight(), true);

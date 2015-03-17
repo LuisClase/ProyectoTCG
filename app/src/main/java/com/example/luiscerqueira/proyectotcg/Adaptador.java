@@ -10,6 +10,10 @@ import android.widget.*;
 import android.content.*;
 import java.util.*;
 
+/**
+ * Clase para el adaptador a medida de la lista personalizada de la activity de mazos
+ * @author Luis Cerqueira
+ */
 public class Adaptador extends BaseAdapter {
      public ViewHolder contenedor=null;
     Context contexto=null;

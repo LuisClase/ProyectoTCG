@@ -4,6 +4,11 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+/**
+ * Clase para la construccion especifica de una carta estilo Lightning, actualmente en uso solo para Jugador 2
+ *
+ * @author Luis Cerqueira
+ */
 public class CardRelampago extends Carta{
 
 	public CardRelampago(Context context,Jugador owner, Jugador enemigo) {
