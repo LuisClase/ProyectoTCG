@@ -1,8 +1,11 @@
 package com.example.luiscerqueira.proyectotcg;
 
-        import android.content.Intent;
+import android.content.Context;
+import android.content.Intent;
         import android.content.pm.ActivityInfo;
-        import android.support.v7.app.ActionBarActivity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
         import android.view.Menu;
         import android.view.MenuItem;
@@ -12,11 +15,21 @@ package com.example.luiscerqueira.proyectotcg;
 
 public class MainActivity extends ActionBarActivity {
 
+    public MediaPlayer mediaPlayer;
+    public AudioManager  audioManager;
+    private boolean pausa=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        audioManager=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.bensoundofeliasdream);
+        int v=audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setVolume(v/2,v/2);
+        mediaPlayer.start();
 
         Button btnJugar=(Button)findViewById(R.id.btnJugar);
         btnJugar.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +37,8 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,JuegoActivity.class);
                 startActivity(intent);
+                mediaPlayer.pause();
+                pausa=true;
             }
         });
 
@@ -33,6 +48,8 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,ActivityMazos.class);
                 startActivity(intent);
+                mediaPlayer.pause();
+                pausa=true;
             }
         });
 
@@ -42,10 +59,28 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,ActivityCombinar.class);
                 startActivity(intent);
+                mediaPlayer.pause();
+                pausa=true;
             }
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pausa=true;
+        mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(pausa){
+            pausa=false;
+            mediaPlayer.start();
+        }
+        mediaPlayer.start();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,5 +102,25 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(pausa){
+            pausa=false;
+            mediaPlayer.start();
+        }
+        mediaPlayer.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(pausa){
+            pausa=false;
+            mediaPlayer.start();
+        }
+        mediaPlayer.start();
     }
 }

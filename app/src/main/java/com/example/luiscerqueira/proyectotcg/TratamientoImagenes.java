@@ -15,12 +15,12 @@ import java.io.FileOutputStream;
  */
 public class TratamientoImagenes {
 
-    private String saveToInternalSorage(Bitmap bitmapImage,Context context){
+    public String saveToInternalSorage(Bitmap bitmapImage,Context context,String nombre){
         ContextWrapper cw = new ContextWrapper(context);
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         // Create imageDir
-        File mypath=new File(directory,"profile.jpg");
+        File mypath=new File(directory,nombre+".jpg");
 
         FileOutputStream fos = null;
         try {
@@ -36,7 +36,7 @@ public class TratamientoImagenes {
         return directory.getAbsolutePath();
     }
 
-    private void loadImageFromStorage(String path)
+    public void loadImageFromStorage(String path)
     {
         try {
             File f=new File(path, "profile.jpg");

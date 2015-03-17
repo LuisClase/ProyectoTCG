@@ -68,7 +68,7 @@ public class ActivityCombinar extends ActionBarActivity {
         cartaPropia=new Carta(getApplicationContext(),null,null);
 
         textoNombreCarta=(EditText)findViewById(R.id.editText);
-        TextView txtNombre=(TextView)findViewById(R.id.txtNombreCarta);
+        final TextView txtNombre=(TextView)findViewById(R.id.txtNombreCarta);
 
         Button btnCaracteristicas=(Button)findViewById(R.id.btnCaracteristicas);
         Button btnCaracteristicasJugador=(Button)findViewById(R.id.btnCaracteristicasJugador);
@@ -84,6 +84,11 @@ public class ActivityCombinar extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //TODO GUARDAR EN CARPETA PROPIA
+                TratamientoImagenes ti=new TratamientoImagenes();
+                if(txtNombre.getText().toString().trim().equals("")){
+                    txtNombre.setText("Predefinido");
+                }
+                ti.saveToInternalSorage(((BitmapDrawable)imagenCarta.getDrawable()).getBitmap(),getApplicationContext(),txtNombre.getText().toString().trim());
             }
         });
 

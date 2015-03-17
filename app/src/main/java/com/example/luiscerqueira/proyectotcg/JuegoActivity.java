@@ -1,11 +1,14 @@
 package com.example.luiscerqueira.proyectotcg;
 
         import android.app.Activity;
+        import android.content.Context;
         import android.content.pm.ActivityInfo;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
+        import android.media.AudioManager;
+        import android.media.MediaPlayer;
         import android.os.Build;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
@@ -21,22 +24,30 @@ package com.example.luiscerqueira.proyectotcg;
 
 public class JuegoActivity extends Activity {
 
+    public MediaPlayer mediaPlayer;
+    public AudioManager audioManager;
+    private boolean pausa=false;
     public ViewJuego pantallaJuego;
     public Jugador jugador1;
     public Jugador jugador2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
+//        }
         super.onCreate(savedInstanceState);
         //getActionBar().hide();
         pantallaJuego=new ViewJuego(this);
         pantallaJuego.setKeepScreenOn(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(pantallaJuego);
+        audioManager=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.bensoundepic);
+        int v=audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setVolume(v / 2, v / 2);
+        mediaPlayer.start();
 
         //Pruebas
         jugador1=new Jugador(20,1);
@@ -178,7 +189,10 @@ public class JuegoActivity extends Activity {
             sqLiteDB.close();
         }
         sqLiteDB.close();
-
+        while(jugador1.getDeck().size()<20){
+            cardRelampago=new CardRelampago(this, jugador1, jugador2);
+            jugador1.getDeck().add(cardRelampago);
+        }
         jugador1.setActivo(true);
         jugador1.barajar();
         jugador1.moveFromDeckToHand(3);
@@ -211,6 +225,11 @@ public class JuegoActivity extends Activity {
         jugador2.getDeck().add(cardNaturalSign);
         jugador2.getDeck().add(cardNaturalHelp);
         jugador2.getDeck().add(cardNaturalResources);
+
+        while(jugador2.getDeck().size()<20){
+            cardRelampago=new CardRelampago(this, jugador2, jugador1);
+            jugador2.getDeck().add(cardRelampago);
+        }
         jugador2.setActivo(false);
         jugador2.barajar();
         jugador2.moveFromDeckToHand(3);
@@ -258,30 +277,46 @@ public class JuegoActivity extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         pantallaJuego.getHilo().setFuncionando(false);
+        pausa=true;
+        mediaPlayer.pause();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         pantallaJuego.getHilo().setFuncionando(false);
+        pausa=true;
+        mediaPlayer.pause();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         pantallaJuego.getHilo().setFuncionando(true);
+        if(pausa){
+            pausa=false;
+            mediaPlayer.start();
+        }
+        mediaPlayer.start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         pantallaJuego.getHilo().setFuncionando(true);
+        if(pausa){
+            pausa=false;
+            mediaPlayer.start();
+        }
+        mediaPlayer.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         pantallaJuego.getHilo().setFuncionando(false);
+        pausa=true;
+        mediaPlayer.pause();
     }
 }
 

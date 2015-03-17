@@ -3,6 +3,8 @@ package com.example.luiscerqueira.proyectotcg;
         import android.content.Context;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
+        import android.media.AudioManager;
+        import android.media.SoundPool;
         import android.util.Log;
 
         import java.util.ArrayList;
@@ -90,6 +92,10 @@ public class Carta {
     private boolean OnEndTurnDeck=false;
     //creada
     private boolean creada=false;
+
+    private SoundPool efectos;
+    private int sonidoPlay;
+    private AudioManager audioManager;
 
     public Carta(Context context,Jugador owner,Jugador enemigo,String nombre,int imagen,int coste, Tipos tipo,int[]valoresEnemigo,int[]valoresOwner, boolean[]valoresPlay){
         this.nombre=nombre;
@@ -252,6 +258,11 @@ public class Carta {
             }
         });
         Log.i("HILO","ANTES START");
+        efectos=new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+        sonidoPlay=efectos.load(contexto,R.raw.magiwand,1);
+        audioManager=(AudioManager)contexto.getSystemService(Context.AUDIO_SERVICE);
+        int v=audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        efectos.play(sonidoPlay,v,v,1,0,1);
         hilo.start();
     }
 

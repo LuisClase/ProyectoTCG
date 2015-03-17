@@ -141,7 +141,8 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
         //deck
 
-        alturaDeck=altoPantalla-altoCarta;
+        //deck
+        alturaDeck=(altoPantalla)-(int)(altoCarta*1.1);
         anchuraDeck=anchoCarta;
         x=avatar.getWidth();
         y=alturaDeck;
@@ -149,14 +150,37 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         yDeck=y;
         xDescarte=anchoPantalla-2*anchoCarta;
         yDescarte=y;
+//        alturaDeck=altoPantalla-altoCarta;
+//        anchuraDeck=anchoCarta;
+//        x=avatar.getWidth();
+//        y=alturaDeck;
+//        xDeck=x;
+//        yDeck=y;
+//        xDescarte=anchoPantalla-2*anchoCarta;
+//        yDescarte=y;
         //Log.i("CONSTRUCTOR", "FIN CONSTRUCTOR");
     }
 
 
     public void inicializarCosas(Context context){
 
-        anchoCarta=anchoPantalla/6;
-        altoCarta=(int)(anchoCarta*1.39);
+//        WindowManager wm=(WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+//        Display display=wm.getDefaultDisplay();
+//        Point size=new Point();
+//        display.getSize(size);
+//        anchoPantalla=size.x;
+//        altoPantalla=size.y;
+//        //deck
+//        alturaDeck=(altoPantalla)-(int)(altoCarta*1.1);
+//        anchuraDeck=anchoCarta;
+//        x=avatar.getWidth();
+//        y=alturaDeck;
+//        xDeck=x;
+//        yDeck=y;
+//        xDescarte=anchoPantalla-2*anchoCarta;
+//        yDescarte=y;
+//        anchoCarta=anchoPantalla/6;
+//        altoCarta=(int)(anchoCarta*1.39);
         //cartaBack=Bitmap.createScaledBitmap(cartaBack,anchoCarta,altoCarta,true);
         avatar=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.saber),anchoPantalla/8,altoPantalla/8,true);
         //Imagenes
@@ -200,16 +224,16 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         }else{
             Log.i("CONSTRUCTOR", "JUGADOR2:NO NULL");
         }
-        //deck
-        alturaDeck=(altoPantalla)-(altoCarta/6);
-        anchuraDeck=anchoCarta;
-        x=avatar.getWidth();
-        y=alturaDeck;
-        xDeck=x;
-        yDeck=y;
-        xDescarte=anchoPantalla-2*anchoCarta;
-        yDescarte=y;
-        Log.i("CONSTRUCTOR", "FIN CONSTRUCTOR INICIALIZACION");
+//        //deck
+//        alturaDeck=(altoPantalla)-(int)(altoCarta*1.1);
+//        anchuraDeck=anchoCarta;
+//        x=avatar.getWidth();
+//        y=alturaDeck;
+//        xDeck=x;
+//        yDeck=y;
+//        xDescarte=anchoPantalla-2*anchoCarta;
+//        yDescarte=y;
+//        Log.i("CONSTRUCTOR", "FIN CONSTRUCTOR INICIALIZACION");
 
         Log.i("CONSTRUCTOR", "ALTURA DECK: "+alturaDeck);
         Log.i("CONSTRUCTOR", "ALTURA PANTALLA: "+altoPantalla);
@@ -250,6 +274,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         jugador2.setMesaXfin(jugador1.getManoXfin());
         jugador2.setMesaY(jugador2.getManoYfin()+(int)(0.2*altoCarta));
         jugador2.setMesaYfin(jugador2.getMesaY()+altoCarta);
+
     }
 
     class Hilo extends Thread{
@@ -262,18 +287,43 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
         public void run() {
             while(funcionando){
                 Canvas c=null;
+
+//                WindowManager wm=(WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+//                Display display=wm.getDefaultDisplay();
+//                Point size=new Point();
+//                display.getSize(size);
+//                anchoPantalla=size.x;
+//                altoPantalla=size.y;
+                //deck
+                alturaDeck=(altoPantalla)-(int)(altoCarta*1.1);
+                anchuraDeck=anchoCarta;
+                x=avatar.getWidth();
+                y=alturaDeck;
+                xDeck=x;
+                yDeck=y;
+                xDescarte=anchoPantalla-2*anchoCarta;
+                yDescarte=y;
                 try{
-                    c=surfaceHolder.lockCanvas();
                     synchronized (surfaceHolder){
-                        if(jugador1!=null && jugador2!=null) {
+                        c=surfaceHolder.lockCanvas();
+                        Log.i("NULLPOINTER","NULL5?"+(surfaceHolder==null?"Si":"No"));
+                        if(jugador1!=null && jugador2!=null && surfaceHolder!=null) {
                             cambios();
+                            Log.i("NULLPOINTER","NULL3?"+(c==null?"Si":"No"));
                             try {
+                                while(c==null){
+                                    surfaceHolder=getHolder();
+                                    c=surfaceHolder.lockCanvas();
+                                    Log.i("NULLPOINTER","NULL4?"+(c==null?"Si":"No"));
+                                    Log.i("NULLPOINTER","NULL5?"+(surfaceHolder==null?"Si":"No"));
+                                }
                                 dibujar(c);
                             }catch (IndexOutOfBoundsException e){
                                 e.printStackTrace();
                                 cambios();
                             }
                         }else{
+                            surfaceHolder=getHolder();
                             jugador1=((JuegoActivity)context).jugador1;
                             jugador2=((JuegoActivity)context).jugador2;
                             inicializarCosas((JuegoActivity)context);
@@ -375,12 +425,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //            jugador1=((JuegoActivity)context).jugador1;
 //            jugador2=((JuegoActivity)context).jugador2;
 //            Log.i("ONDRAW","Despues actualizar");
-            x=avatar.getWidth();
-            y=alturaDeck;
+//            x=avatar.getWidth();
+//            y=alturaDeck;
 
 //            Log.i("CONSTRUCTOR","ACTIVO J1?"+jugador1.isActivo());
 //            Log.i("CONSTRUCTOR","ACTIVO J2?"+jugador2.isActivo());
-
+            Log.i("NULLPOINTER","NULL?"+(fondo==null?"Si":"No"));
+            Log.i("NULLPOINTER","NULL2?"+(canvas==null?"Si":"No"));
             canvas.drawBitmap(fondo,0,0,null);
 //            canvas.drawBitmap(avatar,0,altoPantalla-(altoPantalla/5),null);
             Paint p=new Paint();
@@ -400,14 +451,14 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 p.setTextSize(30);
 //                Log.i("VIDAS", "VIDAS" + jugador1.getVidas());
                 //jugador1
-                canvas.drawText("Activo:" + (jugador1.isActivo() ? "Si" : "No"), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.7 * altoCarta), p);
-                canvas.drawText("Vidas:" + jugador1.getVidas(), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.5 * altoCarta), p);
-                canvas.drawText("Recursos:" + jugador1.getRecursos(), jugador1.getDeckX(), jugador1.getDeckY() - (int) (0.2 * altoCarta), p);
+                canvas.drawText("Activo:" + (jugador1.isActivo() ? "Si" : "No"), jugador1.getDeckX()/2, jugador1.getDeckY() - (int) (0.7 * altoCarta), p);
+                canvas.drawText("Vidas:" + jugador1.getVidas(), jugador1.getDeckX()/2, jugador1.getDeckY() - (int) (0.5 * altoCarta), p);
+                canvas.drawText("Recursos:" + jugador1.getRecursos(), jugador1.getDeckX()/2, jugador1.getDeckY() - (int) (0.2 * altoCarta), p);
                 //jugador2
                 p.setColor(Color.BLUE);
-                canvas.drawText("Activo:" + (jugador2.isActivo() ? "Si" : "No"), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.7 * altoCarta), p);
-                canvas.drawText("Vidas:" + jugador2.getVidas(), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.5 * altoCarta), p);
-                canvas.drawText("Recursos:" + jugador2.getRecursos(), jugador2.getDeckX(), jugador2.getDeckYfin() + (int) (0.2 * altoCarta), p);
+                canvas.drawText("Activo:" + (jugador2.isActivo() ? "Si" : "No"), (int)(jugador2.getDeckX()/1.1), jugador2.getDeckYfin() + (int) (0.7 * altoCarta), p);
+                canvas.drawText("Vidas:" + jugador2.getVidas(), (int)(jugador2.getDeckX()/1.1), jugador2.getDeckYfin() + (int) (0.5 * altoCarta), p);
+                canvas.drawText("Recursos:" + jugador2.getRecursos(), (int)(jugador2.getDeckX()/1.1), jugador2.getDeckYfin() + (int) (0.2 * altoCarta), p);
 
                 //Zona-Informacion
                 p = new Paint();
@@ -689,16 +740,16 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                             jugador1.getDeck().get(i).setyFin(yDeck + altoCarta);
                         }
                         x += anchoCarta * 1.2;
+                        p = new Paint();
+                        p.setColor(Color.RED);
+                        p.setStyle(Paint.Style.STROKE);
+                        canvas.drawRect(jugador1.getDeck().get(0).getxInicio()
+                                , jugador1.getDeck().get(0).getyInicio()
+                                , jugador1.getDeck().get(0).getxFin()
+                                , jugador1.getDeck().get(0).getyFin(), p);
                     } else {
                         x += anchoCarta * 1.2;
                     }
-                    p = new Paint();
-                    p.setColor(Color.RED);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador1.getDeckX()
-                            , jugador1.getDeckY()
-                            , jugador1.getDeckXfin()
-                            , jugador1.getDeckYfin(), p);
 //                    Log.i("ONDRAW", "dibujando DECK");
 //                    Log.i("ONDRAW", "Antes bucle");
 
@@ -1381,6 +1432,63 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         hilo.setSurfaceSize(width,height);
+        Log.i("SURFACE","SURFACE DESTROYED");
+        anchoPantalla=width;
+        altoPantalla=height;
+        //deck
+        alturaDeck=(altoPantalla)-(int)(altoCarta*1.1);
+        anchuraDeck=anchoCarta;
+        x=avatar.getWidth();
+        y=alturaDeck;
+        xDeck=x;
+        yDeck=y;
+        xDescarte=anchoPantalla-2*anchoCarta;
+        yDescarte=y;
+
+        if(jugador1==null){
+            inicializarCosas((JuegoActivity)context);
+        }
+        //jugador1
+        if(jugador1!=null) {
+            jugador1.setDeckX(xDeck);
+            jugador1.setDeckXfin(xDeck + anchoCarta);
+            jugador1.setDeckY(yDeck);
+            jugador1.setDeckYfin(yDeck + altoCarta);
+            jugador1.setDescarteX(anchoPantalla - (int) (anchoCarta * 1.2));
+            jugador1.setDescarteXfin(jugador1.getDescarteX() + anchoCarta);
+            jugador1.setDescarteY(yDeck);
+            jugador1.setDescarteYfin(yDeck + altoCarta);
+            jugador1.setManoX(jugador1.getDeckX() + (int) (1.2 * anchoCarta));
+            jugador1.setManoXfin(jugador1.getDescarteX() - (int) (0.5 * anchoCarta));
+            jugador1.setManoY(yDeck);
+            jugador1.setManoYfin(yDeck + altoCarta);
+            jugador1.setMesaX(jugador1.getManoX());
+            jugador1.setMesaXfin(jugador1.getManoXfin());
+            jugador1.setMesaY(jugador1.getManoY() - (int) (1.2 * altoCarta));
+            jugador1.setMesaYfin(jugador1.getMesaY() + altoCarta);
+        }
+        if(jugador2==null){
+            inicializarCosas((JuegoActivity)context);
+        }
+        //jugador2
+        if(jugador2!=null) {
+            jugador2.setDeckX(anchoPantalla - (int) (anchoCarta * 1.2));
+            jugador2.setDeckXfin(jugador2.getDeckX() + anchoCarta);
+            jugador2.setDeckY(0);
+            jugador2.setDeckYfin(jugador2.getDeckY() + altoCarta);
+            jugador2.setDescarteX(xDeck);
+            jugador2.setDescarteXfin(xDeck + anchoCarta);
+            jugador2.setDescarteY(0);
+            jugador2.setDescarteYfin(jugador2.getDeckY() + altoCarta);
+            jugador2.setManoX(jugador1.getDeckX() + (int) (1.2 * anchoCarta));
+            jugador2.setManoXfin(jugador1.getDescarteX() - (int) (0.5 * anchoCarta));
+            jugador2.setManoY(0);
+            jugador2.setManoYfin(jugador2.getManoY() + altoCarta);
+            jugador2.setMesaX(jugador1.getManoX());
+            jugador2.setMesaXfin(jugador1.getManoXfin());
+            jugador2.setMesaY(jugador2.getManoYfin() + (int) (0.2 * altoCarta));
+            jugador2.setMesaYfin(jugador2.getMesaY() + altoCarta);
+        }
     }
 
     @Override

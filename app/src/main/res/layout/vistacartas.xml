@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundlista">
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -18,7 +19,8 @@
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@+id/logo"
         android:text=" Nombre Carta"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffffff" />
     <TextView
         android:id="@+id/txtCantidad"
         android:layout_width="wrap_content"
@@ -26,7 +28,8 @@
         android:text="Cantidad"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/btnAñadir" />
+        android:layout_alignStart="@+id/btnAñadir"
+        android:textColor="#ffffffff" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -35,6 +38,7 @@
         android:text="-"
         android:id="@+id/btnMenos"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/button2"
         android:layout_alignParentEnd="true" />
 
     <Button
@@ -44,5 +48,6 @@
         android:text="+"
         android:id="@+id/btnAñadir"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/button2"
         android:layout_toStartOf="@+id/btnMenos" />
 </RelativeLayout>
