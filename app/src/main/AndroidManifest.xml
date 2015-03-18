@@ -3,6 +3,7 @@
     package="com.example.luiscerqueira.proyectotcg" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -34,6 +35,9 @@
             android:name=".DialogoCombinarPropio"
             android:label="@string/title_activity_dialogo_combinar_propio" >
         </activity>
+        <service android:name=".ServicioAlarma"
+            android:enabled="true"/>
+        <receiver android:name=".Recibidor"/>
     </application>
 
 </manifest>

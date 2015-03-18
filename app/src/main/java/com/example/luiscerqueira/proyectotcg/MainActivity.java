@@ -1,10 +1,14 @@
 package com.example.luiscerqueira.proyectotcg;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
         import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.provider.CalendarContract;
 import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
         import android.view.Menu;
@@ -12,22 +16,41 @@ import android.support.v7.app.ActionBarActivity;
         import android.view.View;
         import android.widget.Button;
 
+import java.util.Calendar;
+
 /**
  * Clase para la gestion de la activity principal del juego
  *
  * @author Luis Cerqueira
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     public MediaPlayer mediaPlayer;
     public AudioManager  audioManager;
     private boolean pausa=false;
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        Calendar calendar=Calendar.getInstance();
+//        calendar.set(Calendar.MONTH,2);
+//        calendar.set(Calendar.YEAR,2015);
+//        calendar.set(Calendar.DAY_OF_MONTH,18);
+
+        calendar.set(Calendar.HOUR_OF_DAY,10);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.AM_PM,Calendar.AM);
+
+        Intent intent=new Intent(MainActivity.this, Recibidor.class);
+        pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
+
+        AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(),pendingIntent);
 
         audioManager=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.bensoundofeliasdream);

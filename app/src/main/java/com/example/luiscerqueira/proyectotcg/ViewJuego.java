@@ -219,17 +219,17 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
         //Jugadores
         jugador1=((JuegoActivity)context).jugador1;
-        if(jugador1==null) {
-            Log.i("CONSTRUCTOR", "JUGADOR1:NULL");
-        }else{
-            Log.i("CONSTRUCTOR", "JUGADOR1:NO NULL");
-        }
+//        if(jugador1==null) {
+//            Log.i("CONSTRUCTOR", "JUGADOR1:NULL");
+//        }else{
+////            Log.i("CONSTRUCTOR", "JUGADOR1:NO NULL");
+//        }
         jugador2=((JuegoActivity)context).jugador2;
-        if(jugador2==null) {
-            Log.i("CONSTRUCTOR", "JUGADOR2:NULL");
-        }else{
-            Log.i("CONSTRUCTOR", "JUGADOR2:NO NULL");
-        }
+//        if(jugador2==null) {
+//            Log.i("CONSTRUCTOR", "JUGADOR2:NULL");
+//        }else{
+//            Log.i("CONSTRUCTOR", "JUGADOR2:NO NULL");
+//        }
 //        //deck
 //        alturaDeck=(altoPantalla)-(int)(altoCarta*1.1);
 //        anchuraDeck=anchoCarta;
@@ -241,10 +241,10 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //        yDescarte=y;
 //        Log.i("CONSTRUCTOR", "FIN CONSTRUCTOR INICIALIZACION");
 
-        Log.i("CONSTRUCTOR", "ALTURA DECK: "+alturaDeck);
-        Log.i("CONSTRUCTOR", "ALTURA PANTALLA: "+altoPantalla);
-        Log.i("CONSTRUCTOR", "ALTURA CARTA: "+altoCarta);
-        Log.i("CONSTRUCTOR", "Y DECK: "+y);
+//        Log.i("CONSTRUCTOR", "ALTURA DECK: "+alturaDeck);
+//        Log.i("CONSTRUCTOR", "ALTURA PANTALLA: "+altoPantalla);
+//        Log.i("CONSTRUCTOR", "ALTURA CARTA: "+altoCarta);
+//        Log.i("CONSTRUCTOR", "Y DECK: "+y);
         //jugador1
         jugador1.setDeckX(xDeck);
         jugador1.setDeckXfin(xDeck+anchoCarta);
@@ -317,16 +317,16 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 try{
                     synchronized (surfaceHolder){
                         c=surfaceHolder.lockCanvas();
-                        Log.i("NULLPOINTER","NULL5?"+(surfaceHolder==null?"Si":"No"));
+//                        Log.i("NULLPOINTER","NULL5?"+(surfaceHolder==null?"Si":"No"));
                         if(jugador1!=null && jugador2!=null && surfaceHolder!=null) {
                             cambios();
-                            Log.i("NULLPOINTER","NULL3?"+(c==null?"Si":"No"));
+//                            Log.i("NULLPOINTER","NULL3?"+(c==null?"Si":"No"));
                             try {
                                 while(c==null){
                                     surfaceHolder=getHolder();
                                     c=surfaceHolder.lockCanvas();
-                                    Log.i("NULLPOINTER","NULL4?"+(c==null?"Si":"No"));
-                                    Log.i("NULLPOINTER","NULL5?"+(surfaceHolder==null?"Si":"No"));
+//                                    Log.i("NULLPOINTER","NULL4?"+(c==null?"Si":"No"));
+//                                    Log.i("NULLPOINTER","NULL5?"+(surfaceHolder==null?"Si":"No"));
                                 }
                                 dibujar(c);
                             }catch (IndexOutOfBoundsException e){
@@ -350,7 +350,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 tiempodormido=tiempoReferencia-System.nanoTime();
                 if(tiempodormido>0){
                     try{
-                        Log.i("THREADSLEEP", "tiempo:"+tiempodormido/1000000);
+//                        Log.i("THREADSLEEP", "tiempo:"+tiempodormido/1000000);
                         Thread.sleep(tiempodormido/1000000);
                     }catch(InterruptedException e){
                         e.printStackTrace();
@@ -358,7 +358,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
 
-            Log.i("SURFACE","HILO DESTROYED");
+//            Log.i("SURFACE","HILO DESTROYED");
         }
 
        public void setFuncionando(boolean flag){
@@ -448,8 +448,8 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
 //            Log.i("CONSTRUCTOR","ACTIVO J1?"+jugador1.isActivo());
 //            Log.i("CONSTRUCTOR","ACTIVO J2?"+jugador2.isActivo());
-            Log.i("NULLPOINTER","NULL?"+(fondo==null?"Si":"No"));
-            Log.i("NULLPOINTER","NULL2?"+(canvas==null?"Si":"No"));
+//            Log.i("NULLPOINTER","NULL?"+(fondo==null?"Si":"No"));
+//            Log.i("NULLPOINTER","NULL2?"+(canvas==null?"Si":"No"));
             canvas.drawBitmap(fondo,0,0,null);
 //            canvas.drawBitmap(avatar,0,altoPantalla-(altoPantalla/5),null);
             Paint p=new Paint();
@@ -457,7 +457,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                Log.i("ONDRAW5", "JUGADOR1 VIDAS0-PIERDE");
                 p.setColor(Color.RED);
                 p.setTextSize(60);
-//                canvas.drawText("JUGADOR 1 PIERDE" ,anchoPantalla/4,altoPantalla/2, p);
+                canvas.drawText("JUGADOR 1 PIERDE" ,anchoPantalla/4,altoPantalla/2, p);
             }
             else if(jugador2.getVidas()<=0){
 //                Log.i("ONDRAW5", "JUGADOR2 VIDAS0-PIERDE");
@@ -486,24 +486,24 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     infoCard = infoCardJ2;
                 }
                 canvas.drawBitmap(infoCard, 0, (int) ((altoPantalla / 2) - (altoCarta * 0.75)), null);
-                p.setColor(Color.RED);
-                p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(0
-                        , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
-                        , (int) (anchoCarta * 1.5)
-                        , (int) ((altoPantalla / 2) + (altoCarta * 0.75))
-                        , p);
+//                p.setColor(Color.RED);
+//                p.setStyle(Paint.Style.STROKE);
+//                canvas.drawRect(0
+//                        , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
+//                        , (int) (anchoCarta * 1.5)
+//                        , (int) ((altoPantalla / 2) + (altoCarta * 0.75))
+//                        , p);
 //                Log.i("ONDRAW", "dibujando DESCARTE");
 
                 //Boton Jugar
-                p = new Paint();
-                p.setColor(Color.RED);
-                p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect(0
-                        , (int) ((altoPantalla / 2) - (altoCarta * 1.2))
-                        , (int) (anchoCarta * 1.5)
-                        , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
-                        , p);
+//                p = new Paint();
+//                p.setColor(Color.RED);
+//                p.setStyle(Paint.Style.STROKE);
+//                canvas.drawRect(0
+//                        , (int) ((altoPantalla / 2) - (altoCarta * 1.2))
+//                        , (int) (anchoCarta * 1.5)
+//                        , (int) ((altoPantalla / 2) - (altoCarta * 0.75))
+//                        , p);
 //                Log.i("ONDRAW", "dibujando DESCARTE");
                 temp = botonPlay;
                 if (pulsandoPlay) {
@@ -515,13 +515,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 canvas.drawBitmap(temp, 0, (int) ((altoPantalla / 2) - (altoCarta * 1.2)), null);
                 //Boton fin turno
-                p = new Paint();
-                p.setColor(Color.RED);
-                p.setStyle(Paint.Style.STROKE);
-                canvas.drawRect((anchoPantalla / 2) - (anchoCarta)
-                        , (altoPantalla / 2) - (altoCarta / 4)
-                        , (anchoPantalla / 2) + (anchoCarta)
-                        , (altoPantalla / 2) + (altoCarta / 4), p);
+//                p = new Paint();
+//                p.setColor(Color.RED);
+//                p.setStyle(Paint.Style.STROKE);
+//                canvas.drawRect((anchoPantalla / 2) - (anchoCarta)
+//                        , (altoPantalla / 2) - (altoCarta / 4)
+//                        , (anchoPantalla / 2) + (anchoCarta)
+//                        , (altoPantalla / 2) + (altoCarta / 4), p);
 
                 temp = botonActivo;
                 if (jugador1.isTocandoFinTurno()) {
@@ -535,13 +535,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 if (jugador2 != null) {
 //                    Log.i("ONDRAW", "Antes deck");
                     //Zona-Mano
-                    p = new Paint();
-                    p.setColor(Color.BLUE);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador2.getManoX()
-                            , jugador2.getManoY()
-                            , jugador2.getManoXfin()
-                            , jugador2.getManoYfin(), p);
+//                    p = new Paint();
+//                    p.setColor(Color.BLUE);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador2.getManoX()
+//                            , jugador2.getManoY()
+//                            , jugador2.getManoXfin()
+//                            , jugador2.getManoYfin(), p);
 //                    Log.i("ONDRAW2", "dibujando MANOx:" + jugador2.getManoX());
 //                    Log.i("ONDRAW2", "dibujando MANOx2:" + jugador2.getManoY());
 //                    Log.i("ONDRAW2", "dibujando MANOy:" + jugador2.getManoXfin());
@@ -549,14 +549,14 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                    Log.i("ONDRAW2", "dibujando MANO");
 
                     //Zona-Mesa
-                    p = new Paint();
-                    p.setColor(Color.BLUE);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador2.getMesaX()
-                            , jugador2.getMesaY()
-                            , jugador2.getMesaXfin()
-                            , jugador2.getMesaYfin()
-                            , p);
+//                    p = new Paint();
+//                    p.setColor(Color.BLUE);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador2.getMesaX()
+//                            , jugador2.getMesaY()
+//                            , jugador2.getMesaXfin()
+//                            , jugador2.getMesaYfin()
+//                            , p);
 //                    Log.i("ONDRAW2", "dibujando MESAx:" + jugador2.getMesaX());
 //                    Log.i("ONDRAW2", "dibujando MESAx2:" + jugador2.getMesaY());
 //                    Log.i("ONDRAW2", "dibujando MESAy:" + jugador2.getMesaXfin());
@@ -564,14 +564,14 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                    Log.i("ONDRAW2", "dibujando MESA");
 
                     //Zona-Descarte
-                    p = new Paint();
-                    p.setColor(Color.BLUE);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador2.getDescarteX()
-                            , jugador2.getDescarteY()
-                            , jugador2.getDescarteXfin()
-                            , jugador2.getDescarteYfin()
-                            , p);
+//                    p = new Paint();
+//                    p.setColor(Color.BLUE);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador2.getDescarteX()
+//                            , jugador2.getDescarteY()
+//                            , jugador2.getDescarteXfin()
+//                            , jugador2.getDescarteYfin()
+//                            , p);
 //                    Log.i("ONDRAW2", "dibujando DESCARTEx:" + jugador2.getDescarteX());
 //                    Log.i("ONDRAW2", "dibujando DESCARTEx2:" + jugador2.getDescarteY());
 //                    Log.i("ONDRAW2", "dibujando DESCARTEy:" + jugador2.getDescarteXfin());
@@ -589,17 +589,17 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                             jugador2.getDeck().get(i).setxFin(xDeck + anchoCarta);
                             jugador2.getDeck().get(i).setyInicio(yDeck);
                             jugador2.getDeck().get(i).setyFin(yDeck + altoCarta);
-                            p = new Paint();
-                            p.setColor(Color.BLUE);
-                            p.setStyle(Paint.Style.STROKE);
+//                            p = new Paint();
+//                            p.setColor(Color.BLUE);
+//                            p.setStyle(Paint.Style.STROKE);
                         }
                     } else {
 //                        Log.i("ONDRAW2", "DECK VACIO");
                     }
-                    canvas.drawRect(jugador2.getDeckX()
-                            , jugador2.getDeckY()
-                            , jugador2.getDeckXfin()
-                            , jugador2.getDeckYfin(), p);
+//                    canvas.drawRect(jugador2.getDeckX()
+//                            , jugador2.getDeckY()
+//                            , jugador2.getDeckXfin()
+//                            , jugador2.getDeckYfin(), p);
 //                    Log.i("ONDRAW2", "dibujando DECK");
 //                    Log.i("ONDRAW2", "Antes bucle");
 
@@ -630,13 +630,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                             temp = girarBitmap(temp, 180);
                         }
                         canvas.drawBitmap(temp, jugador2.getManoX() + (int) (distanciaMinima * anchoCarta) * i, jugador2.getMano().get(i).getyInicio(), null);
-                        p = new Paint();
-                        p.setColor(Color.GREEN);
-                        p.setStyle(Paint.Style.STROKE);
-                        canvas.drawRect(jugador2.getMano().get(i).getxInicio()
-                                , jugador2.getMano().get(i).getyInicio()
-                                , jugador2.getMano().get(i).getxFin()
-                                , jugador2.getMano().get(i).getyFin(), p);
+//                        p = new Paint();
+//                        p.setColor(Color.GREEN);
+//                        p.setStyle(Paint.Style.STROKE);
+//                        canvas.drawRect(jugador2.getMano().get(i).getxInicio()
+//                                , jugador2.getMano().get(i).getyInicio()
+//                                , jugador2.getMano().get(i).getxFin()
+//                                , jugador2.getMano().get(i).getyFin(), p);
                     }
 
                     //DESCARTE
@@ -653,13 +653,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         }
                         canvas.drawBitmap(temp, jugador2.getDescarteX(), jugador2.getDescarteY(), null);
                     }
-                    p = new Paint();
-                    p.setColor(Color.GREEN);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador2.getDescarteX()
-                            , jugador2.getDescarteY()
-                            , jugador2.getDescarteXfin()
-                            , jugador2.getDescarteYfin(), p);
+//                    p = new Paint();
+//                    p.setColor(Color.GREEN);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador2.getDescarteX()
+//                            , jugador2.getDescarteY()
+//                            , jugador2.getDescarteXfin()
+//                            , jugador2.getDescarteYfin(), p);
 
                     //MESA
                     int xTemp = jugador2.getMesaX();
@@ -685,17 +685,17 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                             temp = girarBitmap(temp, 180);
                         }
                         canvas.drawBitmap(temp, jugador2.getMesa().get(i).getxInicio(), jugador2.getMesa().get(i).getyInicio(), null);
-                        p = new Paint();
-                        p.setColor(Color.GREEN);
-                        p.setStyle(Paint.Style.STROKE);
+//                        p = new Paint();
+//                        p.setColor(Color.GREEN);
+//                        p.setStyle(Paint.Style.STROKE);
 //                        Log.i("ONDRAW2", "Antes draw x:" + jugador2.getMesa().get(i).getxInicio());
 //                        Log.i("ONDRAW2", "Antes draw x2:" + jugador2.getMesa().get(i).getxFin());
 //                        Log.i("ONDRAW2", "Antes draw y:" + jugador2.getMesa().get(i).getyInicio());
 //                        Log.i("ONDRAW2", "Antes draw y2:" + jugador2.getMesa().get(i).getyFin());
-                        canvas.drawRect(jugador2.getMesa().get(i).getxInicio()
-                                , jugador2.getMesa().get(i).getyInicio()
-                                , jugador2.getMesa().get(i).getxFin()
-                                , jugador2.getMesa().get(i).getyFin(), p);
+//                        canvas.drawRect(jugador2.getMesa().get(i).getxInicio()
+//                                , jugador2.getMesa().get(i).getyInicio()
+//                                , jugador2.getMesa().get(i).getxFin()
+//                                , jugador2.getMesa().get(i).getyFin(), p);
                     }
 
                 } else {
@@ -707,13 +707,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 if (jugador1 != null) {
 //                    Log.i("ONDRAW3", "Antes deck J1");
                     //Zona-Mano
-                    p = new Paint();
-                    p.setColor(Color.RED);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador1.getManoX()
-                            , jugador1.getManoY()
-                            , jugador1.getManoXfin()
-                            , jugador1.getManoYfin(), p);
+//                    p = new Paint();
+//                    p.setColor(Color.RED);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador1.getManoX()
+//                            , jugador1.getManoY()
+//                            , jugador1.getManoXfin()
+//                            , jugador1.getManoYfin(), p);
 //                    Log.i("ONDRAW", "dibujando MANOx:" + jugador1.getManoX());
 //                    Log.i("ONDRAW", "dibujando MANOx2:" + jugador1.getManoY());
 //                    Log.i("ONDRAW", "dibujando MANOy:" + jugador1.getManoXfin());
@@ -721,25 +721,25 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                    Log.i("ONDRAW", "dibujando MANO");
 
                     //Zona-Mesa
-                    p = new Paint();
-                    p.setColor(Color.RED);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador1.getMesaX()
-                            , jugador1.getMesaY()
-                            , jugador1.getMesaXfin()
-                            , jugador1.getMesaYfin()
-                            , p);
+//                    p = new Paint();
+//                    p.setColor(Color.RED);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador1.getMesaX()
+//                            , jugador1.getMesaY()
+//                            , jugador1.getMesaXfin()
+//                            , jugador1.getMesaYfin()
+//                            , p);
 //                    Log.i("ONDRAW", "dibujando MESA");
 
                     //Zona-Descarte
-                    p = new Paint();
-                    p.setColor(Color.RED);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador1.getDescarteX()
-                            , jugador1.getDescarteY()
-                            , jugador1.getDescarteXfin()
-                            , jugador1.getDescarteYfin()
-                            , p);
+//                    p = new Paint();
+//                    p.setColor(Color.RED);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador1.getDescarteX()
+//                            , jugador1.getDescarteY()
+//                            , jugador1.getDescarteXfin()
+//                            , jugador1.getDescarteYfin()
+//                            , p);
 //                    Log.i("ONDRAW", "dibujando DESCARTE");
 
                     //Zona-DECK
@@ -758,13 +758,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                             jugador1.getDeck().get(i).setyFin(yDeck + altoCarta);
                         }
                         x += anchoCarta * 1.2;
-                        p = new Paint();
-                        p.setColor(Color.RED);
-                        p.setStyle(Paint.Style.STROKE);
-                        canvas.drawRect(jugador1.getDeck().get(0).getxInicio()
-                                , jugador1.getDeck().get(0).getyInicio()
-                                , jugador1.getDeck().get(0).getxFin()
-                                , jugador1.getDeck().get(0).getyFin(), p);
+//                        p = new Paint();
+//                        p.setColor(Color.RED);
+//                        p.setStyle(Paint.Style.STROKE);
+//                        canvas.drawRect(jugador1.getDeck().get(0).getxInicio()
+//                                , jugador1.getDeck().get(0).getyInicio()
+//                                , jugador1.getDeck().get(0).getxFin()
+//                                , jugador1.getDeck().get(0).getyFin(), p);
                     } else {
                         x += anchoCarta * 1.2;
                     }
@@ -801,13 +801,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         } else {
                             jugador1.getMano().get(i).setxFin(jugador1.getMano().get(i).getxInicio() + anchoCarta);
                         }
-                        p = new Paint();
-                        p.setColor(Color.RED);
-                        p.setStyle(Paint.Style.STROKE);
-                        canvas.drawRect(jugador1.getMano().get(i).getxInicio()
-                                , jugador1.getMano().get(i).getyInicio()
-                                , jugador1.getMano().get(i).getxFin()
-                                , jugador1.getMano().get(i).getyFin(), p);
+//                        p = new Paint();
+//                        p.setColor(Color.RED);
+//                        p.setStyle(Paint.Style.STROKE);
+//                        canvas.drawRect(jugador1.getMano().get(i).getxInicio()
+//                                , jugador1.getMano().get(i).getyInicio()
+//                                , jugador1.getMano().get(i).getxFin()
+//                                , jugador1.getMano().get(i).getyFin(), p);
                         x += anchoCarta / 2;
                     }
 
@@ -825,13 +825,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         }
                         canvas.drawBitmap(temp, jugador1.getDescarteX(), y, null);
                     }
-                    p = new Paint();
-                    p.setColor(Color.RED);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(jugador1.getDescarteX()
-                            , jugador1.getDescarteY()
-                            , jugador1.getDescarteXfin()
-                            , jugador1.getDescarteYfin(), p);
+//                    p = new Paint();
+//                    p.setColor(Color.RED);
+//                    p.setStyle(Paint.Style.STROKE);
+//                    canvas.drawRect(jugador1.getDescarteX()
+//                            , jugador1.getDescarteY()
+//                            , jugador1.getDescarteXfin()
+//                            , jugador1.getDescarteYfin(), p);
 
                     //MESA
                     int xTemp = jugador1.getMesaX();
@@ -852,13 +852,13 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                             temp = girarBitmap(temp, 180);
                         }
                         canvas.drawBitmap(temp, jugador1.getMesa().get(i).getxInicio(), jugador1.getMesa().get(i).getyInicio(), null);
-                        p = new Paint();
-                        p.setColor(Color.RED);
-                        p.setStyle(Paint.Style.STROKE);
-                        canvas.drawRect(jugador1.getMesa().get(i).getxInicio()
-                                , jugador1.getMesa().get(i).getyInicio()
-                                , jugador1.getMesa().get(i).getxFin()
-                                , jugador1.getMesa().get(i).getyFin(), p);
+//                        p = new Paint();
+//                        p.setColor(Color.RED);
+//                        p.setStyle(Paint.Style.STROKE);
+//                        canvas.drawRect(jugador1.getMesa().get(i).getxInicio()
+//                                , jugador1.getMesa().get(i).getyInicio()
+//                                , jugador1.getMesa().get(i).getxFin()
+//                                , jugador1.getMesa().get(i).getyFin(), p);
                         xTemp += anchoCarta / 2;
                     }
                 } else {
@@ -875,9 +875,9 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
                         animacion=arrayefectoGiro.get(jugador2.getMesa().get(i).getGrados());
                         jugador2.getMesa().get(i).setGrados(jugador2.getMesa().get(i).getGrados() + 1);
-                        Log.i("ONDRAW3", "ANIMACION J2 ID:"+jugador2.getMesa().get(i).getNombre()+" x:"+jugador2.getMesa().get(i).getxInicio()+" y:"+jugador2.getMesa().get(i).getyInicio());
+//                        Log.i("ONDRAW3", "ANIMACION J2 ID:"+jugador2.getMesa().get(i).getNombre()+" x:"+jugador2.getMesa().get(i).getxInicio()+" y:"+jugador2.getMesa().get(i).getyInicio());
                         canvas.drawBitmap(animacion, jugador2.getMesa().get(i).getxInicio(), jugador2.getMesa().get(i).getyInicio(), null);
-                        Log.i("ONDRAW3", "DESPUES DIBUJAR"+jugador2.getMesa().get(i).getGrados());
+//                        Log.i("ONDRAW3", "DESPUES DIBUJAR"+jugador2.getMesa().get(i).getGrados());
                     }
                 }
 //                Log.i("ONDRAW4", "ANIMACIONJ1");
@@ -885,7 +885,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 for (int i = 0; i < jugador1.getMesa().size(); i++) {
 //                    Log.i("ONDRAW4", "ANTES IF2:" + jugador1.getMesa().get(i).isAnimar());
                     if (jugador1.getMesa().get(i).isAnimar()) {
-                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
+//                        Log.i("ONDRAW4", "DENTRO IF" + jugador1.getMesa().get(i).getGrados());
                         animacion=arrayefectoGiro.get(jugador1.getMesa().get(i).getGrados());
                         jugador1.getMesa().get(i).setGrados(jugador1.getMesa().get(i).getGrados() + 1);
                         canvas.drawBitmap(animacion,jugador1.getMesa().get(i).getxInicio(), jugador1.getMesa().get(i).getyInicio(), null);
@@ -934,12 +934,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         if (jugador1.getMano().size() > 0 && jugador1.getMano() != null) {
 //                            Log.i("MULTITOUCH-MESA", "IF-MANO");
                             for (int i = 0; i < jugador1.getMano().size(); i++) {
-                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x//"+jugador1.getMano().get(i).getxInicio());
-                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x2//"+jugador1.getMano().get(i).getxFin());
-                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y//"+jugador1.getMano().get(i).getyInicio());
-                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y2//"+jugador1.getMano().get(i).getyFin());
-                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" x//"+event.getX());
-                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" y//"+event.getY());
+//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x//"+jugador1.getMano().get(i).getxInicio());
+//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x2//"+jugador1.getMano().get(i).getxFin());
+//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y//"+jugador1.getMano().get(i).getyInicio());
+//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y2//"+jugador1.getMano().get(i).getyFin());
+//                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" x//"+event.getX());
+//                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" y//"+event.getY());
 
                                 if (event.getX() >= jugador1.getMano().get(i).getxInicio()
                                         && event.getX() <= jugador1.getMano().get(i).getxFin()
@@ -1139,9 +1139,9 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                                         && event.getY() >= jugador1.getMesa().get(i).getyInicio()
                                         && event.getY() <= jugador1.getMesa().get(i).getyFin()) {
 //                                    Log.i("MULTITOUCH-MESA", "ANIMACION");
-                                    animacionJ1=true;
-                                    idAnimacion=jugador1.getMesa().get(i).getId();
-                                    jugador1.getMesa().get(i).setAnimar(true);
+//                                    animacionJ1=true;
+//                                    idAnimacion=jugador1.getMesa().get(i).getId();
+//                                    jugador1.getMesa().get(i).setAnimar(true);
                                 }
                             }
                         }
@@ -1160,8 +1160,8 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                                     .getyInicio()
                                     && event.getY() <= jugador1.getDescarte().get(0)
                                     .getyFin()) {
-                                jugador1.moveCardFromDiscardToDeck(jugador1
-                                        .getDescarte().get(0).getId());
+//                                jugador1.moveCardFromDiscardToDeck(jugador1
+//                                        .getDescarte().get(0).getId());
                             }
                         }
                         jugador1.setTocandoDescarte(false);
@@ -1467,7 +1467,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         hilo.setSurfaceSize(width,height);
-        Log.i("SURFACE","SURFACE DESTROYED");
+//        Log.i("SURFACE","SURFACE DESTROYED");
         anchoPantalla=width;
         altoPantalla=height;
         //deck
@@ -1529,7 +1529,7 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         hilo.setFuncionando(false);
-        Log.i("SURFACE","SURFACE DESTROYED");
+//        Log.i("SURFACE","SURFACE DESTROYED");
         try {
             hilo.join();
         }catch(InterruptedException e){
