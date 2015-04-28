@@ -58,6 +58,17 @@ public class MainActivity extends Activity {
         mediaPlayer.setVolume(v/2,v/2);
         mediaPlayer.start();
 
+        Button btnJugarIA=(Button)findViewById(R.id.btnJugar);
+        btnJugarIA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,JuegoIaActivity.class);
+                startActivity(intent);
+                mediaPlayer.pause();
+                pausa=true;
+            }
+        });
+
         Button btnJugar=(Button)findViewById(R.id.btnJugar);
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,30 +1,32 @@
 package com.example.luiscerqueira.proyectotcg;
 
-        import android.app.Activity;
-        import android.content.Context;
-        import android.content.pm.ActivityInfo;
-        import android.database.Cursor;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.media.AudioManager;
-        import android.media.MediaPlayer;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.view.Window;
-        import android.view.WindowManager;
-        import java.util.ArrayList;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.os.Build;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
+import java.util.ArrayList;
 
 /**
  * Clase para la activity de juego 1v1 en el mismo dispositivo
  *
  * @author Luis Cerqueira
  */
-public class JuegoActivity extends Activity {
+public class JuegoIaActivity extends Activity {
 
     public MediaPlayer mediaPlayer;
     public AudioManager audioManager;
@@ -36,8 +38,8 @@ public class JuegoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        }
         super.onCreate(savedInstanceState);
         //getActionBar().hide();

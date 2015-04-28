@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Clase para la gestion del apartado grafico de la ventana de juego
@@ -27,6 +29,8 @@ import java.util.ArrayList;
  */
 public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 
+    private static final int MIN_DXDY = 2;
+    final private static HashMap<Integer, PointF> posiciones=new HashMap<>();
     private SurfaceHolder surfaceHolder;
     private Context context;
     private Bitmap fondo;
@@ -531,6 +535,15 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     temp = girarBitmap(temp, 180);
                 }
                 canvas.drawBitmap(temp, (anchoPantalla / 2) - (anchoCarta), (altoPantalla / 2) - (altoCarta / 4), null);
+
+                //ONTOUCH DRAG & DROP
+                for(PointF posicion:posiciones.values()){
+                    float x=posicion.x-infoCard.getWidth()/2;
+                    float y=posicion.y-infoCard.getHeight()/2;
+                    canvas.drawBitmap(infoCard,x,y,null);
+                }
+
+
                 //Jugador2
                 if (jugador2 != null) {
 //                    Log.i("ONDRAW", "Antes deck");
@@ -934,12 +947,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                         if (jugador1.getMano().size() > 0 && jugador1.getMano() != null) {
 //                            Log.i("MULTITOUCH-MESA", "IF-MANO");
                             for (int i = 0; i < jugador1.getMano().size(); i++) {
-//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x//"+jugador1.getMano().get(i).getxInicio());
-//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x2//"+jugador1.getMano().get(i).getxFin());
-//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y//"+jugador1.getMano().get(i).getyInicio());
-//                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y2//"+jugador1.getMano().get(i).getyFin());
-//                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" x//"+event.getX());
-//                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" y//"+event.getY());
+                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x//"+jugador1.getMano().get(i).getxInicio());
+                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" x2//"+jugador1.getMano().get(i).getxFin());
+                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y//"+jugador1.getMano().get(i).getyInicio());
+                                Log.i("MULTITOUCH-MESA", "IF-MANO "+i+" y2//"+jugador1.getMano().get(i).getyFin());
+                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" x//"+event.getX());
+                                Log.i("MULTITOUCH-MESA", "IF-MANO EVENT"+i+" y//"+event.getY());
 
                                 if (event.getX() >= jugador1.getMano().get(i).getxInicio()
                                         && event.getX() <= jugador1.getMano().get(i).getxFin()
@@ -948,7 +961,12 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                                     jugador1.setTocandoMano(true);
                                     infoCard=arrayManoJ1.get(i);
                                     idTemp=jugador1.getMano().get(i).getId();
-//                                    Log.i("MULTITOUCH-MANO", "TOCANDO-TRUE");
+                                    Log.i("MULTITOUCH-MANO", "TOCANDO-TRUE");
+
+                                    int pointerIndex=event.getActionIndex();
+                                    int pointerID=event.getPointerId(pointerIndex);
+                                    PointF posicion=new PointF(event.getX(pointerIndex),event.getY(pointerIndex));
+                                    posiciones.put(pointerID,posicion);
                                 }
                             }
                         }
@@ -1024,6 +1042,11 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                                     infoCardJ2=girarBitmap(arrayManoJ2.get(i),180);
                                     idTemp=jugador2.getMano().get(i).getId();
 //                                    Log.i("MULTITOUCH-MANO2", "TOCANDO-TRUE");
+
+                                    int pointerIndex=event.getActionIndex();
+                                    int pointerID=event.getPointerId(pointerIndex);
+                                    PointF posicion=new PointF(event.getX(pointerIndex),event.getY(pointerIndex));
+                                    posiciones.put(pointerID,posicion);
                                 }
                             }
                         }
@@ -1087,6 +1110,31 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                     host.onBackPressed();
                 }
                 if(jugador1.isActivo()) {
+                    int pointerIndex=event.getActionIndex();
+                    int pointerID=event.getPointerId(pointerIndex);
+                    PointF posicion =posiciones.get(pointerID);
+                    try {
+                        if (posicion.x > jugador1.getMesaX() && posicion.x < jugador1.getMesaXfin()
+                                && posicion.y > jugador1.getMesaY() && posicion.y < jugador1.getMesaYfin()) {
+                            Log.i("DRAG", "DROP MESA X&Y");
+                            for(int i=0;i<jugador1.getMano().size();i++){
+                                if(jugador1.getMano().get(i).getId()==idTemp){
+                                    if (jugador1.getRecursos() >= jugador1.getMano().get(i).getCoste()) {
+                                        synchronized (this.getSurfaceHolder()) {
+                                            jugador1.setRecursos(jugador1.getRecursos() - jugador1.getMano().get(i).getCoste());
+                                            jugador1.moveCardFromHandToTable(jugador1.getMano().get(i).getId());
+                                        }
+                                    } else {
+                                        Toast.makeText(this.getContext(), "No hay recursos suficientes", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+                        posiciones.remove(pointerID);
+                    }catch(NullPointerException e){
+
+                    }
+
                     //LEVANTAR DECK
                     if (jugador1.getDeck().size() > 0 && jugador1.getDeck() != null) {
 //                        Log.i("MULTITOUCH-DECK", "1ºIF");
@@ -1203,6 +1251,36 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                    Log.i("MULTITOUCH-IFS-FINIFS", "FIN");
                 }
                 else if(jugador2.isActivo()) {
+                    int pointerIndex=event.getActionIndex();
+                    int pointerID=event.getPointerId(pointerIndex);
+                    PointF posicion =posiciones.get(pointerID);
+                    try {
+                        Log.i("DRAG", "x "+posicion.x);
+                        Log.i("DRAG", "Y "+posicion.y);
+                        Log.i("DRAG", "MESA X "+jugador2.getMesaX());
+                        Log.i("DRAG", "MESA X& "+jugador2.getMesaXfin());
+                        Log.i("DRAG", "MESA Y "+jugador2.getMesaY());
+                        Log.i("DRAG", "MESA &Y "+jugador2.getMesaYfin());
+                        if (posicion.x > jugador2.getMesaX() && posicion.x < jugador2.getMesaXfin()
+                                && posicion.y > jugador2.getMesaY() && posicion.y < jugador2.getMesaYfin()) {
+                            Log.i("DRAG", "DROP MESA X&Y");
+                            for(int i=0;i<jugador2.getMano().size();i++){
+                                if(jugador2.getMano().get(i).getId()==idTemp){
+                                    if (jugador2.getRecursos() >= jugador2.getMano().get(i).getCoste()) {
+                                        synchronized (this.getSurfaceHolder()) {
+                                            jugador2.setRecursos(jugador2.getRecursos() - jugador2.getMano().get(i).getCoste());
+                                            jugador2.moveCardFromHandToTable(jugador2.getMano().get(i).getId());
+                                        }
+                                    } else {
+                                        Toast.makeText(this.getContext(), "No hay recursos suficientes", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+                        posiciones.remove(pointerID);
+                    }catch(NullPointerException e){
+
+                    }
                     //LEVANTAR DECK
                     if (jugador2.getDeck().size() > 0 && jugador2.getDeck() != null) {
 //                        Log.i("MULTITOUCH-DECK2", "1ºIF");
@@ -1319,7 +1397,18 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-               // Log.i("MULTITOUCH","action move");
+               Log.i("MULTITOUCH","action move");
+                for (int i=0;i<event.getPointerCount();i++){
+                    int id=event.getPointerId(i);
+                    PointF posicion=posiciones.get(id);
+                    if(null!=posicion){
+                        if(Math.abs(posicion.x-event.getX(i))>MIN_DXDY
+                                || Math.abs(posicion.y-event.getY(i))>MIN_DXDY){
+                            posicion.set(event.getX(i),event.getY(i));
+                        }
+                    }
+                }
+
                 break;
             default:
 //                Log.i("MULTITOUCH","Accion no definida");
