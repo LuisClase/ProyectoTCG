@@ -24,6 +24,10 @@
             android:label="@string/title_activity_juego" >
         </activity>
         <activity
+            android:name=".JuegoIaActivity"
+            android:label="@string/title_activity_juego" >
+        </activity>
+        <activity
             android:name=".ActivityMazos"
             android:label="@string/title_activity_activity_mazos" >
         </activity>

@@ -31,19 +31,16 @@ public class JuegoIaActivity extends Activity {
     public MediaPlayer mediaPlayer;
     public AudioManager audioManager;
     private boolean pausa=false;
-    public ViewJuego pantallaJuego;
+    public ViewIA pantallaJuego;
     public Jugador jugador1;
     public Jugador jugador2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        }
         super.onCreate(savedInstanceState);
-        //getActionBar().hide();
-        pantallaJuego=new ViewJuego(this);
+        pantallaJuego=new ViewIA(this);
         pantallaJuego.setKeepScreenOn(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(pantallaJuego);
@@ -77,20 +74,6 @@ public class JuegoIaActivity extends Activity {
         CardNaturalHelp cardNaturalHelp=new CardNaturalHelp(this,jugador1,jugador2);
         CardNaturalResources cardNaturalResources=new CardNaturalResources(this,jugador1,jugador2);
         CardNaturalSign cardNaturalSign=new CardNaturalSign(this,jugador1,jugador2);
-//        jugador1.getDeck().add(cartaPrueba2);
-//        jugador1.getDeck().add(cardRelampago);
-//        jugador1.getDeck().add(cardHeal);
-//        jugador1.getDeck().add(cardRitual);
-//        jugador1.getDeck().add(cardMentalSpiral);
-//        jugador1.getDeck().add(cardBurningSign);
-//        jugador1.getDeck().add(cardIgniteMemories);
-//        jugador1.getDeck().add(cardNightmare);
-//        jugador1.getDeck().add(cardTransfusion);
-//        jugador1.getDeck().add(cardHealingSign);
-//        jugador1.getDeck().add(cardMysticalSign);
-//        jugador1.getDeck().add(cardNaturalSign);
-//        jugador1.getDeck().add(cardNaturalHelp);
-//        jugador1.getDeck().add(cardNaturalResources);
         //PRUEBAS
         ArrayList<Carta> cartas=new ArrayList<Carta>();
         SQLiteDatabase sqLiteDB=(new BDSQLite(this,"cartas",null,1)).getReadableDatabase();
@@ -202,33 +185,13 @@ public class JuegoIaActivity extends Activity {
         jugador1.moveFromDeckToHand(3);
         //Jugador2
 //        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
-        cardRelampago=new CardRelampago(this, jugador2, jugador1);
-        cardHeal=new CardHeal(this,jugador2,jugador1);
-        cardRitual=new CardRitual(this,jugador2,jugador1);
-        cardMentalSpiral=new CardMentalSpiral(this,jugador2,jugador1);
-        cardBurningSign=new CardBurningSign(this,jugador2,jugador1);
-        cardIgniteMemories=new CardIgniteMemories(this,jugador2,jugador1);
-        cardNightmare=new CardNightmare(this,jugador2,jugador1);
-        cardTransfusion=new CardTransfusion(this,jugador2,jugador1);
-        cardHealingSign=new CardHealingSign(this,jugador2,jugador1);
-        cardMysticalSign=new CardMysticalSign(this,jugador2,jugador1);
-        cardNaturalHelp=new CardNaturalHelp(this,jugador2,jugador1);
-        cardNaturalResources=new CardNaturalResources(this,jugador2,jugador1);
-        cardNaturalSign=new CardNaturalSign(this,jugador2,jugador1);
+
 //        jugador2.getDeck().add(cartaPrueba2);
-        jugador2.getDeck().add(cardRelampago);
-        jugador2.getDeck().add(cardHeal);
-        jugador2.getDeck().add(cardRitual);
-        jugador2.getDeck().add(cardMentalSpiral);
-        jugador2.getDeck().add(cardBurningSign);
-        jugador2.getDeck().add(cardIgniteMemories);
-        jugador2.getDeck().add(cardNightmare);
-        jugador2.getDeck().add(cardTransfusion);
-        jugador2.getDeck().add(cardHealingSign);
-        jugador2.getDeck().add(cardMysticalSign);
-        jugador2.getDeck().add(cardNaturalSign);
-        jugador2.getDeck().add(cardNaturalHelp);
-        jugador2.getDeck().add(cardNaturalResources);
+        jugador2.setDeck(jugador1.getDeck());
+        for(int i=0;i<jugador2.getDeck().size();i++){
+            jugador2.getDeck().get(i).setEnemigo(jugador1);
+            jugador2.getDeck().get(i).setOwner(jugador2);
+        }
 
         while(jugador2.getDeck().size()<20){
             cardRelampago=new CardRelampago(this, jugador2, jugador1);

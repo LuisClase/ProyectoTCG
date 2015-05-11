@@ -259,8 +259,14 @@ public class Carta {
                 setAnimar(false);
                 Log.i("HILO","GRADOS 0");
                 setGrados(0);
-                synchronized (((JuegoActivity)getContexto()).pantallaJuego.getSurfaceHolder()) {
-                    playCard();
+                try {
+                    synchronized (((JuegoActivity) getContexto()).pantallaJuego.getSurfaceHolder()) {
+                        playCard();
+                    }
+                }catch(ClassCastException e){
+                    synchronized (((JuegoIaActivity) getContexto()).pantallaJuego.getSurfaceHolder()) {
+                        playCard();
+                    }
                 }
             }
         });
@@ -277,6 +283,7 @@ public class Carta {
      * Funcion que se ejecuta cuando se produce el efecto de una carta, varia las estadisticas y estado del juego
      */
     public void playCard(){
+        Log.d("CARTA","CARTA JUGADA" );
         if(dañoEnemigo>0){
             enemigo.setVidas(enemigo.getVidas() - dañoEnemigo);
         }
@@ -351,7 +358,8 @@ public class Carta {
         }
         //owner.setRecursos(owner.getRecursos()-getCoste());
         if(this.getTipo().ordinal()==Tipos.HECHIZO.ordinal()){
-            getOwner().moveCardFromTableToDiscard(getId());
+            Log.d("CARTA","CARTA DESCARTADA" );
+            getOwner().moveCardFromTableToDiscard(this.getId());
         }
     }
 

@@ -11,7 +11,8 @@ import android.media.MediaPlayer;
 import android.provider.CalendarContract;
 import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
-        import android.view.Menu;
+import android.util.Log;
+import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
@@ -58,10 +59,11 @@ public class MainActivity extends Activity {
         mediaPlayer.setVolume(v/2,v/2);
         mediaPlayer.start();
 
-        Button btnJugarIA=(Button)findViewById(R.id.btnJugar);
+        Button btnJugarIA=(Button)findViewById(R.id.btnJugarIA);
         btnJugarIA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("BOTTON","ONCLICK");
                 Intent intent=new Intent(MainActivity.this,JuegoIaActivity.class);
                 startActivity(intent);
                 mediaPlayer.pause();
