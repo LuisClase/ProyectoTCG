@@ -20,6 +20,10 @@ public class Jugador implements Parcelable{
 
     final int CARTAS_MESA=4;
     final int CARTAS_MANO=5;
+    private String nombre="Predeterminado";
+    private int recursosIniciales=0;
+    private int vidasIniciales=20;
+    private int cartasIniciales=1;
     private ArrayList<Carta> deck=new ArrayList<Carta>();
     private ArrayList<Carta> mano=new ArrayList<Carta>();
     private ArrayList<Carta> descarte=new ArrayList<Carta>();
@@ -520,7 +524,7 @@ public class Jugador implements Parcelable{
                 getDeck().remove(0);
                 cantidad--;
             }
-            setVidas(getVidas()-cantidad);
+            setVidas(getVidas() - cantidad);
         }
     }
 
@@ -930,6 +934,48 @@ public class Jugador implements Parcelable{
     public void setMesaYfin(int mesaYfin) {
         this.mesaYfin = mesaYfin;
     }
+
+    public int getCARTAS_MESA() {
+        return CARTAS_MESA;
+    }
+
+    public int getCARTAS_MANO() {
+        return CARTAS_MANO;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getRecursosIniciales() {
+        return recursosIniciales;
+    }
+
+    public void setRecursosIniciales(int recursosIniciales) {
+        this.recursosIniciales = recursosIniciales;
+    }
+
+    public int getVidasIniciales() {
+        return vidasIniciales;
+    }
+
+    public void setVidasIniciales(int vidasIniciales) {
+        this.vidasIniciales = vidasIniciales;
+    }
+
+    public int getCartasIniciales() {
+        return cartasIniciales;
+    }
+
+    public void setCartasIniciales(int cartasIniciales) {
+        this.cartasIniciales = cartasIniciales;
+    }
+
+
 
 }
 

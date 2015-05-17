@@ -842,7 +842,7 @@ public class ViewIA extends SurfaceView implements SurfaceHolder.Callback {
 
                     //LEVANTAR DECK
                     if (jugador1.getDeck().size() > 0 && jugador1.getDeck() != null) {
-//                        Log.i("MULTITOUCH-DECK", "1ºIF");
+//                        Log.i("MULTITOUCH-DECK", "IF");
                         if (event.getX() >= jugador1.getDeckX()
                                 && event.getX() <= jugador1.getDeckXfin()
                                 && event.getY() >= jugador1.getDeckY()

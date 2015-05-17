@@ -2,20 +2,27 @@ package com.example.luiscerqueira.proyectotcg;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-        import android.content.pm.ActivityInfo;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.provider.CalendarContract;
-import android.support.v7.app.ActionBarActivity;
-        import android.os.Bundle;
+import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.Calendar;
 
@@ -30,12 +37,46 @@ public class MainActivity extends Activity {
     public AudioManager  audioManager;
     private boolean pausa=false;
     private PendingIntent pendingIntent;
+    SharedPreferences preferencias;
+    Jugador jugador;
+    TextView txtJugador;
+
+    private void cambiarJugador(int numJugador){
+        if(!preferencias.getString(String.format("JUGADOR"+numJugador),"NULL").equals("NULL")) {
+            SharedPreferences preferenciasJugador = getSharedPreferences(preferencias.getString(String.format("JUGADOR" + numJugador), "NULL"), Context.MODE_PRIVATE);
+            final SharedPreferences.Editor editorJugador = preferenciasJugador.edit();
+            jugador.setNombre(preferencias.getString(String.format("JUGADOR" + numJugador), "NULL"));
+            jugador.setRecursosIniciales(preferenciasJugador.getInt("RECURSOS", 0));
+            jugador.setVidasIniciales(preferenciasJugador.getInt("VIDAS", 0));
+            jugador.setCartasIniciales(preferenciasJugador.getInt("MANO", 0));
+
+            Log.d("SHAREDPREF", "NOMBRE:" + jugador.getNombre());
+            Log.d("SHAREDPREF", "MANO:" + jugador.getCartasIniciales());
+            Log.d("SHAREDPREF", "RECURSOS:" + jugador.getRecursosIniciales());
+            Log.d("SHAREDPREF", "VIDAS:" + jugador.getVidasIniciales());
+        }
+    }
+
+    private void crearJugador(int numJugador,String nombre){
+        final SharedPreferences preferencias=getSharedPreferences("Generales",Context.MODE_APPEND);
+        final SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString(String.format("JUGADOR"+numJugador),nombre);
+
+        SharedPreferences preferenciasJugador = getSharedPreferences(preferencias.getString(String.format("JUGADOR" + numJugador), "NULL"), Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editorJugador = preferenciasJugador.edit();
+        editorJugador.putInt("RECURSOS",0);
+        editorJugador.putInt("VIDAS",20);
+        editorJugador.putInt("MANO",1);
+        editor.commit();
+        editorJugador.commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        preferencias=getSharedPreferences("Generales",Context.MODE_PRIVATE);
 
         Calendar calendar=Calendar.getInstance();
 //        calendar.set(Calendar.MONTH,2);
@@ -50,15 +91,61 @@ public class MainActivity extends Activity {
         Intent intent=new Intent(MainActivity.this, Recibidor.class);
         pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
 
+
+        //Leer SharedPreferences
+        jugador=new Jugador(20,0);
+        final SharedPreferences preferencias=getSharedPreferences("Generales",Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor=preferencias.edit();
+        editor.clear();
+        editor.putString("JUGADOR0","Luis");
+        editor.putString("JUGADOR1", "Nere");
+        editor.putString("JUGADOR2", "Brath");
+        editor.putString("JUGADOR3", "Rodolfo");
+        editor.commit();
+        for(int i=0;i<preferencias.getAll().size();i++){
+            Log.d("JUGADOR",String.format("JUGADOR"+i));
+            String jugador=preferencias.getString(String.format("JUGADOR"+i),"NULL");
+            Log.d("JUGADORES",jugador);
+        }
+
+        cambiarJugador(0);
+
         AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(),pendingIntent);
 
         audioManager=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.bensoundofeliasdream);
         int v=audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setVolume(v/2,v/2);
+        mediaPlayer.setVolume(v / 2, v / 2);
         mediaPlayer.start();
 
+        txtJugador=(TextView) findViewById(R.id.txtJugador);
+        txtJugador.setText(jugador.getNombre());
+        FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.fam);
+        FloatingActionButton fbtnNuevojugador=new FloatingActionButton(getBaseContext());
+        fbtnNuevojugador.setTitle("Nuevo jugador");
+        fbtnNuevojugador.setSize(FloatingActionButton.SIZE_MINI);
+        fbtnNuevojugador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                runThreadNuevoJugador();
+            }
+        });
+        fam.addButton(fbtnNuevojugador);
+        FloatingActionButton fbtnCambiarJugador=new FloatingActionButton(getBaseContext());
+        fbtnCambiarJugador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("CAMBIO","ANTES runThread");
+                Log.d("CAMBIO","ANTES runThread");
+                Log.d("CAMBIO","ANTES runThread");
+                Log.d("CAMBIO","ANTES runThread");
+                runThreadCambioJugador();
+            }
+        });
+        fbtnCambiarJugador.setTitle("Cambiar jugador");
+        fbtnCambiarJugador.setSize(FloatingActionButton.SIZE_MINI);
+        fam.addButton(fbtnCambiarJugador);
         Button btnJugarIA=(Button)findViewById(R.id.btnJugarIA);
         btnJugarIA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +188,87 @@ public class MainActivity extends Activity {
                 startActivity(intent);
                 mediaPlayer.pause();
                 pausa=true;
+            }
+        });
+    }
+
+    private void runThreadNuevoJugador(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Nuevo jugador");
+
+                final EditText input=new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        crearJugador(preferencias.getAll().size(),input.getText().toString());
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+    }
+
+    private void runThreadCambioJugador() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("CAMBIO","ANTES BUILDER");
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                int cont=0;
+                for(int i=0;i<preferencias.getAll().size();i++){
+                    if (!preferencias.getString(String.format("JUGADOR"+i),"NULL").equals("NULL")){
+                        cont++;
+                        Log.d("CAMBIO","CONT ++"+cont);
+                    }
+                }
+//                String items[]= {
+//                    "PRUEBA","PRUEBA2"
+//                };
+                String items[]=new String[cont];
+                Log.d("CAMBIO","CONT def"+cont);
+                cont=0;
+                for(int i=0;i<preferencias.getAll().size();i++){
+                    if (!preferencias.getString(String.format("JUGADOR"+i),"NULL").equals("NULL")){
+                        Log.d("SEGUNDO BUCLE","nombre:"+preferencias.getString(String.format("JUGADOR"+i),"NULL"));
+                        Log.d("SEGUNDO BUCLE","CONT "+cont);
+                        items[cont]=preferencias.getString(String.format("JUGADOR"+i),"NULL");
+                        cont++;
+                    }
+                }
+                for (int i=0;i<items.length;i++){
+                    Log.d("ITEMS","ITEM:"+i+" "+items[i]);
+                }
+                Log.d("CAMBIO","ANTES SEINGLE CHOICE ITEMS");
+                builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("ONCLICKCAMBIO","WHICH "+which);
+                        cambiarJugador(which);
+                        txtJugador.setText(jugador.getNombre());
+                        dialog.cancel();
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setTitle("Selecciona perfil");
+                Log.d("CAMBIO", "ANTES SHOW");
+                builder.show();
+                Log.d("CAMBIO", "TODO OK");
             }
         });
     }
