@@ -43,32 +43,50 @@ public class MainActivity extends Activity {
 
     private void cambiarJugador(int numJugador){
         if(!preferencias.getString(String.format("JUGADOR"+numJugador),"NULL").equals("NULL")) {
-            SharedPreferences preferenciasJugador = getSharedPreferences(preferencias.getString(String.format("JUGADOR" + numJugador), "NULL"), Context.MODE_PRIVATE);
-            final SharedPreferences.Editor editorJugador = preferenciasJugador.edit();
+            String nombre=preferencias.getString(String.format("JUGADOR" + numJugador), "NULL");
+            SharedPreferences preferenciasJugador = getSharedPreferences(nombre, Context.MODE_PRIVATE);
             jugador.setNombre(preferencias.getString(String.format("JUGADOR" + numJugador), "NULL"));
+
+            Log.d("SHAREDPREF", "NOMBRE:" + nombre);
+            Log.d("SHAREDPREF", "SIZE: " + preferenciasJugador.getAll().size());
+            Log.d("SHAREDPREF", "CONTAINS: " + preferenciasJugador.contains("RECURSOS"));
+            Log.d("SHAREDPREF", "MANO:" + preferenciasJugador.getInt("RECURSOS", 0));
+            Log.d("SHAREDPREF", "RECURSOS:" + preferenciasJugador.getInt("VIDAS", 0));
+            Log.d("SHAREDPREF", "VIDAS:" + preferenciasJugador.getInt("VIDAS", 0));
+
             jugador.setRecursosIniciales(preferenciasJugador.getInt("RECURSOS", 0));
             jugador.setVidasIniciales(preferenciasJugador.getInt("VIDAS", 0));
             jugador.setCartasIniciales(preferenciasJugador.getInt("MANO", 0));
+            jugador.setPoder(preferenciasJugador.getInt("PODER", 0));
+            jugador.setDinero(preferenciasJugador.getInt("DINERO", 0));
 
             Log.d("SHAREDPREF", "NOMBRE:" + jugador.getNombre());
             Log.d("SHAREDPREF", "MANO:" + jugador.getCartasIniciales());
             Log.d("SHAREDPREF", "RECURSOS:" + jugador.getRecursosIniciales());
             Log.d("SHAREDPREF", "VIDAS:" + jugador.getVidasIniciales());
+            Log.d("SHAREDPREF", "DINERO:" + jugador.getDinero());
+            Log.d("SHAREDPREF", "PODER:" + jugador.getPoder());
         }
     }
 
     private void crearJugador(int numJugador,String nombre){
-        final SharedPreferences preferencias=getSharedPreferences("Generales",Context.MODE_APPEND);
+        final SharedPreferences preferencias=getSharedPreferences("Generales", Context.MODE_APPEND);
         final SharedPreferences.Editor editor=preferencias.edit();
         editor.putString(String.format("JUGADOR"+numJugador),nombre);
+        editor.apply();
 
-        SharedPreferences preferenciasJugador = getSharedPreferences(preferencias.getString(String.format("JUGADOR" + numJugador), "NULL"), Context.MODE_PRIVATE);
+        String nombre2=preferencias.getString(String.format("JUGADOR" + numJugador), "NULL");
+        SharedPreferences preferenciasJugador = getSharedPreferences(nombre, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editorJugador = preferenciasJugador.edit();
-        editorJugador.putInt("RECURSOS",0);
-        editorJugador.putInt("VIDAS",20);
-        editorJugador.putInt("MANO",1);
-        editor.commit();
-        editorJugador.commit();
+        Log.d("PREFERENCIAS-NUEVO", "NOMBRE: " + nombre2);
+        editorJugador.putInt("RECURSOS", 0);
+        editorJugador.putInt("VIDAS", 20);
+        editorJugador.putInt("MANO", 1);
+        editorJugador.putInt("PODER", 0);
+        editorJugador.putInt("DINERO", 50);
+        editorJugador.apply();
+
+        Log.d("PREFERENCIAS-NUEVO","RECURSOS: "+preferenciasJugador.getInt("RECURSOS",0));
     }
 
     @Override
@@ -88,7 +106,7 @@ public class MainActivity extends Activity {
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.AM_PM,Calendar.AM);
 
-        Intent intent=new Intent(MainActivity.this, Recibidor.class);
+        final Intent intent=new Intent(MainActivity.this, Recibidor.class);
         pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
 
 
@@ -96,12 +114,8 @@ public class MainActivity extends Activity {
         jugador=new Jugador(20,0);
         final SharedPreferences preferencias=getSharedPreferences("Generales",Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=preferencias.edit();
-        editor.clear();
-        editor.putString("JUGADOR0","Luis");
-        editor.putString("JUGADOR1", "Nere");
-        editor.putString("JUGADOR2", "Brath");
-        editor.putString("JUGADOR3", "Rodolfo");
-        editor.commit();
+        editor.putString("JUGADOR0","Predeterminado");
+        editor.apply();
         for(int i=0;i<preferencias.getAll().size();i++){
             Log.d("JUGADOR",String.format("JUGADOR"+i));
             String jugador=preferencias.getString(String.format("JUGADOR"+i),"NULL");
@@ -122,6 +136,7 @@ public class MainActivity extends Activity {
         txtJugador=(TextView) findViewById(R.id.txtJugador);
         txtJugador.setText(jugador.getNombre());
         FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.fam);
+
         FloatingActionButton fbtnNuevojugador=new FloatingActionButton(getBaseContext());
         fbtnNuevojugador.setTitle("Nuevo jugador");
         fbtnNuevojugador.setSize(FloatingActionButton.SIZE_MINI);
@@ -132,26 +147,43 @@ public class MainActivity extends Activity {
             }
         });
         fam.addButton(fbtnNuevojugador);
+
         FloatingActionButton fbtnCambiarJugador=new FloatingActionButton(getBaseContext());
         fbtnCambiarJugador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("CAMBIO","ANTES runThread");
-                Log.d("CAMBIO","ANTES runThread");
-                Log.d("CAMBIO","ANTES runThread");
-                Log.d("CAMBIO","ANTES runThread");
+                Log.d("CAMBIO", "ANTES runThread");
                 runThreadCambioJugador();
             }
         });
         fbtnCambiarJugador.setTitle("Cambiar jugador");
         fbtnCambiarJugador.setSize(FloatingActionButton.SIZE_MINI);
         fam.addButton(fbtnCambiarJugador);
+
+        FloatingActionButton fBtnTienda=new FloatingActionButton(getBaseContext());
+        fBtnTienda.setTitle("Tienda");
+        fBtnTienda.setSize(FloatingActionButton.SIZE_MINI);
+
+        fBtnTienda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MainActivity.this, ActivityTienda.class);
+                intent1.putExtra("JUGADOR", jugador.getNombre());
+                startActivity(intent1);
+            }
+        });
+        fam.addButton(fBtnTienda);
+
+        Button btnTienda=(Button)findViewById(R.id.btnTienda);
+        btnTienda.setVisibility(View.INVISIBLE);
+
         Button btnJugarIA=(Button)findViewById(R.id.btnJugarIA);
         btnJugarIA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("BOTTON","ONCLICK");
                 Intent intent=new Intent(MainActivity.this,JuegoIaActivity.class);
+                intent.putExtra("JUGADOR",jugador.getNombre());
                 startActivity(intent);
                 mediaPlayer.pause();
                 pausa=true;
@@ -163,6 +195,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,JuegoActivity.class);
+                intent.putExtra("JUGADOR",jugador.getNombre());
                 startActivity(intent);
                 mediaPlayer.pause();
                 pausa=true;
@@ -201,11 +234,14 @@ public class MainActivity extends Activity {
 
                 final EditText input=new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setText("Nombre");
                 builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        crearJugador(preferencias.getAll().size(),input.getText().toString());
+                        if (!input.getText().toString().trim().equals("")) {
+                            crearJugador(preferencias.getAll().size(), input.getText().toString());
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

@@ -2,6 +2,7 @@ package com.example.luiscerqueira.proyectotcg;
 
         import android.app.Activity;
         import android.content.Context;
+        import android.content.SharedPreferences;
         import android.content.pm.ActivityInfo;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +19,7 @@ package com.example.luiscerqueira.proyectotcg;
         import android.view.Window;
         import android.view.WindowManager;
         import java.util.ArrayList;
+        import java.util.Random;
 
 /**
  * Clase para la activity de juego 1v1 en el mismo dispositivo
@@ -32,6 +34,7 @@ public class JuegoActivity extends Activity {
     public ViewJuego pantallaJuego;
     public Jugador jugador1;
     public Jugador jugador2;
+    SharedPreferences preferenciasJugador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class JuegoActivity extends Activity {
 //        }
         super.onCreate(savedInstanceState);
         //getActionBar().hide();
+
         pantallaJuego=new ViewJuego(this);
         pantallaJuego.setKeepScreenOn(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -60,6 +64,28 @@ public class JuegoActivity extends Activity {
         }
         jugador2=new Jugador(20,0);
         //Jugador1
+
+        String nombreJugador=getIntent().getStringExtra("JUGADOR");
+        SharedPreferences preferencias=getSharedPreferences("Generales",Context.MODE_APPEND);
+        for(int i=0;i<preferencias.getAll().size();i++){
+            if (preferencias.getString(String.format("JUGADOR"+i),"NULL").equals(nombreJugador)){
+                preferenciasJugador = getSharedPreferences(preferencias.getString(String.format("JUGADOR" + i), "NULL"), Context.MODE_PRIVATE);
+                jugador1.setNombre(preferencias.getString(String.format("JUGADOR" + i), "NULL"));
+                jugador1.setRecursosIniciales(preferenciasJugador.getInt("RECURSOS", 0));
+                jugador1.setVidasIniciales(preferenciasJugador.getInt("VIDAS", 0));
+                jugador1.setCartasIniciales(preferenciasJugador.getInt("MANO", 0));
+                jugador1.setPoder(preferenciasJugador.getInt("PODER", 0));
+                jugador1.setDinero(preferenciasJugador.getInt("DINERO", 0));
+
+                Log.d("SHAREDPREF", "NOMBRE:" + jugador1.getNombre());
+                Log.d("SHAREDPREF", "MANO:" + jugador1.getCartasIniciales());
+                Log.d("SHAREDPREF", "RECURSOS:" + jugador1.getRecursosIniciales());
+                Log.d("SHAREDPREF", "VIDAS:" + jugador1.getVidasIniciales());
+                Log.d("SHAREDPREF", "DINERO:" + jugador1.getDinero());
+                Log.d("SHAREDPREF", "PODER:" + jugador1.getPoder());
+            }
+        }
+
         Bitmap cartaFront= BitmapFactory.decodeResource(getResources(), R.drawable.frontcard);
 //        Carta cartaPrueba2=new Carta(this,jugador1,jugador2,R.drawable.saberchibi,R.drawable.cardbackprueba,R.drawable.circulo);
         CardRelampago cardRelampago=new CardRelampago(this, jugador1, jugador2);
@@ -195,9 +221,16 @@ public class JuegoActivity extends Activity {
             cardRelampago=new CardRelampago(this, jugador1, jugador2);
             jugador1.getDeck().add(cardRelampago);
         }
-        jugador1.setActivo(true);
+        Random random=new Random();
+        if(random.nextBoolean()) {
+            jugador1.setActivo(true);
+        }else{
+            jugador1.setActivo(false);
+        }
+        jugador1.setVidas(jugador1.getVidasIniciales());
+        jugador1.setRecursos(jugador1.getRecursosIniciales());
         jugador1.barajar();
-        jugador1.moveFromDeckToHand(3);
+        jugador1.moveFromDeckToHand(jugador1.getCartasIniciales());
         //Jugador2
 //        cartaPrueba2=new Carta(this,jugador2, jugador1,R.drawable.saberchibi, R.drawable.cardbackprueba, R.drawable.circulo);
         cardRelampago=new CardRelampago(this, jugador2, jugador1);
@@ -232,9 +265,11 @@ public class JuegoActivity extends Activity {
             cardRelampago=new CardRelampago(this, jugador2, jugador1);
             jugador2.getDeck().add(cardRelampago);
         }
-        jugador2.setActivo(false);
+        jugador2.setActivo(!jugador1.isActivo());
+        jugador2.setVidas(jugador1.getVidasIniciales());
+        jugador2.setRecursos(jugador1.getRecursosIniciales());
         jugador2.barajar();
-        jugador2.moveFromDeckToHand(3);
+        jugador2.moveFromDeckToHand(jugador1.getCartasIniciales());
 
 //        Log.i("MAZO2","TAMAÑO:"+jugador2.getDeck().size());
     }

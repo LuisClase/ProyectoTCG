@@ -37,13 +37,22 @@
             android:name=".ActivityCombinar"
             android:label="@string/title_activity_activity_combinar" >
         </activity>
+
+        <activity
+            android:name=".ActivityTienda"
+            android:label="@string/title_activity_activity_tienda" >
+        </activity>
+
         <activity
             android:name=".DialogoCombinarPropio"
             android:label="@string/title_activity_dialogo_combinar_propio" >
         </activity>
-        <service android:name=".ServicioAlarma"
-            android:enabled="true"/>
-        <receiver android:name=".Recibidor"/>
+
+        <service
+            android:name=".ServicioAlarma"
+            android:enabled="true" />
+
+        <receiver android:name=".Recibidor" />
     </application>
 
 </manifest>

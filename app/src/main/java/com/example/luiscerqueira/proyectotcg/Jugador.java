@@ -20,6 +20,8 @@ public class Jugador implements Parcelable{
 
     final int CARTAS_MESA=4;
     final int CARTAS_MANO=5;
+    private int dinero=0;
+    private int poder=0;
     private String nombre="Predeterminado";
     private int recursosIniciales=0;
     private int vidasIniciales=20;
@@ -975,7 +977,21 @@ public class Jugador implements Parcelable{
         this.cartasIniciales = cartasIniciales;
     }
 
+    public int getDinero() {
+        return dinero;
+    }
 
+    public void setDinero(int dinero) {
+        this.dinero = dinero;
+    }
+
+    public int getPoder() {
+        return poder;
+    }
+
+    public void setPoder(int poder) {
+        this.poder = poder;
+    }
 
 }
 

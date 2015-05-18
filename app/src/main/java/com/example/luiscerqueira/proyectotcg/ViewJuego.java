@@ -2,6 +2,7 @@ package com.example.luiscerqueira.proyectotcg;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -467,7 +468,10 @@ public class ViewJuego extends SurfaceView implements SurfaceHolder.Callback {
 //                Log.i("ONDRAW5", "JUGADOR2 VIDAS0-PIERDE");
                 p.setColor(Color.RED);
                 p.setTextSize(60);
-                canvas.drawText("JUGADOR 2 PIERDE" ,anchoPantalla/4,altoPantalla/2, p);
+                canvas.drawText("JUGADOR 2 PIERDE", anchoPantalla / 4, altoPantalla / 2, p);
+                final SharedPreferences.Editor editorJugador = ((JuegoActivity)getContext()).preferenciasJugador.edit();
+                editorJugador.putInt("DINERO", ((JuegoActivity) getContext()).preferenciasJugador.getInt("DINERO", 0) + 20);
+                editorJugador.apply();
             }else {
                 p.setColor(Color.RED);
                 p.setTextSize(30);

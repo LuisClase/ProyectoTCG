@@ -11,5 +11,8 @@
     <string name="title_activity_activity_mazos">ActivityMazos</string>
     <string name="title_activity_activity_combinar">ActivityCombinar</string>
     <string name="title_activity_dialogo_combinar_propio">DialogoCombinarPropio</string>
+    <string name="title_activity_activity_tienda">ActivityTienda</string>
+    <string name="lblTienda">TIENDA</string>
+    <string name="txtDineroTienda">Dinero: 0</string>
 
 </resources>

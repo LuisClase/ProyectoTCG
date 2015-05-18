@@ -1,6 +1,7 @@
 package com.example.luiscerqueira.proyectotcg;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -460,7 +461,10 @@ public class ViewIA extends SurfaceView implements SurfaceHolder.Callback {
             else if(jugador2.getVidas()<=0){
                 p.setColor(Color.RED);
                 p.setTextSize(60);
-                canvas.drawText("IA PIERDE" ,anchoPantalla/4,altoPantalla/2, p);
+                canvas.drawText("IA PIERDE", anchoPantalla / 4, altoPantalla / 2, p);
+                final SharedPreferences.Editor editorJugador = ((JuegoIaActivity)getContext()).preferenciasJugador.edit();
+                editorJugador.putInt("DINERO", ((JuegoIaActivity)getContext()).preferenciasJugador.getInt("DINERO",0)+50);
+                editorJugador.apply();
             }else {
                 p.setColor(Color.RED);
                 p.setTextSize(30);
