@@ -348,6 +348,7 @@ public class ViewIA extends SurfaceView implements SurfaceHolder.Callback {
                                         Log.d("TURNO-IA","CAMBIO TURNO");
                                         jugador1.setActivo(true);
                                         jugador2.setActivo(false);
+                                        jugador1.startOfTurn();
                                         turnoIA=0;
                                     }
                                 }
