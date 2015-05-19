@@ -39,7 +39,7 @@
         android:gravity="right"
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_labelsPosition="right"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/textView16"
         android:layout_alignParentStart="true">
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
@@ -52,7 +52,7 @@
         android:gravity="right"
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_labelsPosition="left"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/textView17"
         android:layout_alignParentEnd="true">
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
@@ -75,9 +75,49 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/txtDineroTienda"
         android:id="@+id/txtDinero"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Poder"
+        android:id="@+id/textView13"
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/famPoder"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Cartas"
+        android:id="@+id/textView15"
+        android:layout_below="@+id/famCartas"
+        android:layout_alignParentEnd="true"
         android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Recursos"
+        android:id="@+id/textView16"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffffffff"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Vidas"
+        android:id="@+id/textView17"
+        android:textColor="#ffffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

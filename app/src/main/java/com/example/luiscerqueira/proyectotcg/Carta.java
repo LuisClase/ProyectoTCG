@@ -285,7 +285,7 @@ public class Carta {
     public void playCard(){
         Log.d("CARTA","CARTA JUGADA" );
         if(dañoEnemigo>0){
-            enemigo.setVidas(enemigo.getVidas() - dañoEnemigo);
+            enemigo.setVidas(enemigo.getVidas() - dañoEnemigo-owner.getPoder());
         }
         if(descarteEnemigo>0){
             enemigo.moveFromHandToDiscard(descarteEnemigo);
@@ -327,7 +327,7 @@ public class Carta {
             owner.moveFromHandToDiscard(descarteOwner);
         }
         if(curaOwner>0){
-            owner.setVidas(owner.getVidas() + curaOwner);
+            owner.setVidas(owner.getVidas() + curaOwner+owner.getPoder());
         }
         if(recursosOwner!=0){
             owner.setRecursos(owner.getRecursos() + recursosOwner);
