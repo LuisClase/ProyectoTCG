@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import com.google.android.gms.ads.*;
+
 import java.util.Calendar;
 
 /**
@@ -37,6 +39,7 @@ public class MainActivity extends Activity {
     public AudioManager  audioManager;
     private boolean pausa=false;
     private PendingIntent pendingIntent;
+    private AdView adView;
     SharedPreferences preferencias;
     Jugador jugador;
     TextView txtJugador;
@@ -90,11 +93,25 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         preferencias=getSharedPreferences("Generales",Context.MODE_PRIVATE);
+
+        //crear ad
+        adView=(AdView) findViewById(R.id.ad_view);
+        AdRequest adRequest=new AdRequest.Builder()
+                                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                                .build();
+        adView.loadAd(adRequest);
+
 
         Calendar calendar=Calendar.getInstance();
 //        calendar.set(Calendar.MONTH,2);
@@ -311,6 +328,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onPause() {
+        adView.pause();
         super.onPause();
         pausa=true;
         mediaPlayer.pause();
@@ -319,6 +337,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        adView.resume();
         if(pausa){
             pausa=false;
             mediaPlayer.start();
